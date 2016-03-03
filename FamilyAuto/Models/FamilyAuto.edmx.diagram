@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a2bb47d2545d4637a229b93f1ef17d88" Name="Diagram1">
+        <EntityTypeShape EntityType="FamilyAutoModel.Vehicle" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FamilyAutoModel.VehicleEngine" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="FamilyAutoModel.VehicleFeature" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FamilyAutoModel.VehicleHistory" Width="1.5" PointX="3" PointY="9.125" IsExpanded="true" />
+        <AssociationConnector Association="FamilyAutoModel.FK_VehicleEngine_Vehicle" ManuallyRouted="false" />
+        <AssociationConnector Association="FamilyAutoModel.FK_VehicleFeatures_Vehicle" ManuallyRouted="false" />
+        <AssociationConnector Association="FamilyAutoModel.FK_VehicleHistory_Vehicle" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

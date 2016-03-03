@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="FamilyAutoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Vehicle">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Make" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Model" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Variant" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Condition" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DateUploaded" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VehicleEngine">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FuelType" Type="nvarchar" MaxLength="50" />
+          <Property Name="Transmission" Type="nvarchar" MaxLength="50" />
+          <Property Name="CubicCapacity" Type="int" />
+          <Property Name="Power" Type="int" />
+          <Property Name="FuelConsumption" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmissionClass" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmissionSticker" Type="nvarchar" MaxLength="50" />
+          <Property Name="VehicleID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VehicleFeatures">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ExteriorColor" Type="nvarchar" MaxLength="50" />
+          <Property Name="InteriorColor" Type="nvarchar" MaxLength="50" />
+          <Property Name="AirConditioning" Type="bit" />
+          <Property Name="InteriorFeatures" Type="nvarchar" MaxLength="100" />
+          <Property Name="Security" Type="nvarchar" MaxLength="100" />
+          <Property Name="Airbags" Type="bit" />
+          <Property Name="ParkingSensor" Type="bit" />
+          <Property Name="Sports" Type="bit" />
+          <Property Name="InteriorMaterial" Type="nvarchar" MaxLength="50" />
+          <Property Name="VehicleID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VehicleHistory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Purpose" Type="nvarchar" MaxLength="50" />
+          <Property Name="NoOfOwners" Type="int" />
+          <Property Name="HUValidUntil" Type="date" />
+          <Property Name="Warranty" Type="bit" />
+          <Property Name="Mileage" Type="int" />
+          <Property Name="FirstRegistration" Type="date" />
+          <Property Name="VehicleID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_VehicleEngine_Vehicle">
+          <End Role="Vehicle" Type="Self.Vehicle" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="VehicleEngine" Type="Self.VehicleEngine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicle">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VehicleEngine">
+              <PropertyRef Name="VehicleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VehicleFeatures_Vehicle">
+          <End Role="Vehicle" Type="Self.Vehicle" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="VehicleFeatures" Type="Self.VehicleFeatures" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicle">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VehicleFeatures">
+              <PropertyRef Name="VehicleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VehicleHistory_Vehicle">
+          <End Role="Vehicle" Type="Self.Vehicle" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="VehicleHistory" Type="Self.VehicleHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicle">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VehicleHistory">
+              <PropertyRef Name="VehicleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FamilyAutoModelStoreContainer">
+          <EntitySet Name="Vehicle" EntityType="Self.Vehicle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VehicleEngine" EntityType="Self.VehicleEngine" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VehicleFeatures" EntityType="Self.VehicleFeatures" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VehicleHistory" EntityType="Self.VehicleHistory" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_VehicleEngine_Vehicle" Association="Self.FK_VehicleEngine_Vehicle">
+            <End Role="Vehicle" EntitySet="Vehicle" />
+            <End Role="VehicleEngine" EntitySet="VehicleEngine" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VehicleFeatures_Vehicle" Association="Self.FK_VehicleFeatures_Vehicle">
+            <End Role="Vehicle" EntitySet="Vehicle" />
+            <End Role="VehicleFeatures" EntitySet="VehicleFeatures" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VehicleHistory_Vehicle" Association="Self.FK_VehicleHistory_Vehicle">
+            <End Role="Vehicle" EntitySet="Vehicle" />
+            <End Role="VehicleHistory" EntitySet="VehicleHistory" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FamilyAutoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Vehicle">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Make" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Variant" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Condition" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateUploaded" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="VehicleEngines" Relationship="Self.FK_VehicleEngine_Vehicle" FromRole="Vehicle" ToRole="VehicleEngine" />
+          <NavigationProperty Name="VehicleFeatures" Relationship="Self.FK_VehicleFeatures_Vehicle" FromRole="Vehicle" ToRole="VehicleFeatures" />
+          <NavigationProperty Name="VehicleHistories" Relationship="Self.FK_VehicleHistory_Vehicle" FromRole="Vehicle" ToRole="VehicleHistory" />
+        </EntityType>
+        <EntityType Name="VehicleEngine">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FuelType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Transmission" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CubicCapacity" Type="Int32" />
+          <Property Name="Power" Type="Int32" />
+          <Property Name="FuelConsumption" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmissionClass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmissionSticker" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VehicleID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Vehicle" Relationship="Self.FK_VehicleEngine_Vehicle" FromRole="VehicleEngine" ToRole="Vehicle" />
+        </EntityType>
+        <EntityType Name="VehicleFeature">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ExteriorColor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="InteriorColor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AirConditioning" Type="Boolean" />
+          <Property Name="InteriorFeatures" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Security" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Airbags" Type="Boolean" />
+          <Property Name="ParkingSensor" Type="Boolean" />
+          <Property Name="Sports" Type="Boolean" />
+          <Property Name="InteriorMaterial" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VehicleID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Vehicle" Relationship="Self.FK_VehicleFeatures_Vehicle" FromRole="VehicleFeatures" ToRole="Vehicle" />
+        </EntityType>
+        <EntityType Name="VehicleHistory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Purpose" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NoOfOwners" Type="Int32" />
+          <Property Name="HUValidUntil" Type="DateTime" Precision="0" />
+          <Property Name="Warranty" Type="Boolean" />
+          <Property Name="Mileage" Type="Int32" />
+          <Property Name="FirstRegistration" Type="DateTime" Precision="0" />
+          <Property Name="VehicleID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Vehicle" Relationship="Self.FK_VehicleHistory_Vehicle" FromRole="VehicleHistory" ToRole="Vehicle" />
+        </EntityType>
+        <Association Name="FK_VehicleEngine_Vehicle">
+          <End Role="Vehicle" Type="Self.Vehicle" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="VehicleEngine" Type="Self.VehicleEngine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicle">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VehicleEngine">
+              <PropertyRef Name="VehicleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VehicleFeatures_Vehicle">
+          <End Role="Vehicle" Type="Self.Vehicle" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="VehicleFeatures" Type="Self.VehicleFeature" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicle">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VehicleFeatures">
+              <PropertyRef Name="VehicleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VehicleHistory_Vehicle">
+          <End Role="Vehicle" Type="Self.Vehicle" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="VehicleHistory" Type="Self.VehicleHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicle">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VehicleHistory">
+              <PropertyRef Name="VehicleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FamilyAutoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Vehicles" EntityType="Self.Vehicle" />
+          <EntitySet Name="VehicleEngines" EntityType="Self.VehicleEngine" />
+          <EntitySet Name="VehicleFeatures" EntityType="Self.VehicleFeature" />
+          <EntitySet Name="VehicleHistories" EntityType="Self.VehicleHistory" />
+          <AssociationSet Name="FK_VehicleEngine_Vehicle" Association="Self.FK_VehicleEngine_Vehicle">
+            <End Role="Vehicle" EntitySet="Vehicles" />
+            <End Role="VehicleEngine" EntitySet="VehicleEngines" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VehicleFeatures_Vehicle" Association="Self.FK_VehicleFeatures_Vehicle">
+            <End Role="Vehicle" EntitySet="Vehicles" />
+            <End Role="VehicleFeatures" EntitySet="VehicleFeatures" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VehicleHistory_Vehicle" Association="Self.FK_VehicleHistory_Vehicle">
+            <End Role="Vehicle" EntitySet="Vehicles" />
+            <End Role="VehicleHistory" EntitySet="VehicleHistories" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FamilyAutoModelStoreContainer" CdmEntityContainer="FamilyAutoEntities">
+          <EntitySetMapping Name="Vehicles">
+            <EntityTypeMapping TypeName="FamilyAutoModel.Vehicle">
+              <MappingFragment StoreEntitySet="Vehicle">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Make" ColumnName="Make" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="Variant" ColumnName="Variant" />
+                <ScalarProperty Name="Condition" ColumnName="Condition" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="DateUploaded" ColumnName="DateUploaded" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VehicleEngines">
+            <EntityTypeMapping TypeName="FamilyAutoModel.VehicleEngine">
+              <MappingFragment StoreEntitySet="VehicleEngine">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FuelType" ColumnName="FuelType" />
+                <ScalarProperty Name="Transmission" ColumnName="Transmission" />
+                <ScalarProperty Name="CubicCapacity" ColumnName="CubicCapacity" />
+                <ScalarProperty Name="Power" ColumnName="Power" />
+                <ScalarProperty Name="FuelConsumption" ColumnName="FuelConsumption" />
+                <ScalarProperty Name="EmissionClass" ColumnName="EmissionClass" />
+                <ScalarProperty Name="EmissionSticker" ColumnName="EmissionSticker" />
+                <ScalarProperty Name="VehicleID" ColumnName="VehicleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VehicleFeatures">
+            <EntityTypeMapping TypeName="FamilyAutoModel.VehicleFeature">
+              <MappingFragment StoreEntitySet="VehicleFeatures">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ExteriorColor" ColumnName="ExteriorColor" />
+                <ScalarProperty Name="InteriorColor" ColumnName="InteriorColor" />
+                <ScalarProperty Name="AirConditioning" ColumnName="AirConditioning" />
+                <ScalarProperty Name="InteriorFeatures" ColumnName="InteriorFeatures" />
+                <ScalarProperty Name="Security" ColumnName="Security" />
+                <ScalarProperty Name="Airbags" ColumnName="Airbags" />
+                <ScalarProperty Name="ParkingSensor" ColumnName="ParkingSensor" />
+                <ScalarProperty Name="Sports" ColumnName="Sports" />
+                <ScalarProperty Name="InteriorMaterial" ColumnName="InteriorMaterial" />
+                <ScalarProperty Name="VehicleID" ColumnName="VehicleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VehicleHistories">
+            <EntityTypeMapping TypeName="FamilyAutoModel.VehicleHistory">
+              <MappingFragment StoreEntitySet="VehicleHistory">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Purpose" ColumnName="Purpose" />
+                <ScalarProperty Name="NoOfOwners" ColumnName="NoOfOwners" />
+                <ScalarProperty Name="HUValidUntil" ColumnName="HUValidUntil" />
+                <ScalarProperty Name="Warranty" ColumnName="Warranty" />
+                <ScalarProperty Name="Mileage" ColumnName="Mileage" />
+                <ScalarProperty Name="FirstRegistration" ColumnName="FirstRegistration" />
+                <ScalarProperty Name="VehicleID" ColumnName="VehicleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
