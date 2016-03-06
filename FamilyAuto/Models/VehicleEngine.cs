@@ -22,7 +22,6 @@ namespace FamilyAuto.Models
         public string FuelConsumption { get; set; }
         public string EmissionClass { get; set; }
         public string EmissionSticker { get; set; }
-        public int VehicleID { get; set; }
     
         public virtual Vehicle Vehicle { get; set; }
     }

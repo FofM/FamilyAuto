@@ -24,7 +24,6 @@ namespace FamilyAuto.Models
         public Nullable<bool> ParkingSensor { get; set; }
         public Nullable<bool> Sports { get; set; }
         public string InteriorMaterial { get; set; }
-        public int VehicleID { get; set; }
     
         public virtual Vehicle Vehicle { get; set; }
     }

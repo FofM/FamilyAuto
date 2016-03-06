@@ -187,63 +187,73 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\FamilyAuto.Context.cs">
+    <Compile Include="Models\FamilyAutoDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>FamilyAuto.Context.tt</DependentUpon>
+      <DependentUpon>FamilyAutoDB.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\FamilyAuto.cs">
+    <Compile Include="Models\FamilyAutoDB.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>FamilyAuto.tt</DependentUpon>
+      <DependentUpon>FamilyAutoDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\FamilyAuto.Designer.cs">
+    <Compile Include="Models\FamilyAutoDB.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>FamilyAuto.edmx</DependentUpon>
+      <DependentUpon>FamilyAutoDB.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Vehicle.cs">
-      <DependentUpon>FamilyAuto.tt</DependentUpon>
+      <DependentUpon>FamilyAutoDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VehicleEngine.cs">
-      <DependentUpon>FamilyAuto.tt</DependentUpon>
+      <DependentUpon>FamilyAutoDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VehicleFeature.cs">
-      <DependentUpon>FamilyAuto.tt</DependentUpon>
+      <DependentUpon>FamilyAutoDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VehicleHistory.cs">
-      <DependentUpon>FamilyAuto.tt</DependentUpon>
+      <DependentUpon>FamilyAutoDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\FamilyAuto.Context.tt">
+    <Content Include="Models\FamilyAutoDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>FamilyAuto.edmx</DependentUpon>
-      <LastGenOutput>FamilyAuto.Context.cs</LastGenOutput>
+      <DependentUpon>FamilyAutoDB.edmx</DependentUpon>
+      <LastGenOutput>FamilyAutoDB.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\FamilyAuto.tt">
+    <Content Include="Models\FamilyAutoDB.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>FamilyAuto.edmx</DependentUpon>
-      <LastGenOutput>FamilyAuto.cs</LastGenOutput>
+      <DependentUpon>FamilyAutoDB.edmx</DependentUpon>
+      <LastGenOutput>FamilyAutoDB.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\FamilyAuto.edmx">
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <EntityDeploy Include="Models\FamilyAutoDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>FamilyAuto.Designer.cs</LastGenOutput>
+      <LastGenOutput>FamilyAutoDB.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\FamilyAuto.edmx.diagram">
-      <DependentUpon>FamilyAuto.edmx</DependentUpon>
+    <Content Include="Models\FamilyAutoDB.edmx.diagram">
+      <DependentUpon>FamilyAutoDB.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -301,9 +311,6 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />

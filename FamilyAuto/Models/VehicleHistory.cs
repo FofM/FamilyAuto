@@ -21,7 +21,6 @@ namespace FamilyAuto.Models
         public Nullable<bool> Warranty { get; set; }
         public Nullable<int> Mileage { get; set; }
         public Nullable<System.DateTime> FirstRegistration { get; set; }
-        public int VehicleID { get; set; }
     
         public virtual Vehicle Vehicle { get; set; }
     }

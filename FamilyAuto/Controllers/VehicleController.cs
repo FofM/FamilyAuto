@@ -17,7 +17,8 @@ namespace FamilyAuto.Controllers
         // GET: Vehicle
         public ActionResult Index()
         {
-            return View(db.Vehicles.ToList());
+            var vehicles = db.Vehicles.Include(v => v.VehicleEngine).Include(v => v.VehicleFeature).Include(v => v.VehicleHistory);
+            return View(vehicles.ToList());
         }
 
         // GET: Vehicle/Details/5
@@ -38,6 +39,9 @@ namespace FamilyAuto.Controllers
         // GET: Vehicle/Create
         public ActionResult Create()
         {
+            ViewBag.Id = new SelectList(db.VehicleEngines, "Id", "FuelType");
+            ViewBag.Id = new SelectList(db.VehicleFeatures, "Id", "ExteriorColor");
+            ViewBag.Id = new SelectList(db.VehicleHistories, "Id", "Purpose");
             return View();
         }
 
@@ -48,7 +52,6 @@ namespace FamilyAuto.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Make,Model,Variant,Condition,Type,Description,DateUploaded")] Vehicle vehicle)
         {
-            vehicle.DateUploaded = DateTime.Today;
             if (ModelState.IsValid)
             {
                 db.Vehicles.Add(vehicle);
@@ -56,6 +59,9 @@ namespace FamilyAuto.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.Id = new SelectList(db.VehicleEngines, "Id", "FuelType", vehicle.Id);
+            ViewBag.Id = new SelectList(db.VehicleFeatures, "Id", "ExteriorColor", vehicle.Id);
+            ViewBag.Id = new SelectList(db.VehicleHistories, "Id", "Purpose", vehicle.Id);
             return View(vehicle);
         }
 
@@ -71,42 +77,29 @@ namespace FamilyAuto.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Id = new SelectList(db.VehicleEngines, "Id", "FuelType", vehicle.Id);
+            ViewBag.Id = new SelectList(db.VehicleFeatures, "Id", "ExteriorColor", vehicle.Id);
+            ViewBag.Id = new SelectList(db.VehicleHistories, "Id", "Purpose", vehicle.Id);
             return View(vehicle);
         }
 
         // POST: Vehicle/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost, ActionName("Edit")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        //public ActionResult Edit([Bind(Include = "Id,Make,Model,Variant,Condition,Type,Description,DateUploaded")] Vehicle vehicle)
-               public ActionResult EditPost(int? id)
+        public ActionResult Edit([Bind(Include = "Id,Make,Model,Variant,Condition,Type,Description,DateUploaded")] Vehicle vehicle)
         {
-            if (id == null)
+            if (ModelState.IsValid)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                db.Entry(vehicle).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
-            var vehicleToUpdate = db.Vehicles.Find(id);
-            if (TryUpdateModel(vehicleToUpdate, "", new string[] { "Make" ,"Model","Variant","Condition","Type","Description" }))
-            {
-                try
-                {
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-                catch
-                {
-                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
-                }
-            }
-            return View(vehicleToUpdate);
-            //if (ModelState.IsValid)
-            //{
-            //    db.Entry(vehicle).State = EntityState.Modified;
-            //    db.SaveChanges();
-            //    return RedirectToAction("Index");
-            //}
-            //return View(vehicle);
+            ViewBag.Id = new SelectList(db.VehicleEngines, "Id", "FuelType", vehicle.Id);
+            ViewBag.Id = new SelectList(db.VehicleFeatures, "Id", "ExteriorColor", vehicle.Id);
+            ViewBag.Id = new SelectList(db.VehicleHistories, "Id", "Purpose", vehicle.Id);
+            return View(vehicle);
         }
 
         // GET: Vehicle/Delete/5

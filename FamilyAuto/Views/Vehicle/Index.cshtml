@@ -32,6 +32,15 @@
         <th>
             @Html.DisplayNameFor(model => model.DateUploaded)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VehicleEngine.FuelType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VehicleFeature.ExteriorColor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VehicleHistory.Purpose)
+        </th>
         <th></th>
     </tr>
 
@@ -57,6 +66,15 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.DateUploaded)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VehicleEngine.FuelType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VehicleFeature.ExteriorColor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VehicleHistory.Purpose)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

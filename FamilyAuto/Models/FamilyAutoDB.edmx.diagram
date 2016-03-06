@@ -4,13 +4,13 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a2bb47d2545d4637a229b93f1ef17d88" Name="Diagram1">
-        <EntityTypeShape EntityType="FamilyAutoModel.Vehicle" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+      <Diagram DiagramId="842a8b1eb3d343b9baf64865e93f9045" Name="Diagram1">
+        <EntityTypeShape EntityType="FamilyAutoModel.Vehicle" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="FamilyAutoModel.VehicleEngine" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="FamilyAutoModel.VehicleFeature" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="FamilyAutoModel.VehicleHistory" Width="1.5" PointX="3" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FamilyAutoModel.VehicleFeature" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FamilyAutoModel.VehicleHistory" Width="1.5" PointX="3" PointY="8.75" IsExpanded="true" />
         <AssociationConnector Association="FamilyAutoModel.FK_VehicleEngine_Vehicle" ManuallyRouted="false" />
-        <AssociationConnector Association="FamilyAutoModel.FK_VehicleFeatures_Vehicle" ManuallyRouted="false" />
+        <AssociationConnector Association="FamilyAutoModel.FK_VehicleFeature_Vehicle" ManuallyRouted="false" />
         <AssociationConnector Association="FamilyAutoModel.FK_VehicleHistory_Vehicle" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
