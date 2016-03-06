@@ -17,6 +17,10 @@ namespace FamilyAuto.Controllers
         // GET: Vehicle
         public ActionResult Index()
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return View("Authenticated");
+            }
             var vehicles = db.Vehicles.Include(v => v.VehicleEngine).Include(v => v.VehicleFeature).Include(v => v.VehicleHistory);
             return View(vehicles.ToList());
         }
