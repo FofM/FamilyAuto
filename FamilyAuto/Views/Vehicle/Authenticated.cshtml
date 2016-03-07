@@ -1,7 +1,122 @@
-﻿
+﻿@model IEnumerable<FamilyAuto.Models.Vehicle>
+
 @{
     ViewBag.Title = "Authenticated";
 }
 
 <h2>Authenticated</h2>
 
+<div class="page-header">
+    <h1>SHOWROOM</h1>
+</div>
+
+@foreach (var item in Model)
+    { 
+<div class="source-content" style="width: 75%; float: left">    
+            <div class="container-fluid listItems">
+                <div class="row">
+                    <div class="col-sm-2 item-list-spc">
+                        <a href="#">
+                            <img class="media-object" src="http://avatars.guildlaunch.net/user_files/3068351/user_avatar6409_mid.jpg" alt="Image of a Restaurant">
+                        </a>
+                    </div>
+                    <div class="col-sm-7 item-list-spc">
+                        <div class="media-body">
+                            <h4 class="media-heading">
+
+                                <asp:HyperLink ID="hlRestaurantName" Text='@Html.DisplayFor(modelItem => item.Model)' Font-Bold="True" Font-Underline="True" />
+
+                            </h4>
+                            <p class="address">@Html.DisplayFor(modelItem => item.Make)</p>
+                            <p class="cuisine">@Html.DisplayFor(modelItem => item.Variant)</p>
+                            <p>@Html.DisplayFor(modelItem => item.VehicleEngine.Power)</p>
+                            <p class="show-read-more">@Html.DisplayFor(modelItem => item.VehicleFeature.ExteriorColor)</p>
+                            <p class="show-read-more">@Html.DisplayFor(modelItem => item.VehicleHistory.Mileage)</p>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+</div>
+}
+@*<div class="filterStyle">
+    <h3>FILTERS:</h3>
+    <br />
+    <a href="#" class="showAll">Show All</a>
+    <br />
+    <h4>Location</h4>
+    <div class="radio">
+        <label>
+            <input type="radio" id="chkP1" name="location" value="Praha 1">Praha 1
+        </label>
+        <br />
+        <label>
+            <input type="radio" id="chkP2" name="location" value="Praha 2">Praha 2
+        </label>
+        <br />
+        <label>
+            <input type="radio" id="chkP3" name="location" value="Praha 3">Praha 3
+        </label>
+        <br />
+        <label>
+            <input type="radio" id="chkP4" name="location" value="Praha 4">Praha 4
+        </label>
+        <br />
+        <label>
+            <input type="radio" id="chkP5" name="location" value="Praha 5">Praha 5
+        </label>
+        <br />
+        <label>
+            <input type="radio" id="chkP6" name="location" value="Praha 6">Praha 6
+        </label>
+        <br />
+        <label>
+            <input type="radio" id="chkP7" name="location" value="Praha 7">Praha 7
+        </label>
+        <br />
+        <label>
+            <input type="radio" id="chkP8" name="location" value="Praha 8">Praha 8
+        </label>
+        <br />
+        <label>
+            <input type="radio" id="chkP9" name="location" value="Praha 9">Praha 9
+        </label>
+        <br />
+        <label>
+            <input type="radio" id="chkP10" name="location" value="Praha 10">Praha 10
+        </label>
+        <br />
+    </div>
+    <h4>Cuisine</h4>
+    <div class="radio" id="cuisineFilter">
+        <label>
+            <input type="radio" id="chkMacedonian" name="cuisineType" value="Macedonian">Macedonian
+        </label>
+        <br />
+        <label>
+            <input type="radio" id="chkBalkan" name="cuisineType" value="Balkan">Balkan
+        </label>
+        <br />
+        <label>
+            <input type="radio" id="chkInternational" name="cuisineType" value="International">International
+        </label>
+        <br />
+        <asp:Button ID="btnSourceTest" css="btnSourceTest" runat="server" Text="Click me" OnClick="btnSourceTest_Click" Style="display: none" />
+        <%--<asp:Label class="tester" style="display:none" Id="LabelTester" runat="server" Text="SELECT TOP 2 p.PictureURL AS Thumbnail, r.NameOfRestaurant, r.Address, r.TypeOfRestaurant, r.[Description], r.DateUploaded, r.Score FROM (SELECT RestaurantID, MAX(PictureID) AS pID From PicturesRestaurants Group by restaurantID) AS t1 JOIN Pictures p ON p.PictureID = t1.pID JOIN vRestaurantDetails r ON r.RestaurantID = t1.RestaurantID" ViewStateMode="Enabled"></asp:Label>--%>
+        <%--<asp:Label class="tester" style="display:none" Id="LabelTester" runat="server" Text="Luka Lu" ViewStateMode="Enabled"></asp:Label>--%>
+        <asp:TextBox class="tester" ID="TextTester" runat="server" Text="" Style="display: none"></asp:TextBox>
+    </div>
+    <div class="btn-group-vertical btn-block sort-buttons" role="group" aria-label="...">
+        <asp:Button class="btn btn-default" runat="server" ID="btnSortRestaurants" Text="Lowest Rated" value="asc" OnClick="SortRestaurantOrder" />
+        <asp:Button class="btn btn-primary" runat="server" ID="btnSortRestaurantsComment" Text="Most Commented" value="desc" OnClick="SortRestaurantByComment" />
+    </div>
+    <div id="divRestaurantTags" class="tagCloudSize">
+        <asp:Repeater ID="rptRestaurantTags" DataSourceID="RestaurantTags" runat="server">
+            <ItemTemplate>
+                <a class="tagAnchor" href="#" rel="<%# Eval(" TagValue") %>"><%# Eval("TagName") %></a>
+            </ItemTemplate>
+        </asp:Repeater>
+    </div>
+</div>
+<br style="clear: left;" />*@
