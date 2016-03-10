@@ -29,5 +29,6 @@ namespace FamilyAuto.Models
         public virtual DbSet<VehicleEngine> VehicleEngines { get; set; }
         public virtual DbSet<VehicleFeature> VehicleFeatures { get; set; }
         public virtual DbSet<VehicleHistory> VehicleHistories { get; set; }
+        public virtual DbSet<VehiclePicture> VehiclePictures { get; set; }
     }
 }

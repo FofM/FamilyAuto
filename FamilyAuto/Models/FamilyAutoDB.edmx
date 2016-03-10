@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="FamilyAutoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="FamilyAutoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Vehicle">
           <Key>
             <PropertyRef Name="Id" />
@@ -64,6 +64,15 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
           <Property Name="Mileage" Type="int" />
           <Property Name="FirstRegistration" Type="date" />
         </EntityType>
+        <EntityType Name="VehiclePictures">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VehicleID" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="100" />
+          <Property Name="ImageURL" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
         <Association Name="FK_VehicleEngine_Vehicle">
           <End Role="Vehicle" Type="Self.Vehicle" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -106,8 +115,23 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_VehiclePictures_Vehicle">
+          <End Role="Vehicle" Type="Self.Vehicle" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="VehiclePictures" Type="Self.VehiclePictures" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicle">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VehiclePictures">
+              <PropertyRef Name="VehicleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="FamilyAutoModelStoreContainer">
           <EntitySet Name="Vehicle" EntityType="Self.Vehicle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VehiclePictures" EntityType="Self.VehiclePictures" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VehicleEngine" EntityType="Self.VehicleEngine" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [VehicleEngine].[Id] AS [Id], 
@@ -157,9 +181,12 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
             <End Role="Vehicle" EntitySet="Vehicle" />
             <End Role="VehicleHistory" EntitySet="VehicleHistory" />
           </AssociationSet>
+          <AssociationSet Name="FK_VehiclePictures_Vehicle" Association="Self.FK_VehiclePictures_Vehicle">
+            <End Role="Vehicle" EntitySet="Vehicle" />
+            <End Role="VehiclePictures" EntitySet="VehiclePictures" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="FamilyAutoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -178,6 +205,7 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
           <NavigationProperty Name="VehicleEngine" Relationship="Self.FK_VehicleEngine_Vehicle" FromRole="Vehicle" ToRole="VehicleEngine" />
           <NavigationProperty Name="VehicleFeature" Relationship="Self.FK_VehicleFeature_Vehicle" FromRole="Vehicle" ToRole="VehicleFeature" />
           <NavigationProperty Name="VehicleHistory" Relationship="Self.FK_VehicleHistory_Vehicle" FromRole="Vehicle" ToRole="VehicleHistory" />
+          <NavigationProperty Name="VehiclePictures" Relationship="FamilyAutoModel.FK_VehiclePictures_Vehicle" FromRole="Vehicle" ToRole="VehiclePicture" />
         </EntityType>
         <EntityType Name="VehicleEngine">
           <Key>
@@ -281,7 +309,36 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
             <End Role="Vehicle" EntitySet="Vehicles" />
             <End Role="VehicleHistory" EntitySet="VehicleHistories" />
           </AssociationSet>
+          <EntitySet Name="VehiclePictures" EntityType="FamilyAutoModel.VehiclePicture" />
+          <AssociationSet Name="FK_VehiclePictures_Vehicle" Association="FamilyAutoModel.FK_VehiclePictures_Vehicle">
+            <End Role="Vehicle" EntitySet="Vehicles" />
+            <End Role="VehiclePicture" EntitySet="VehiclePictures" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="VehiclePicture">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VehicleID" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Vehicle" Relationship="FamilyAutoModel.FK_VehiclePictures_Vehicle" FromRole="VehiclePicture" ToRole="Vehicle" />
+          <Property Name="ImageURL" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_VehiclePictures_Vehicle">
+          <End Type="FamilyAutoModel.Vehicle" Role="Vehicle" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="FamilyAutoModel.VehiclePicture" Role="VehiclePicture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicle">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VehiclePicture">
+              <PropertyRef Name="VehicleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -342,6 +399,16 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
                 <ScalarProperty Name="Warranty" ColumnName="Warranty" />
                 <ScalarProperty Name="Mileage" ColumnName="Mileage" />
                 <ScalarProperty Name="FirstRegistration" ColumnName="FirstRegistration" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VehiclePictures">
+            <EntityTypeMapping TypeName="FamilyAutoModel.VehiclePicture">
+              <MappingFragment StoreEntitySet="VehiclePictures">
+                <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="VehicleID" ColumnName="VehicleID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

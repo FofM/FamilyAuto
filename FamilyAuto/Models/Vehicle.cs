@@ -14,6 +14,12 @@ namespace FamilyAuto.Models
     
     public partial class Vehicle
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Vehicle()
+        {
+            this.VehiclePictures = new HashSet<VehiclePicture>();
+        }
+    
         public int Id { get; set; }
         public string Make { get; set; }
         public string Model { get; set; }
@@ -26,5 +32,7 @@ namespace FamilyAuto.Models
         public virtual VehicleEngine VehicleEngine { get; set; }
         public virtual VehicleFeature VehicleFeature { get; set; }
         public virtual VehicleHistory VehicleHistory { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<VehiclePicture> VehiclePictures { get; set; }
     }
 }

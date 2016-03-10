@@ -12,6 +12,8 @@
         <AssociationConnector Association="FamilyAutoModel.FK_VehicleEngine_Vehicle" ManuallyRouted="false" />
         <AssociationConnector Association="FamilyAutoModel.FK_VehicleFeature_Vehicle" ManuallyRouted="false" />
         <AssociationConnector Association="FamilyAutoModel.FK_VehicleHistory_Vehicle" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="FamilyAutoModel.VehiclePicture" Width="1.5" PointX="3" PointY="12.5" />
+        <AssociationConnector Association="FamilyAutoModel.FK_VehiclePictures_Vehicle" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

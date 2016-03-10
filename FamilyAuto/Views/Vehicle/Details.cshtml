@@ -89,7 +89,15 @@
         <dd>
             @Html.DisplayFor(model => model.VehicleHistory.Purpose)
         </dd>
-
+        @foreach (var item in Model.VehiclePictures)
+        {
+            if (item.VehicleID == ViewBag.VehicleID)
+            {
+                <dd>
+                    <img src="@item.ImageURL" />
+                </dd>
+            }
+        }
     </dl>
 </div>
 <p>
