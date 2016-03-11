@@ -59,11 +59,21 @@ namespace FamilyAuto.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Make,Model,Variant,Condition,Type,Description,DateUploaded")] Vehicle vehicle, [Bind(Include = "Id, Milleage")] VehicleHistory vh )
+        public ActionResult Create([Bind(Include = "Id,Make,Model,Variant,Condition,Type,Description,DateUploaded")] Vehicle vehicle, FormCollection form )
         {
             if (ModelState.IsValid)
             {
                 db.Vehicles.Add(vehicle);
+                //vh = new VehicleHistory
+                //{
+                //    vh.Id = FK;
+                //vh.Mileage =
+                //}
+                //vh.Id = vehicle.Id;
+                //db.VehicleHistories.Add(vh);
+                VehicleHistory vh = new VehicleHistory();
+                vh.Id = vehicle.Id;
+                vh.Mileage = int.Parse(form["VehicleHistory.Mileage"]);
                 db.VehicleHistories.Add(vh);
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -158,8 +158,8 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
     [VehicleFeature].[InteriorMaterial] AS [InteriorMaterial]
     FROM [dbo].[VehicleFeature] AS [VehicleFeature]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="VehicleHistory" EntityType="Self.VehicleHistory" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
+          <EntitySet Name="VehicleHistory" EntityType="Self.VehicleHistory" store:Type="Tables" Schema="dbo">
+            <!--<DefiningQuery>SELECT 
     [VehicleHistory].[Id] AS [Id], 
     [VehicleHistory].[Purpose] AS [Purpose], 
     [VehicleHistory].[NoOfOwners] AS [NoOfOwners], 
@@ -167,7 +167,7 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
     [VehicleHistory].[Warranty] AS [Warranty], 
     [VehicleHistory].[Mileage] AS [Mileage], 
     [VehicleHistory].[FirstRegistration] AS [FirstRegistration]
-    FROM [dbo].[VehicleHistory] AS [VehicleHistory]</DefiningQuery>
+    FROM [dbo].[VehicleHistory] AS [VehicleHistory]</DefiningQuery>-->
           </EntitySet>
           <AssociationSet Name="FK_VehicleEngine_Vehicle" Association="Self.FK_VehicleEngine_Vehicle">
             <End Role="Vehicle" EntitySet="Vehicle" />
