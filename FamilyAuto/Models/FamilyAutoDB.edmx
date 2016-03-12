@@ -14,7 +14,7 @@
           <Property Name="Model" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Variant" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Condition" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Type" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
           <Property Name="DateUploaded" Type="datetime" Nullable="false" />
         </EntityType>
@@ -132,8 +132,8 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
         <EntityContainer Name="FamilyAutoModelStoreContainer">
           <EntitySet Name="Vehicle" EntityType="Self.Vehicle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VehiclePictures" EntityType="Self.VehiclePictures" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="VehicleEngine" EntityType="Self.VehicleEngine" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
+          <EntitySet Name="VehicleEngine" EntityType="Self.VehicleEngine" store:Type="Tables" Schema="dbo">
+            <!--<DefiningQuery>SELECT 
     [VehicleEngine].[Id] AS [Id], 
     [VehicleEngine].[FuelType] AS [FuelType], 
     [VehicleEngine].[Transmission] AS [Transmission], 
@@ -142,10 +142,10 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
     [VehicleEngine].[FuelConsumption] AS [FuelConsumption], 
     [VehicleEngine].[EmissionClass] AS [EmissionClass], 
     [VehicleEngine].[EmissionSticker] AS [EmissionSticker]
-    FROM [dbo].[VehicleEngine] AS [VehicleEngine]</DefiningQuery>
+    FROM [dbo].[VehicleEngine] AS [VehicleEngine]</DefiningQuery>-->
           </EntitySet>
-          <EntitySet Name="VehicleFeature" EntityType="Self.VehicleFeature" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
+          <EntitySet Name="VehicleFeature" EntityType="Self.VehicleFeature" store:Type="Tables" Schema="dbo">
+            <!--<DefiningQuery>SELECT 
     [VehicleFeature].[Id] AS [Id], 
     [VehicleFeature].[ExteriorColor] AS [ExteriorColor], 
     [VehicleFeature].[InteriorColor] AS [InteriorColor], 
@@ -156,7 +156,7 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
     [VehicleFeature].[ParkingSensor] AS [ParkingSensor], 
     [VehicleFeature].[Sports] AS [Sports], 
     [VehicleFeature].[InteriorMaterial] AS [InteriorMaterial]
-    FROM [dbo].[VehicleFeature] AS [VehicleFeature]</DefiningQuery>
+    FROM [dbo].[VehicleFeature] AS [VehicleFeature]</DefiningQuery>-->
           </EntitySet>
           <EntitySet Name="VehicleHistory" EntityType="Self.VehicleHistory" store:Type="Tables" Schema="dbo">
             <!--<DefiningQuery>SELECT 
@@ -199,7 +199,7 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
           <Property Name="Model" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Variant" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Condition" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Type" Type="FamilyAutoModel.TypeEnum" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DateUploaded" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="VehicleEngine" Relationship="Self.FK_VehicleEngine_Vehicle" FromRole="Vehicle" ToRole="VehicleEngine" />
@@ -339,6 +339,11 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EnumType Name="TypeEnum" >
+          <Member Name="A" />
+          <Member Name="B" />
+          <Member Name="C" />
+        </EnumType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->

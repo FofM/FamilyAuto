@@ -20,7 +20,7 @@ namespace FamilyAuto.Controllers
             var vehicles = db.Vehicles.Include(v => v.VehicleEngine).Include(v => v.VehicleFeature).Include(v => v.VehicleHistory);
             if (!User.Identity.IsAuthenticated)
             {
-                return View("Authenticated", vehicles.ToList());
+                return View("Showroom", vehicles.ToList());
             }
             return View(vehicles.ToList());
         }
@@ -63,6 +63,8 @@ namespace FamilyAuto.Controllers
         {
             if (ModelState.IsValid)
             {
+                vehicle.DateUploaded = DateTime.Now;
+                //Convert.ToString(vehicle.Type);
                 db.Vehicles.Add(vehicle);
                 //vh = new VehicleHistory
                 //{

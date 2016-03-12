@@ -25,7 +25,7 @@ namespace FamilyAuto.Models
         public string Model { get; set; }
         public string Variant { get; set; }
         public string Condition { get; set; }
-        public string Type { get; set; }
+        public TypeEnum Type { get; set; }
         public string Description { get; set; }
         public System.DateTime DateUploaded { get; set; }
     

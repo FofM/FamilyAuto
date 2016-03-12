@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<FamilyAuto.Models.Vehicle>
 
 @{
-    ViewBag.Title = "Authenticated";
+    ViewBag.Title = "Showroom";
 }
 
 <h2>Authenticated</h2>
@@ -41,7 +41,7 @@
             </div>
 </div>
 }
-@*<div class="filterStyle">
+<div class="filterStyle">
     <h3>FILTERS:</h3>
     <br />
     <a href="#" class="showAll">Show All</a>
@@ -103,21 +103,14 @@
             <input type="radio" id="chkInternational" name="cuisineType" value="International">International
         </label>
         <br />
-        <asp:Button ID="btnSourceTest" css="btnSourceTest" runat="server" Text="Click me" OnClick="btnSourceTest_Click" Style="display: none" />
+        <asp:Button ID="btnSourceTest" css="btnSourceTest" Text="Click me" OnClick="btnSourceTest_Click" Style="display: none" />
         <%--<asp:Label class="tester" style="display:none" Id="LabelTester" runat="server" Text="SELECT TOP 2 p.PictureURL AS Thumbnail, r.NameOfRestaurant, r.Address, r.TypeOfRestaurant, r.[Description], r.DateUploaded, r.Score FROM (SELECT RestaurantID, MAX(PictureID) AS pID From PicturesRestaurants Group by restaurantID) AS t1 JOIN Pictures p ON p.PictureID = t1.pID JOIN vRestaurantDetails r ON r.RestaurantID = t1.RestaurantID" ViewStateMode="Enabled"></asp:Label>--%>
         <%--<asp:Label class="tester" style="display:none" Id="LabelTester" runat="server" Text="Luka Lu" ViewStateMode="Enabled"></asp:Label>--%>
-        <asp:TextBox class="tester" ID="TextTester" runat="server" Text="" Style="display: none"></asp:TextBox>
+        <asp:TextBox class="tester" ID="TextTester" Text="" Style="display: none"></asp:TextBox>
     </div>
     <div class="btn-group-vertical btn-block sort-buttons" role="group" aria-label="...">
-        <asp:Button class="btn btn-default" runat="server" ID="btnSortRestaurants" Text="Lowest Rated" value="asc" OnClick="SortRestaurantOrder" />
-        <asp:Button class="btn btn-primary" runat="server" ID="btnSortRestaurantsComment" Text="Most Commented" value="desc" OnClick="SortRestaurantByComment" />
-    </div>
-    <div id="divRestaurantTags" class="tagCloudSize">
-        <asp:Repeater ID="rptRestaurantTags" DataSourceID="RestaurantTags" runat="server">
-            <ItemTemplate>
-                <a class="tagAnchor" href="#" rel="<%# Eval(" TagValue") %>"><%# Eval("TagName") %></a>
-            </ItemTemplate>
-        </asp:Repeater>
+        <asp:Button class="btn btn-default" ID="btnSortRestaurants" Text="Lowest Rated" value="asc" OnClick="SortRestaurantOrder" />
+        <asp:Button class="btn btn-primary" ID="btnSortRestaurantsComment" Text="Most Commented" value="desc" OnClick="SortRestaurantByComment" />
     </div>
 </div>
-<br style="clear: left;" />*@
+<br style="clear: left;" />
