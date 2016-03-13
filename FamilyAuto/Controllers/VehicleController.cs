@@ -15,9 +15,14 @@ namespace FamilyAuto.Controllers
         private FamilyAutoEntities db = new FamilyAutoEntities();
 
         // GET: Vehicle
-        public ActionResult Index()
+        public ActionResult Showroom()
         {
             var vehicles = db.Vehicles.Include(v => v.VehicleEngine).Include(v => v.VehicleFeature).Include(v => v.VehicleHistory);
+
+            //IEnumerable<string> make = new IEnumerable<string>();
+            
+            //ViewBag.VehicleMake = from v in db.Vehicles select v.Make;
+
             if (!User.Identity.IsAuthenticated)
             {
                 return View("Showroom", vehicles.ToList());

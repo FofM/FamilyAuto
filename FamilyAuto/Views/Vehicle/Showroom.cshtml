@@ -11,35 +11,54 @@
 </div>
 
 @foreach (var item in Model)
-    { 
-<div class="source-content" style="width: 75%; float: left">    
-            <div class="container-fluid listItems">
-                <div class="row">
-                    <div class="col-sm-2 item-list-spc">
-                        <a href="#">
+{
+    <div class="source-content" style="width: 75%; float: left">
+        <div class="container-fluid listItems">
+            <div class="row">
+                <div class="col-sm-2 item-list-spc">
+                    @*<a href="#">
                             <img class="media-object" src="http://avatars.guildlaunch.net/user_files/3068351/user_avatar6409_mid.jpg" alt="Image of a Restaurant">
+                        </a>*@
+                    @*<a href="@Url.Action("Details")", new { id = item.Id }>
+                            <img src="@Url.Content()"
                         </a>
-                    </div>
-                    <div class="col-sm-7 item-list-spc">
-                        <div class="media-body">
-                            <h4 class="media-heading">
-
-                                <asp:HyperLink ID="hlRestaurantName" Text='@Html.DisplayFor(modelItem => item.Make)' Font-Bold="True" Font-Underline="True" />
-                                
-                                @Html.ActionLink(item.Make, "Details", new { id = item.Id })
-                            </h4>
-                            <p class="address">@Html.DisplayFor(modelItem => item.Model)</p>
-                            <p class="cuisine">@Html.DisplayFor(modelItem => item.Variant)</p>
-                            <p>@Html.DisplayFor(modelItem => item.VehicleEngine.Power)</p>
-                            <p class="show-read-more">@Html.DisplayFor(modelItem => item.VehicleFeature.ExteriorColor)</p>
-                            <p class="show-read-more">@Html.DisplayFor(modelItem => item.VehicleHistory.Mileage)</p>
-                        </div>
-                    </div>
-
-
+                        @Html.Raw(@Html.ActionLink("Edit-link", "Edit", new { id = item.Id }).ToHtmlString().Replace("Edit-link", item.VehiclePictures. "<img src=\"/Contents/img/logo.png\" ... />"))*@
+                    @foreach (var i in item.VehiclePictures)
+                    {
+                        if (item.Id == i.VehicleID)
+                        {
+                            <a href="@Url.Action("Details", new { id = item.Id })" , id="@item.Id">
+                                <img class="image-listview" src="@i.ImageURL"/>
+                            </a>
+                            break;
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("Details")" , new { id=item.Id }>
+                                <img class="image-listview" src="http://avatars.guildlaunch.net/user_files/3068351/user_avatar6409_mid.jpg" />
+                            </a>
+                        }
+                    }
                 </div>
+                <div class="col-sm-7 item-list-spc">
+                    <div class="media-body">
+                        <h4 class="media-heading">
+
+                            <asp:HyperLink ID="@item.Make" Text='@Html.DisplayFor(modelItem => item.Make)' Font-Bold="True" Font-Underline="True" />
+
+                            @Html.ActionLink(item.Make, "Details", new { id = item.Id })
+                        </h4>
+                        <p class="address">Model: @Html.DisplayFor(modelItem => item.Model), Variant: @Html.DisplayFor(modelItem => item.Variant)</p>
+                        <p class="power">@Html.DisplayFor(modelItem => item.VehicleEngine.Power)KW</p>
+                        <p class="color">Color: @Html.DisplayFor(modelItem => item.VehicleFeature.ExteriorColor)</p>
+                        <p class="mileage">Mileage: @Html.DisplayFor(modelItem => item.VehicleHistory.Mileage)</p>
+                    </div>
+                </div>
+
+
             </div>
-</div>
+        </div>
+    </div>
 }
 <div class="filterStyle">
     <h3>FILTERS:</h3>
@@ -47,6 +66,9 @@
     <a href="#" class="showAll">Show All</a>
     <br />
     <h4>Location</h4>
+    
+    
+    
     <div class="radio">
         <label>
             <input type="radio" id="chkP1" name="location" value="Praha 1">Praha 1
