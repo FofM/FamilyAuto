@@ -22,7 +22,7 @@ namespace FamilyAuto.Controllers
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Family Auto contact page.";
 
             return View();
         }

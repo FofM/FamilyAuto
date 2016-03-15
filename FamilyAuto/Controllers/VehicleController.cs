@@ -23,10 +23,16 @@ namespace FamilyAuto.Controllers
             
             //ViewBag.VehicleMake = from v in db.Vehicles select v.Make;
 
-            if (!User.Identity.IsAuthenticated)
-            {
-                return View("Showroom", vehicles.ToList());
-            }
+            //if (!User.Identity.IsAuthenticated)
+            //{
+            //    return View("Showroom", vehicles.ToList());
+            //}
+            return View(vehicles.ToList());
+        }
+
+        public ActionResult Index()
+        {
+            var vehicles = db.Vehicles.Include(v => v.VehicleEngine).Include(v => v.VehicleFeature).Include(v => v.VehicleHistory);
             return View(vehicles.ToList());
         }
 
