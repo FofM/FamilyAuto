@@ -181,12 +181,19 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IMSController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\VehicleController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ArticleEnum.cs">
+      <DependentUpon>FamilyAutoDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Articles.cs">
+      <DependentUpon>FamilyAutoDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\FamilyAutoDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -313,6 +320,11 @@
     <Content Include="Views\Vehicle\Edit.cshtml" />
     <Content Include="Views\Vehicle\Index.cshtml" />
     <Content Include="Views\Vehicle\Showroom.cshtml" />
+    <Content Include="Views\IMS\Create.cshtml" />
+    <Content Include="Views\IMS\Delete.cshtml" />
+    <Content Include="Views\IMS\Details.cshtml" />
+    <Content Include="Views\IMS\Edit.cshtml" />
+    <Content Include="Views\IMS\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

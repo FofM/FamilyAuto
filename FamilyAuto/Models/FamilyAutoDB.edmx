@@ -5,6 +5,22 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="FamilyAutoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FamilyAuto.dbo.Articles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Articles">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="ArticleTitle" />
+            <PropertyRef Name="ArticleDescription" />
+            <PropertyRef Name="ArticleType" />
+            <PropertyRef Name="DateUploaded" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ArticleTitle" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ArticleDescription" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ArticleType" Type="int" Nullable="false" />
+          <Property Name="DateUploaded" Type="date" Nullable="false" />
+        </EntityType>
         <EntityType Name="Vehicle">
           <Key>
             <PropertyRef Name="Id" />
@@ -132,6 +148,15 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
         <EntityContainer Name="FamilyAutoModelStoreContainer">
           <EntitySet Name="Vehicle" EntityType="Self.Vehicle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VehiclePictures" EntityType="Self.VehiclePictures" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Articles" EntityType="Self.Articles" store:Type="Tables" Schema="dbo">
+            <!--<DefiningQuery>SELECT 
+    [Articles].[Id] AS [Id], 
+    [Articles].[ArticleTitle] AS [ArticleTitle], 
+    [Articles].[ArticleDescription] AS [ArticleDescription], 
+    [Articles].[ArticleType] AS [ArticleType], 
+    [Articles].[DateUploaded] AS [DateUploaded]
+    FROM [dbo].[Articles] AS [Articles]</DefiningQuery>-->
+          </EntitySet>
           <EntitySet Name="VehicleEngine" EntityType="Self.VehicleEngine" store:Type="Tables" Schema="dbo">
             <!--<DefiningQuery>SELECT 
     [VehicleEngine].[Id] AS [Id], 
@@ -314,6 +339,7 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
             <End Role="Vehicle" EntitySet="Vehicles" />
             <End Role="VehiclePicture" EntitySet="VehiclePictures" />
           </AssociationSet>
+          <EntitySet Name="Articles" EntityType="FamilyAutoModel.Articles" />
         </EntityContainer>
         <EntityType Name="VehiclePicture">
           <Key>
@@ -343,6 +369,24 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
           <Member Name="A" />
           <Member Name="B" />
           <Member Name="C" />
+        </EnumType>
+        <EntityType Name="Articles">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="ArticleDescription" />
+            <PropertyRef Name="ArticleType" />
+            <PropertyRef Name="DateUploaded" />
+            <PropertyRef Name="ArticleTitle" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ArticleTitle" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ArticleDescription" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ArticleType" Type="FamilyAutoModel.ArticleEnum" Nullable="false" />
+          <Property Name="DateUploaded" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <EnumType Name="ArticleEnum">
+          <Member Name="News" />
+          <Member Name="Service" />
         </EnumType>
       </Schema>
     </edmx:ConceptualModels>
@@ -417,6 +461,17 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Articles">
+            <EntityTypeMapping TypeName="FamilyAutoModel.Articles">
+              <MappingFragment StoreEntitySet="Articles">
+                <ScalarProperty Name="ArticleTitle" ColumnName="ArticleTitle" />
+                <ScalarProperty Name="DateUploaded" ColumnName="DateUploaded" />
+                <ScalarProperty Name="ArticleType" ColumnName="ArticleType" />
+                <ScalarProperty Name="ArticleDescription" ColumnName="ArticleDescription" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -431,7 +486,7 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
