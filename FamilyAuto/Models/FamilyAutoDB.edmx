@@ -5,15 +5,9 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="FamilyAutoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'FamilyAuto.dbo.Articles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Articles">
           <Key>
             <PropertyRef Name="Id" />
-            <PropertyRef Name="ArticleTitle" />
-            <PropertyRef Name="ArticleDescription" />
-            <PropertyRef Name="ArticleType" />
-            <PropertyRef Name="DateUploaded" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ArticleTitle" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -146,17 +140,9 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="FamilyAutoModelStoreContainer">
+          <EntitySet Name="Articles" EntityType="Self.Articles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vehicle" EntityType="Self.Vehicle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VehiclePictures" EntityType="Self.VehiclePictures" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Articles" EntityType="Self.Articles" store:Type="Tables" Schema="dbo">
-            <!--<DefiningQuery>SELECT 
-    [Articles].[Id] AS [Id], 
-    [Articles].[ArticleTitle] AS [ArticleTitle], 
-    [Articles].[ArticleDescription] AS [ArticleDescription], 
-    [Articles].[ArticleType] AS [ArticleType], 
-    [Articles].[DateUploaded] AS [DateUploaded]
-    FROM [dbo].[Articles] AS [Articles]</DefiningQuery>-->
-          </EntitySet>
           <EntitySet Name="VehicleEngine" EntityType="Self.VehicleEngine" store:Type="Tables" Schema="dbo">
             <!--<DefiningQuery>SELECT 
     [VehicleEngine].[Id] AS [Id], 
@@ -370,13 +356,13 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
           <Member Name="B" />
           <Member Name="C" />
         </EnumType>
+        <EnumType Name="ArticleEnum">
+          <Member Name="News" />
+          <Member Name="Service" />
+        </EnumType>
         <EntityType Name="Articles">
           <Key>
             <PropertyRef Name="Id" />
-            <PropertyRef Name="ArticleDescription" />
-            <PropertyRef Name="ArticleType" />
-            <PropertyRef Name="DateUploaded" />
-            <PropertyRef Name="ArticleTitle" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ArticleTitle" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -384,10 +370,6 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
           <Property Name="ArticleType" Type="FamilyAutoModel.ArticleEnum" Nullable="false" />
           <Property Name="DateUploaded" Type="DateTime" Nullable="false" Precision="0" />
         </EntityType>
-        <EnumType Name="ArticleEnum">
-          <Member Name="News" />
-          <Member Name="Service" />
-        </EnumType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -464,10 +446,10 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
           <EntitySetMapping Name="Articles">
             <EntityTypeMapping TypeName="FamilyAutoModel.Articles">
               <MappingFragment StoreEntitySet="Articles">
-                <ScalarProperty Name="ArticleTitle" ColumnName="ArticleTitle" />
                 <ScalarProperty Name="DateUploaded" ColumnName="DateUploaded" />
                 <ScalarProperty Name="ArticleType" ColumnName="ArticleType" />
                 <ScalarProperty Name="ArticleDescription" ColumnName="ArticleDescription" />
+                <ScalarProperty Name="ArticleTitle" ColumnName="ArticleTitle" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
