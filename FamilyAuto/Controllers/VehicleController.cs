@@ -19,6 +19,22 @@ namespace FamilyAuto.Controllers
         {
             var vehicles = db.Vehicles.Include(v => v.VehicleEngine).Include(v => v.VehicleFeature).Include(v => v.VehicleHistory);
 
+            //var vehicles = from v in db.Vehicles
+            //               from ve in db.VehicleEngines
+            //               from vh in db.VehicleHistories
+            //               from vf in db.VehicleFeatures
+            //               where v.Id == ve.Id
+            //               where v.Id == vh.Id
+            //               where v.Id == vf.Id
+            //               select new
+            //               {
+            //                   v,
+            //                   ve,
+            //                   vh,
+            //                   vf
+
+            //               };
+
             //IEnumerable<string> make = new IEnumerable<string>();
             
             //ViewBag.VehicleMake = from v in db.Vehicles select v.Make;

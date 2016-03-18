@@ -1,4 +1,5 @@
-﻿@model IEnumerable<FamilyAuto.Models.Vehicle>
+﻿@using FamilyAuto.Models
+@model IEnumerable<FamilyAuto.Models.Vehicle>
 
 @{
     ViewBag.Title = "Index";
@@ -44,44 +45,82 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Make)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Model)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Variant)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Condition)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Type)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateUploaded)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.VehicleEngine.FuelType)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.VehicleFeature.ExteriorColor)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.VehicleHistory.Purpose)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Make)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Model)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Variant)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Condition)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateUploaded)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VehicleEngine.FuelType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VehicleFeature.ExteriorColor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VehicleHistory.Purpose)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
 
 </table>
+
+@*<table>
+    <tr ng-repeat="employee in employees">
+        <td>{{ employee.firstName }}
+        <td>
+    </tr>
+</table>
+
+myApp.controller('myController', function ($scope) {
+    $scope.init = function (employees)
+        $scope.employees = @Model;
+    }
+});*@
+
+
+<tbody data-bind="foreach: veh">
+    <tr>
+        <td data-bind="text: Make"></td>
+        <td data-bind="text: Model"></td>
+    </tr>
+</tbody>
+
+@section Scripts {
+    <script>
+        function ViewModel(veh) {
+            var self = this;
+
+            self.veh = @Model;
+        };
+        
+        var viewModel = new ViewModel(@Html.Raw(Json.Encode(Model)));
+        ko.applyBindings(viewModel);        
+    </script>
+}
+
+
+http://stackoverflow.com/questions/11055336/how-to-use-knockout-js-with-asp-net-mvc-viewmodels
