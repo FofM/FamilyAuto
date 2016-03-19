@@ -13,10 +13,20 @@ namespace FamilyAuto.Controllers
 
         public ActionResult Index()
         {
-            var topNews = from n in db.Articles
+            var topNews = (from n in db.Articles
                           where n.ArticleType == 0
-                          select n;
-            topNews.Take(3).ToList();
+                          orderby n.DateUploaded descending
+                          select n).Take(3);
+            //topNews.Take(3).ToList();
+            return View(topNews);
+        }
+
+        public ActionResult News()
+        {
+            var topNews = from n in db.Articles
+                           where n.ArticleType == 0
+                           orderby n.DateUploaded descending
+                           select n;
             return View(topNews);
         }
 

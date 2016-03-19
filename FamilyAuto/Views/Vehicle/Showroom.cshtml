@@ -10,9 +10,10 @@
     <h1>SHOWROOM</h1>
 </div>
 
-@foreach (var item in Model)
-{
-    <div class="source-content" style="width: 75%; float: left">
+<div class="source-content" style="width: 75%; float: left">
+    @foreach (var item in Model)
+    {
+
         <div class="container-fluid listItems">
             <div class="row">
                 <div class="col-sm-3 item-list-spc">
@@ -28,7 +29,7 @@
                         if (item.Id == i.VehicleID)
                         {
                             <a href="@Url.Action("Details", new { id = item.Id })" , id="@item.Id">
-                                <img class="image-listview" src="@i.ImageURL"/>
+                                <img class="image-listview" src="@i.ImageURL" />
                             </a>
                             break;
                         }
@@ -58,8 +59,9 @@
 
             </div>
         </div>
+    }
     </div>
-}
+
 <div class="filterStyle">
     <h3>FILTERS:</h3>
     <br />

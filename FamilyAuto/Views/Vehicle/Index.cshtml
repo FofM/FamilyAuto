@@ -2,7 +2,7 @@
 @model IEnumerable<FamilyAuto.Models.Vehicle>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Manage vehicle database";
 }
 
 <h2>Index</h2>
@@ -102,7 +102,7 @@ myApp.controller('myController', function ($scope) {
 });*@
 
 
-<tbody data-bind="foreach: veh">
+@*<tbody data-bind="foreach: veh">
     <tr>
         <td data-bind="text: Make"></td>
         <td data-bind="text: Model"></td>
@@ -120,7 +120,7 @@ myApp.controller('myController', function ($scope) {
         var viewModel = new ViewModel(@Html.Raw(Json.Encode(Model)));
         ko.applyBindings(viewModel);        
     </script>
-}
+}*@
 
 
 http://stackoverflow.com/questions/11055336/how-to-use-knockout-js-with-asp-net-mvc-viewmodels

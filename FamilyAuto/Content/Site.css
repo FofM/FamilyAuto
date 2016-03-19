@@ -31,3 +31,19 @@ textarea {
     width: 211px;
     height: 159px;
 }
+
+.filterStyle{
+    width: 23%; 
+    float: right;
+    padding-left:2em;
+    background: linear-gradient(to right, #e6e6e6, white)
+}
+
+.listItems{
+    margin-bottom: 1em;
+    background: linear-gradient(to left, #e6e6e6, white)
+}
+
+.gradientBackground{
+background: linear-gradient(#e6e6e6, white);
+}

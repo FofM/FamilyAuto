@@ -25,7 +25,7 @@
     <div class="col-md-4">
         <h2>Contact</h2>
         <p>Give us a call or come visit us.</p>
-        <p>@Html.ActionLink("Services", "Contact", new { Controller = "Home" }, new { @class = "btn btn-default" })</p>
+        <p>@Html.ActionLink("Contact", "Contact", new { Controller = "Home" }, new { @class = "btn btn-default" })</p>
     </div>
 </div>
 
@@ -65,7 +65,7 @@
 </div>*@
 
 <div class="row">
-    <h2>NEWS</h2>
+    <h2>@Html.ActionLink("NEWS", "News", new { Controller = "Home" })</h2>
     @foreach (var n in Model)
     {
         <div class="col-md-4">
