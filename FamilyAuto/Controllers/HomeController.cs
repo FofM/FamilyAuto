@@ -30,6 +30,15 @@ namespace FamilyAuto.Controllers
             return View(topNews);
         }
 
+        public ActionResult Services()
+        {
+            var topNews = from n in db.Articles
+                          where (int)n.ArticleType == 1
+                          orderby n.DateUploaded descending
+                          select n;
+            return View(topNews);
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

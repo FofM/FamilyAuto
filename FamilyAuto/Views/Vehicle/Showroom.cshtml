@@ -67,10 +67,61 @@
     <br />
     <a href="#" class="showAll">Show All</a>
     <br />
-    <h4>Location</h4>
+
+    <h5>Vehicle Type</h5>
+    <div class="dropdown">
+        <label>
+            <select>
+                <option value="Sports Car">Sports Car</option>
+                <option value="Small Car">Small Car</option>
+                <option value="Sedan">Sedan</option>
+                <option value="Van">Van</option>
+                <option value="Luxury Car">Luxury Car</option>
+            </select>
+        </label>
+    </div>
     
-    
-    
+    <h5>Make</h5>
+    <div class="dropdown">
+        <label>
+            <select>
+                <option value="BMW">BMW</option>
+                <option value="Nissan">Nissan</option>
+                <option value="Opel">Opel</option>
+                <option value="Volvo">Volvo</option>
+                <option value="Volkswagen">Volkswagen</option>
+            </select>
+        </label>
+    </div>
+
+    <h5>Model</h5>
+    <div class="dropdown">
+            <select>
+                <option value="Z1">Z1</option>
+                <option value="Astra">Astra</option>
+                <option value="Pathfinder">Pathfinder</option>
+                <option value="S60">S60</option>
+                <option value="Polo">Polo</option>
+            </select>
+    </div>
+
+    <h5>Mileage (up to)</h5>
+    <div class="dropdown">
+        <select>
+            <option value="50000">50000</option>
+            <option value="100000">100000</option>
+            <option value="200000">200000</option>
+            <option value="300000">300000</option>
+        </select>
+    </div>
+
+    <h5>Price range</h5>
+    <div class="input-sm">
+        <input type="number" /> From<br />
+        <input type="number" /> To
+    </div>
+
+    @*<h4>Location</h4>
     <div class="radio">
         <label>
             <input type="radio" id="chkP1" name="location" value="Praha 1">Praha 1
@@ -135,6 +186,6 @@
     <div class="btn-group-vertical btn-block sort-buttons" role="group" aria-label="...">
         <asp:Button class="btn btn-default" ID="btnSortRestaurants" Text="Lowest Rated" value="asc" OnClick="SortRestaurantOrder" />
         <asp:Button class="btn btn-primary" ID="btnSortRestaurantsComment" Text="Most Commented" value="desc" OnClick="SortRestaurantByComment" />
-    </div>
+    </div>*@
 </div>
 <br style="clear: left;" />

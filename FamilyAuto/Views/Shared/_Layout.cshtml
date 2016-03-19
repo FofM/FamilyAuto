@@ -21,9 +21,9 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Home", "Index", "Home", new { @class = "btn btn-default" })</li>
                     <li>@Html.ActionLink("Showroom", "Showroom", new { Controller = "Vehicle" })</li>
-                    <li>@Html.ActionLink("Services", "Index", new { Controller = "Services" }, new { @class = "btn btn-default" })</li>
+                    <li>@Html.ActionLink("Services", "Services", new { Controller = "Home" })</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     <li>@Html.ActionLink("IMS", "Index", new { Controller = "IMS" })</li>
                     <li>@Html.ActionLink("CMS", "Index", new { Controller = "Vehicle" })</li>
