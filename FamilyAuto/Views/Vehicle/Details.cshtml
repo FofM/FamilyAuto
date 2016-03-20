@@ -90,19 +90,21 @@
             @Html.DisplayFor(model => model.VehicleHistory.Purpose)
         </dd>
     </dl>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
 </div>
 <div class="col-md-6">
-    @foreach (var item in Model.VehiclePictures)
-    {
-        if (item.VehicleID == ViewBag.VehicleID)
+    <br /><br /><br /><br />
+        @foreach (var item in Model.VehiclePictures)
         {
-            <dd>
-                <img src="@item.ImageURL" />
-            </dd>
+            if (item.VehicleID == ViewBag.VehicleID)
+            {
+                <li class="col-md-4 list-group-item picture-frame">
+                    <img src="@item.ImageURL" style="height:150px; width:150px;"/>
+                    </li>
+            }
         }
-    }
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+

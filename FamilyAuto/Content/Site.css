@@ -47,3 +47,7 @@ textarea {
 .gradientBackground{
 background: linear-gradient(#e6e6e6, white);
 }
+
+.picture-frame {
+    border: 3px outset lightgray;
+}

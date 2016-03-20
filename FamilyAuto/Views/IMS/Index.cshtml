@@ -1,69 +1,92 @@
 ﻿@model IEnumerable<FamilyAuto.Models.Articles>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "IMS";
 }
 
-<h2>Index</h2>
+<h2>IMS</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th></th>
-    </tr>
+<div class="row">
+    <div class=col-md-4>
+        <h4>Maintain Customers and Suppliers</h4>
+        <a class="btn btn-default" href="#">Customers</a>
+        <a class="btn btn-default" href="#">Suppliers</a>
+    </div>
+    <div class=col-md-4>
+        <h4>Services overview</h4>
+        <a class="btn btn-default" href="#">ENTER</a>
+    </div>
+    <div class=col-md-4>
+        <h4>Vehicle overview</h4>
+        <a class="btn btn-default" href="#">ENTER</a>
+    </div>
+</div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
+<br /><br /><br /><br />
 
-</table>
+<div class="row">
+    <h3>Customers</h3>
+    <div class="col-md-3 form-group">
+        <h4>Add new customer</h4>
+        <label>First Name:</label>
+        <input class="form-control" type="text" />
+        <label>Last Name:</label>
+        <input class="form-control" type="text" />
+        <label>Address:</label>
+        <input class="form-control" type="text" />
+        <label>City:</label>
+        <input class="form-control" type="text" />
+        <label>Telephone Number:</label>
+        <input class="form-control" type="text" />
+        <label>Email:</label>
+        <input class="form-control" type="text" />
+        <br />
+        <a class="btn btn-default" href="#">Create</a>
+    </div>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ArticleTitle)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ArticleDescription)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ArticleType)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateUploaded)
-        </th>
-        <th></th>
-    </tr>
+    <div class="col-md-2"></div>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ArticleTitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ArticleDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ArticleType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateUploaded)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
-        </tr>
-    }
+    <h3>Suppliers</h3>
+    <div class="col-md-3 form-group">
+        <h4>Add new supplier</h4>
+        <label>Company Name:</label>
+        <input class="form-control" type="text" />
+        <label>CRN:</label>
+        <input class="form-control" type="text" />
+        <label>Address:</label>
+        <input class="form-control" type="text" />
+        <label>City:</label>
+        <input class="form-control" type="text" />
+        <label>Telephone Number:</label>
+        <input class="form-control" type="text" />
+        <label>Email:</label>
+        <input class="form-control" type="text" />
+        <br />
+        <a class="btn btn-default" href="#">Create</a>
+    </div>
+</div>
 
-</table>
+
+<div class="row">
+    <h3>Customers</h3>
+    <div class="col-md-3 form-group">
+        <h4>Register active service</h4>
+        <label>Service:</label>
+        <select class="form-control">
+            <option value="Oil Change">Oil Change</option>
+        </select>
+        <input class="form-control" type="text" />
+        <label>Price:</label>
+        <input class="form-control" type="text" />$
+        <label>Ordered On:</label>
+        <input class="form-control" type="date" />
+        <label>Due:</label>
+        <input class="form-control" type="date" />
+        <label>Ordered by:</label>
+        <select class="form-control">
+            <option value="Filip Grasheski">Filip Grasheski</option>
+        </select>
+        <br />
+        <a class="btn btn-default" href="#">Apply</a>
+    </div>
+</div>
