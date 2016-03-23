@@ -13,8 +13,17 @@ namespace FamilyAuto.Models
     
     public enum TypeEnum : int
     {
-        A = 0,
-        B = 1,
-        C = 2
+        AWD = 0,
+        Commercial = 1,
+        Convertible = 2,
+        Coupe = 3,
+        Hatchback = 4,
+        Hybrid = 5,
+        Luxury = 6,
+        Sedan = 7,
+        SUV = 8,
+        Truck = 9,
+        Minivan = 10,
+        Wagon = 11
     }
 }

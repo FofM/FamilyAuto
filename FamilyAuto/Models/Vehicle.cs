@@ -27,6 +27,7 @@ namespace FamilyAuto.Models
         public string Condition { get; set; }
         public TypeEnum Type { get; set; }
         public string Description { get; set; }
+        public Nullable<int> Price { get; set; }
         public System.DateTime DateUploaded { get; set; }
     
         public virtual VehicleEngine VehicleEngine { get; set; }

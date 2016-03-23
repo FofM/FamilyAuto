@@ -21,7 +21,7 @@ namespace FamilyAuto.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("name=FamilyAutoEntities", throwIfV1Schema: false)
         {
         }
 
