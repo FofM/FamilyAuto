@@ -9,15 +9,11 @@
 
 namespace FamilyAuto.Models
 {
-    using Microsoft.AspNet.Identity;
-    using Microsoft.AspNet.Identity.EntityFramework;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    using System.Security.Claims;
-    using System.Threading.Tasks;
-
-    public partial class FamilyAutoEntities : IdentityDbContext
+    
+    public partial class FamilyAutoEntities : DbContext
     {
         public FamilyAutoEntities()
             : base("name=FamilyAutoEntities")
@@ -35,7 +31,9 @@ namespace FamilyAuto.Models
         public virtual DbSet<VehicleHistory> VehicleHistories { get; set; }
         public virtual DbSet<VehiclePicture> VehiclePictures { get; set; }
         public virtual DbSet<Articles> Articles { get; set; }
+        public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
+        public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
+        public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
     }
-
-
 }

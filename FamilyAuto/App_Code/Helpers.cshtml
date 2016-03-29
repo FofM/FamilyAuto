@@ -1,0 +1,16 @@
+﻿@helper BooleanLabel(bool value)
+{
+    @BooleanLabel(value, "Yes", "No")
+}
+
+@helper BooleanLabel(bool value, string t, string f)
+{
+if (value)
+{
+        <span>@t</span>
+}
+else
+{
+        <span>@f</span>
+}
+}

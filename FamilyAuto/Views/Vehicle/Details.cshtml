@@ -1,110 +1,155 @@
 ﻿@model FamilyAuto.Models.Vehicle
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Vehicle Details";
 }
 
-<h2>Details</h2>
+<h2>Vehicle Details</h2>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
 
-<div class="col-md-6">
-    <h4>Vehicle</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Make)
-        </dt>
+<div class="container">
+    <div class="col-md-6">
+        <h4>@Html.DisplayFor(model => model.Make), @Html.DisplayFor(model => model.Model)</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Price)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Make)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Price) EUR
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Make)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Model)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Make)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Model)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Model)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Variant)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Model)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Variant)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Variant)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Condition)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Variant)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Condition)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Condition)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Type)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Condition)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Type)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Type)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Type)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DateUploaded)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DateUploaded)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DateUploaded)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.DateUploaded)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.VehicleEngine.FuelType)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.VehicleEngine.FuelType)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.VehicleFeature.ExteriorColor)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.VehicleFeature.ExteriorColor)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.VehicleHistory.Purpose)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.VehicleHistory.Purpose)
-        </dd>
-    </dl>
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
-</div>
-<div class="col-md-6">
-    <br /><br /><br /><br />
-        @foreach (var item in Model.VehiclePictures)
-        {
-            if (item.VehicleID == ViewBag.VehicleID)
+        </dl>
+    </div>
+    <div class="col-md-6">
+        <br /><br /><br /><br />
+        <ul>
+            @foreach (var item in Model.VehiclePictures)
             {
-                <li class="col-md-4 list-group-item picture-frame">
-                    <img src="@item.ImageURL" style="height:150px; width:150px;"/>
+                if (item.VehicleID == ViewBag.VehicleID)
+                {
+                    <li class="col-md-4 list-group-item picture-frame">
+                        <img src="@item.ImageURL" style="height:150px; width:150px;" />
                     </li>
+                }
             }
-        }
+        </ul>
+    </div>
 </div>
+
+
+<div class="container">
+    <h4>Vehicle History</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.VehicleHistory.Purpose)</th>
+                    <th>@Html.DisplayNameFor(model => model.VehicleHistory.NoOfOwners)</th>
+                    <th>@Html.DisplayNameFor(model => model.VehicleHistory.HUValidUntil)</th>
+                    <th>@Html.DisplayNameFor(model => model.VehicleHistory.Warranty)</th>
+                    <th>@Html.DisplayNameFor(model => model.VehicleHistory.Mileage)</th>
+                    <th>@Html.DisplayNameFor(model => model.VehicleHistory.FirstRegistration)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Html.DisplayFor(model => model.VehicleHistory.Purpose)</td>
+                    <td>@Html.DisplayFor(model => model.VehicleHistory.NoOfOwners)</td>
+                    <td>@Html.DisplayFor(model => model.VehicleHistory.HUValidUntil)</td>
+                    <td>@Html.CheckBoxFor(model => model.VehicleHistory.Warranty) </td>
+                    @*<td>@Html.DisplayFor(model => @Helpers.BooleanLabel(Convert.ToBoolean(model.VehicleHistory.Warranty)))</td>*@
+                    <td>@Html.DisplayFor(model => model.VehicleHistory.Mileage)</td>
+                    <td>@Html.DisplayFor(model => model.VehicleHistory.FirstRegistration)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    @*<div class="col-md-6">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.VehicleEngine.FuelType)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.VehicleEngine.FuelType)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.VehicleFeature.ExteriorColor)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.VehicleFeature.ExteriorColor)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.VehicleHistory.Purpose)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.VehicleHistory.Purpose)
+            </dd>
+        </dl>
+    </div>*@
 

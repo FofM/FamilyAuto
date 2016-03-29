@@ -15,6 +15,13 @@
         <EntityTypeShape EntityType="FamilyAutoModel.VehiclePicture" Width="1.5" PointX="3" PointY="12.5" />
         <AssociationConnector Association="FamilyAutoModel.FK_VehiclePictures_Vehicle" />
         <EntityTypeShape EntityType="FamilyAutoModel.Articles" Width="1.5" PointX="6.25" PointY="3.75" />
+        <EntityTypeShape EntityType="FamilyAutoModel.AspNetRoles" Width="1.5" PointX="5.375" PointY="8.5" />
+        <EntityTypeShape EntityType="FamilyAutoModel.AspNetUserClaims" Width="1.5" PointX="9.875" PointY="7" />
+        <EntityTypeShape EntityType="FamilyAutoModel.AspNetUserLogins" Width="1.5" PointX="9.875" PointY="9.75" />
+        <EntityTypeShape EntityType="FamilyAutoModel.AspNetUsers" Width="1.5" PointX="7.625" PointY="7.375" />
+        <AssociationConnector Association="FamilyAutoModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="FamilyAutoModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="FamilyAutoModel.AspNetUserRoles" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

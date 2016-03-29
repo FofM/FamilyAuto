@@ -12,16 +12,12 @@ namespace FamilyAuto.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class VehicleHistory
+    public partial class AspNetUserLogins
     {
-        public int Id { get; set; }
-        public string Purpose { get; set; }
-        public Nullable<int> NoOfOwners { get; set; }
-        public Nullable<System.DateTime> HUValidUntil { get; set; }
-        public bool Warranty { get; set; }
-        public Nullable<int> Mileage { get; set; }
-        public Nullable<System.DateTime> FirstRegistration { get; set; }
+        public string LoginProvider { get; set; }
+        public string ProviderKey { get; set; }
+        public string UserId { get; set; }
     
-        public virtual Vehicle Vehicle { get; set; }
+        public virtual AspNetUsers AspNetUsers { get; set; }
     }
 }

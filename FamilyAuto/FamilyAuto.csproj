@@ -196,6 +196,18 @@
     <Compile Include="Models\Articles.cs">
       <DependentUpon>FamilyAutoDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AspNetRoles.cs">
+      <DependentUpon>FamilyAutoDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserClaims.cs">
+      <DependentUpon>FamilyAutoDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserLogins.cs">
+      <DependentUpon>FamilyAutoDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUsers.cs">
+      <DependentUpon>FamilyAutoDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\FamilyAutoDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -213,6 +225,8 @@
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Metadata.cs" />
+    <Compile Include="Models\PartialClasses.cs" />
     <Compile Include="Models\TypeEnum.cs">
       <DependentUpon>FamilyAutoDB.tt</DependentUpon>
     </Compile>
@@ -270,6 +284,7 @@
     <Content Include="Models\FamilyAutoDB.edmx.diagram">
       <DependentUpon>FamilyAutoDB.edmx</DependentUpon>
     </Content>
+    <Content Include="App_Code\Helpers.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
