@@ -18,7 +18,7 @@ namespace FamilyAuto.Controllers
         public ActionResult Showroom()
         {
             var vehicles = db.Vehicles.Include(v => v.VehicleEngine).Include(v => v.VehicleFeature).Include(v => v.VehicleHistory);
-
+            
             //var vehicles = from v in db.Vehicles
             //               from ve in db.VehicleEngines
             //               from vh in db.VehicleHistories

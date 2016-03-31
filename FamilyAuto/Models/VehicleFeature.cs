@@ -17,12 +17,12 @@ namespace FamilyAuto.Models
         public int Id { get; set; }
         public string ExteriorColor { get; set; }
         public string InteriorColor { get; set; }
-        public Nullable<bool> AirConditioning { get; set; }
+        public bool AirConditioning { get; set; }
         public string InteriorFeatures { get; set; }
         public string Security { get; set; }
-        public Nullable<bool> Airbags { get; set; }
-        public Nullable<bool> ParkingSensor { get; set; }
-        public Nullable<bool> Sports { get; set; }
+        public bool Airbags { get; set; }
+        public bool ParkingSensor { get; set; }
+        public bool Sports { get; set; }
         public string InteriorMaterial { get; set; }
     
         public virtual Vehicle Vehicle { get; set; }

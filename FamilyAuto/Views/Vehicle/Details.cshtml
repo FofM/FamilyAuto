@@ -1,5 +1,8 @@
 ﻿@model FamilyAuto.Models.Vehicle
 
+<script src="~/Scripts/jquery.bxslider.min.js"></script>
+<link href="~/Content/jquery.bxslider.css" rel="stylesheet" />
+
 @{
     ViewBag.Title = "Vehicle Details";
 }
@@ -83,49 +86,118 @@
     </div>
     <div class="col-md-6">
         <br /><br /><br /><br />
-        <ul>
+        <ul class="bxslider">
             @foreach (var item in Model.VehiclePictures)
             {
                 if (item.VehicleID == ViewBag.VehicleID)
                 {
-                    <li class="col-md-4 list-group-item picture-frame">
-                        <img src="@item.ImageURL" style="height:150px; width:150px;" />
+                    @*<li class="col-md-4 list-group-item picture-frame">*@
+                    <li>
+                        <img src="@item.ImageURL" />
                     </li>
                 }
             }
         </ul>
+        @*<div id="bx-pager">
+            @foreach (var item in Model.VehiclePictures)
+            {
+                var count = 0;
+                <a data-slide-index="@count" href=""><img src="@item.ImageURL" /></a>
+                count++;
+            }
+        </div>*@
     </div>
 </div>
 
 
 <div class="container">
     <h4>Vehicle History</h4>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.VehicleHistory.Purpose)</th>
-                    <th>@Html.DisplayNameFor(model => model.VehicleHistory.NoOfOwners)</th>
-                    <th>@Html.DisplayNameFor(model => model.VehicleHistory.HUValidUntil)</th>
-                    <th>@Html.DisplayNameFor(model => model.VehicleHistory.Warranty)</th>
-                    <th>@Html.DisplayNameFor(model => model.VehicleHistory.Mileage)</th>
-                    <th>@Html.DisplayNameFor(model => model.VehicleHistory.FirstRegistration)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>@Html.DisplayFor(model => model.VehicleHistory.Purpose)</td>
-                    <td>@Html.DisplayFor(model => model.VehicleHistory.NoOfOwners)</td>
-                    <td>@Html.DisplayFor(model => model.VehicleHistory.HUValidUntil)</td>
-                    <td>@Html.CheckBoxFor(model => model.VehicleHistory.Warranty) </td>
-                    @*<td>@Html.DisplayFor(model => @Helpers.BooleanLabel(Convert.ToBoolean(model.VehicleHistory.Warranty)))</td>*@
-                    <td>@Html.DisplayFor(model => model.VehicleHistory.Mileage)</td>
-                    <td>@Html.DisplayFor(model => model.VehicleHistory.FirstRegistration)</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.VehicleHistory.Purpose)</th>
+                <th>@Html.DisplayNameFor(model => model.VehicleHistory.NoOfOwners)</th>
+                <th>@Html.DisplayNameFor(model => model.VehicleHistory.HUValidUntil)</th>
+                <th>@Html.DisplayNameFor(model => model.VehicleHistory.Warranty)</th>
+                <th>@Html.DisplayNameFor(model => model.VehicleHistory.Mileage)</th>
+                <th>@Html.DisplayNameFor(model => model.VehicleHistory.FirstRegistration)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Html.DisplayFor(model => model.VehicleHistory.Purpose)</td>
+                <td>@Html.DisplayFor(model => model.VehicleHistory.NoOfOwners)</td>
+                <td>@Html.DisplayFor(model => model.VehicleHistory.HUValidUntil)</td>
+                <td>@Html.CheckBoxFor(model => model.VehicleHistory.Warranty, new { @disabled = "disabled" }) </td>
+                @*<td>@Html.DisplayFor(model => @Helpers.BooleanLabel(Convert.ToBoolean(model.VehicleHistory.Warranty)))</td>*@
+                <td>@Html.DisplayFor(model => model.VehicleHistory.Mileage)</td>
+                <td>@Html.DisplayFor(model => model.VehicleHistory.FirstRegistration)</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
-    @*<div class="col-md-6">
+<div class="container">
+    <h4>Vehicle Engine</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.VehicleEngine.FuelType)</th>
+                <th>@Html.DisplayNameFor(model => model.VehicleEngine.Transmission)</th>
+                <th>@Html.DisplayNameFor(model => model.VehicleEngine.CubicCapacity)</th>
+                <th>@Html.DisplayNameFor(model => model.VehicleEngine.Power)</th>
+                <th>@Html.DisplayNameFor(model => model.VehicleEngine.FuelConsumption)</th>
+                <th>@Html.DisplayNameFor(model => model.VehicleEngine.EmissionClass)</th>
+                <th>@Html.DisplayNameFor(model => model.VehicleEngine.EmissionSticker)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>@Html.DisplayFor(model => model.VehicleEngine.FuelType)</th>
+                <th>@Html.DisplayFor(model => model.VehicleEngine.Transmission)</th>
+                <th>@Html.DisplayFor(model => model.VehicleEngine.CubicCapacity)</th>
+                <th>@Html.DisplayFor(model => model.VehicleEngine.Power)</th>
+                <th>@Html.DisplayFor(model => model.VehicleEngine.FuelConsumption)</th>
+                <th>@Html.DisplayFor(model => model.VehicleEngine.EmissionClass)</th>
+                <th>@Html.DisplayFor(model => model.VehicleEngine.EmissionSticker)</th>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="container">
+    <h4>Vehicle Features</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.VehicleFeature.ExteriorColor)</th>
+                <th>@Html.DisplayNameFor(model => model.VehicleFeature.InteriorColor)</th>
+                <th>@Html.DisplayNameFor(model => model.VehicleFeature.AirConditioning)</th>
+                <th>@Html.DisplayNameFor(model => model.VehicleFeature.InteriorFeatures)</th>
+                <th>@Html.DisplayNameFor(model => model.VehicleFeature.Security)</th>
+                <th>@Html.DisplayNameFor(model => model.VehicleFeature.Airbags)</th>
+                <th>@Html.DisplayNameFor(model => model.VehicleFeature.ParkingSensor)</th>
+                <th>@Html.DisplayNameFor(model => model.VehicleFeature.Sports)</th>
+                <th>@Html.DisplayNameFor(model => model.VehicleFeature.InteriorMaterial)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>@Html.DisplayFor(model => model.VehicleFeature.ExteriorColor)</th>
+                <th>@Html.DisplayFor(model => model.VehicleFeature.InteriorColor)</th>
+                <th>@Html.DisplayFor(model => model.VehicleFeature.AirConditioning)</th>
+                <th>@Html.DisplayFor(model => model.VehicleFeature.InteriorFeatures)</th>
+                <th>@Html.DisplayFor(model => model.VehicleFeature.Security)</th>
+                <th>@Html.DisplayFor(model => model.VehicleFeature.Airbags)</th>
+                <th>@Html.DisplayFor(model => model.VehicleFeature.ParkingSensor)</th>
+                <th>@Html.DisplayFor(model => model.VehicleFeature.Sports)</th>
+                <th>@Html.DisplayFor(model => model.VehicleFeature.InteriorMaterial)</th>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+@*<div class="col-md-6">
         <dl class="dl-horizontal">
             <dt>
                 @Html.DisplayNameFor(model => model.VehicleEngine.FuelType)
@@ -153,3 +225,17 @@
         </dl>
     </div>*@
 
+<ul class="bxslider">
+    <li><img src="http://www.thekrausemouse.com/wp-content/uploads/2016/03/sample-1.jpg" title="Funky roots" /></li>
+    <li><img src="http://imgsv.imaging.nikon.com/lineup/lens/zoom/normalzoom/af-s_dx_18-140mmf_35-56g_ed_vr/img/sample/sample1_l.jpg" /></li>
+    <li><img src="http://imgsv.imaging.nikon.com/lineup/lens/zoom/normalzoom/af-s_dx_18-300mmf_35-56g_ed_vr/img/sample/sample1_l.jpg" title="Happy trees" /></li>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.bxslider').bxSlider({
+            adaptiveHeight: true,
+            mode: 'fade'
+        })
+    });
+</script>
