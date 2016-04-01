@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FamilyAuto.Models;
+using System.Web.Security;
+using Microsoft.AspNet.Identity;
 
 namespace FamilyAuto.Controllers
 {
@@ -39,7 +41,8 @@ namespace FamilyAuto.Controllers
         // GET: User/Create
         public ActionResult Create()
         {
-            ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email");
+
+            //ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email");
             return View();
         }
 
@@ -50,6 +53,16 @@ namespace FamilyAuto.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,FirstName,LastName,Phone,Email,Address,UserId")] Customers customers)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                //Guid uID = (Guid)Membership.GetUser().ProviderUserKey;
+                string uID = User.Identity.GetUserId();
+                customers.UserId = uID;
+            }
+            else
+            {
+                customers.UserId = "";
+            }
             if (ModelState.IsValid)
             {
                 db.Customers.Add(customers);
