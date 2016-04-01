@@ -1,0 +1,58 @@
+﻿@model FamilyAuto.Models.SoldVehicles
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>SoldVehicles</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DateSold)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateSold)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateCreated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FinalPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FinalPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Customers.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Customers.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Vehicle.Make)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Vehicle.Make)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

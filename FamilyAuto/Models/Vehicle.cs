@@ -18,6 +18,7 @@ namespace FamilyAuto.Models
         public Vehicle()
         {
             this.VehiclePictures = new HashSet<VehiclePicture>();
+            this.SoldVehicles = new HashSet<SoldVehicles>();
         }
     
         public int Id { get; set; }
@@ -29,11 +30,14 @@ namespace FamilyAuto.Models
         public string Description { get; set; }
         public Nullable<int> Price { get; set; }
         public System.DateTime DateUploaded { get; set; }
+        public bool Sold { get; set; }
     
         public virtual VehicleEngine VehicleEngine { get; set; }
         public virtual VehicleFeature VehicleFeature { get; set; }
         public virtual VehicleHistory VehicleHistory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VehiclePicture> VehiclePictures { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SoldVehicles> SoldVehicles { get; set; }
     }
 }

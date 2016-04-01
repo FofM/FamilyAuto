@@ -24,6 +24,9 @@
         <AssociationConnector Association="FamilyAutoModel.AspNetUserRoles" />
         <EntityTypeShape EntityType="FamilyAutoModel.Customers" Width="1.5" PointX="9.875" PointY="13.125" />
         <AssociationConnector Association="FamilyAutoModel.FK_Customers_AspNetUsers" />
+        <EntityTypeShape EntityType="FamilyAutoModel.SoldVehicles" Width="1.5" PointX="12.125" PointY="9" />
+        <AssociationConnector Association="FamilyAutoModel.FK_SoldVehicles_Customers" />
+        <AssociationConnector Association="FamilyAutoModel.FK_SoldVehicles_Vehicle" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

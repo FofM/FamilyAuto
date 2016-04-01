@@ -184,6 +184,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IMSController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\SoldVehiclesController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\VehicleController.cs" />
     <Compile Include="Extensions\HtmlHelperExtensions.cs" />
@@ -231,6 +232,9 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Metadata.cs" />
     <Compile Include="Models\PartialClasses.cs" />
+    <Compile Include="Models\SoldVehicles.cs">
+      <DependentUpon>FamilyAutoDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TypeEnum.cs">
       <DependentUpon>FamilyAutoDB.tt</DependentUpon>
     </Compile>
@@ -365,6 +369,11 @@
     <Content Include="Views\Account\RoleIndex.cshtml" />
     <Content Include="Views\Account\RoleAddToUser.cshtml" />
     <Content Include="Views\Account\RoleCreate.cshtml" />
+    <Content Include="Views\SoldVehicles\Create.cshtml" />
+    <Content Include="Views\SoldVehicles\Delete.cshtml" />
+    <Content Include="Views\SoldVehicles\Details.cshtml" />
+    <Content Include="Views\SoldVehicles\Edit.cshtml" />
+    <Content Include="Views\SoldVehicles\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

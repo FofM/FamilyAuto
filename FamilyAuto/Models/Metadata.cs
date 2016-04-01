@@ -29,4 +29,10 @@ namespace FamilyAuto.Models
         public bool ParkingSensor { get; set; }
         public bool Sports { get; set; }
     }
+
+    public class SoldVehiclesMetadata
+    {
+        [DataType(DataType.Date)]
+        public System.DateTime DateSold { get; set; }
+    }
 }
