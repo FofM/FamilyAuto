@@ -10,4 +10,9 @@ namespace FamilyAuto.Models
     public partial class VehicleHistory
     {
     }
+
+    [MetadataType(typeof(VehicleFeatureMetadata))]
+    public partial class VehicleFeature
+    {
+    }
 }

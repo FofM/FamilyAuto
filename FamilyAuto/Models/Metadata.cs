@@ -18,6 +18,15 @@ namespace FamilyAuto.Models
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
         public Nullable<System.DateTime> FirstRegistration;
 
+        public bool Warranty { get; set; }
+
     }
 
+    public class VehicleFeatureMetadata
+    {
+        public bool AirConditioning { get; set; }
+        public bool Airbags { get; set; }
+        public bool ParkingSensor { get; set; }
+        public bool Sports { get; set; }
+    }
 }

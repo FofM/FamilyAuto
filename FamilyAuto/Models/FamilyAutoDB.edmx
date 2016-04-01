@@ -66,6 +66,18 @@
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone" Type="nchar" MaxLength="15" />
+          <Property Name="Email" Type="nchar" MaxLength="100" Nullable="false" />
+          <Property Name="Address" Type="nchar" MaxLength="200" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" />
+        </EntityType>
         <EntityType Name="Vehicle">
           <Key>
             <PropertyRef Name="Id" />
@@ -135,6 +147,18 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
           <Property Name="Description" Type="nvarchar" MaxLength="100" />
           <Property Name="ImageURL" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Customers_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Customers">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -254,10 +278,11 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vehicle" EntityType="Self.Vehicle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VehiclePictures" EntityType="Self.VehiclePictures" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="VehicleEngine" EntityType="Self.VehicleEngine" store:Type="Tables" Schema="dbo">
-            <!--<DefiningQuery>SELECT 
+          <EntitySet Name="VehicleEngine" EntityType="Self.VehicleEngine" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
     [VehicleEngine].[Id] AS [Id], 
     [VehicleEngine].[FuelType] AS [FuelType], 
     [VehicleEngine].[Transmission] AS [Transmission], 
@@ -266,10 +291,10 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
     [VehicleEngine].[FuelConsumption] AS [FuelConsumption], 
     [VehicleEngine].[EmissionClass] AS [EmissionClass], 
     [VehicleEngine].[EmissionSticker] AS [EmissionSticker]
-    FROM [dbo].[VehicleEngine] AS [VehicleEngine]</DefiningQuery>-->
+    FROM [dbo].[VehicleEngine] AS [VehicleEngine]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="VehicleFeature" EntityType="Self.VehicleFeature" store:Type="Tables" Schema="dbo">
-            <!--<DefiningQuery>SELECT 
+          <EntitySet Name="VehicleFeature" EntityType="Self.VehicleFeature" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
     [VehicleFeature].[Id] AS [Id], 
     [VehicleFeature].[ExteriorColor] AS [ExteriorColor], 
     [VehicleFeature].[InteriorColor] AS [InteriorColor], 
@@ -280,10 +305,10 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
     [VehicleFeature].[ParkingSensor] AS [ParkingSensor], 
     [VehicleFeature].[Sports] AS [Sports], 
     [VehicleFeature].[InteriorMaterial] AS [InteriorMaterial]
-    FROM [dbo].[VehicleFeature] AS [VehicleFeature]</DefiningQuery>-->
+    FROM [dbo].[VehicleFeature] AS [VehicleFeature]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="VehicleHistory" EntityType="Self.VehicleHistory" store:Type="Tables" Schema="dbo">
-            <!--<DefiningQuery>SELECT 
+          <EntitySet Name="VehicleHistory" EntityType="Self.VehicleHistory" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
     [VehicleHistory].[Id] AS [Id], 
     [VehicleHistory].[Purpose] AS [Purpose], 
     [VehicleHistory].[NoOfOwners] AS [NoOfOwners], 
@@ -291,8 +316,12 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
     [VehicleHistory].[Warranty] AS [Warranty], 
     [VehicleHistory].[Mileage] AS [Mileage], 
     [VehicleHistory].[FirstRegistration] AS [FirstRegistration]
-    FROM [dbo].[VehicleHistory] AS [VehicleHistory]</DefiningQuery>-->
+    FROM [dbo].[VehicleHistory] AS [VehicleHistory]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK_Customers_AspNetUsers" Association="Self.FK_Customers_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Customers" EntitySet="Customers" />
+          </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -472,6 +501,11 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="Customers" EntityType="FamilyAutoModel.Customers" />
+          <AssociationSet Name="FK_Customers_AspNetUsers" Association="FamilyAutoModel.FK_Customers_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Customers" EntitySet="Customers" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="VehiclePicture">
           <Key>
@@ -573,6 +607,7 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
           <NavigationProperty Name="AspNetUserClaims" Relationship="FamilyAutoModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="FamilyAutoModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
           <NavigationProperty Name="AspNetRoles" Relationship="FamilyAutoModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+          <NavigationProperty Name="Customers" Relationship="FamilyAutoModel.FK_Customers_AspNetUsers" FromRole="AspNetUsers" ToRole="Customers" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Type="FamilyAutoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
@@ -605,6 +640,31 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
         <Association Name="AspNetUserRoles">
           <End Type="FamilyAutoModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
           <End Type="FamilyAutoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="true" Unicode="true" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="FamilyAutoModel.FK_Customers_AspNetUsers" FromRole="Customers" ToRole="AspNetUsers" />
+        </EntityType>
+        <Association Name="FK_Customers_AspNetUsers">
+          <End Type="FamilyAutoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+          <End Type="FamilyAutoModel.Customers" Role="Customers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Customers">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -744,6 +804,19 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="FamilyAutoModel.Customers">
+              <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -208,6 +208,9 @@
     <Compile Include="Models\AspNetUsers.cs">
       <DependentUpon>FamilyAutoDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Customers.cs">
+      <DependentUpon>FamilyAutoDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\FamilyAutoDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
