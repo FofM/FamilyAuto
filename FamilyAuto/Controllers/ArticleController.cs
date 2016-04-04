@@ -48,15 +48,23 @@ namespace FamilyAuto.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,ArticleTitle,ArticleDescription,ArticleType,DateUploaded")] Articles articles)
         {
-            if (ModelState.IsValid)
-            {
-                articles.DateUploaded = DateTime.Now;
-                db.Articles.Add(articles);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
 
-            return View(articles);
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    articles.DateUploaded = DateTime.Now;
+                    db.Articles.Add(articles);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
+                return View(articles);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Articles", "Create"));
+            }
         }
 
         // GET: Article/Edit/5

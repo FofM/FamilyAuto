@@ -18,7 +18,7 @@ namespace FamilyAuto.Controllers
                           orderby n.DateUploaded descending
                           select n).Take(3);
             //topNews.Take(3).ToList();
-            return View(topNews);
+            return View("Index", topNews);
         }
 
         public ActionResult News()
