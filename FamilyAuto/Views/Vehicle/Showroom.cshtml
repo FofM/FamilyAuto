@@ -4,8 +4,6 @@
     ViewBag.Title = "Showroom";
 }
 
-<h2>Authenticated</h2>
-
 <div class="page-header">
     <h1>SHOWROOM</h1>
 </div>
@@ -49,10 +47,10 @@
 
                             @Html.ActionLink(item.Make, "Details", new { id = item.Id }) - @Html.DisplayFor(modelItem => item.Price)€
                         </h4>
-                        <p class="address">Model: @Html.DisplayFor(modelItem => item.Model), Variant: @Html.DisplayFor(modelItem => item.Variant)</p>
-                        <p class="power">@Html.DisplayFor(modelItem => item.VehicleEngine.Power)KW</p>
-                        <p class="color">Color: @Html.DisplayFor(modelItem => item.VehicleFeature.ExteriorColor)</p>
-                        <p class="mileage">Mileage: @Html.DisplayFor(modelItem => item.VehicleHistory.Mileage)</p>
+                        <p class="address">Model: <b>@Html.DisplayFor(modelItem => item.Model)</b>, Variant: <b>@Html.DisplayFor(modelItem => item.Variant)</b></p>
+                        <p class="power">Power: <b>@Html.DisplayFor(modelItem => item.VehicleEngine.Power)KW</b></p>
+                        <p class="color">Color: <b>@Html.DisplayFor(modelItem => item.VehicleFeature.ExteriorColor)</b></p>
+                        <p class="mileage">Mileage: <b>@Html.DisplayFor(modelItem => item.VehicleHistory.Mileage)km</b></p>
                     </div>
                 </div>
 

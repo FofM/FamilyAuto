@@ -20,4 +20,9 @@ namespace FamilyAuto.Models
     public partial class SoldVehicles
     {
     }
+
+    [MetadataType(typeof(VehicleEngineMetadata))]
+    public partial class VehicleEngine
+    {
+    }
 }

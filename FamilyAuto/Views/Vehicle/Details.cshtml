@@ -8,14 +8,18 @@
 }
 
 <h2>Vehicle Details</h2>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
 
 <div class="container">
     <div class="col-md-6">
         <h4>@Html.DisplayFor(model => model.Make), @Html.DisplayFor(model => model.Model)</h4>
+        @if (User.Identity.IsAuthenticated & User.IsInRole("Admin"))
+        {
+            <p>
+                @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+                @Html.ActionLink("Manage Page", "Index")
+            </p>
+        }
         <hr />
         <dl class="dl-horizontal">
             <dt>
@@ -91,21 +95,12 @@
             {
                 if (item.VehicleID == ViewBag.VehicleID)
                 {
-                    @*<li class="col-md-4 list-group-item picture-frame">*@
                     <li>
                         <img src="@item.ImageURL" />
                     </li>
                 }
             }
         </ul>
-        @*<div id="bx-pager">
-            @foreach (var item in Model.VehiclePictures)
-            {
-                var count = 0;
-                <a data-slide-index="@count" href=""><img src="@item.ImageURL" /></a>
-                count++;
-            }
-        </div>*@
     </div>
 </div>
 
@@ -153,13 +148,13 @@
         </thead>
         <tbody>
             <tr>
-                <th>@Html.DisplayFor(model => model.VehicleEngine.FuelType)</th>
-                <th>@Html.DisplayFor(model => model.VehicleEngine.Transmission)</th>
-                <th>@Html.DisplayFor(model => model.VehicleEngine.CubicCapacity)</th>
-                <th>@Html.DisplayFor(model => model.VehicleEngine.Power)</th>
-                <th>@Html.DisplayFor(model => model.VehicleEngine.FuelConsumption)</th>
-                <th>@Html.DisplayFor(model => model.VehicleEngine.EmissionClass)</th>
-                <th>@Html.DisplayFor(model => model.VehicleEngine.EmissionSticker)</th>
+                <td>@Html.DisplayFor(model => model.VehicleEngine.FuelType)</td>
+                <td>@Html.DisplayFor(model => model.VehicleEngine.Transmission)</td>
+                <td>@Html.DisplayFor(model => model.VehicleEngine.CubicCapacity)</td>
+                <td>@Html.DisplayFor(model => model.VehicleEngine.Power)</td>
+                <td>@Html.DisplayFor(model => model.VehicleEngine.FuelConsumption)</td>
+                <td>@Html.DisplayFor(model => model.VehicleEngine.EmissionClass)</td>
+                <td>@Html.DisplayFor(model => model.VehicleEngine.EmissionSticker)</td>
             </tr>
         </tbody>
     </table>
@@ -183,53 +178,23 @@
         </thead>
         <tbody>
             <tr>
-                <th>@Html.DisplayFor(model => model.VehicleFeature.ExteriorColor)</th>
-                <th>@Html.DisplayFor(model => model.VehicleFeature.InteriorColor)</th>
-                <th>@Html.DisplayFor(model => model.VehicleFeature.AirConditioning)</th>
-                <th>@Html.DisplayFor(model => model.VehicleFeature.InteriorFeatures)</th>
-                <th>@Html.DisplayFor(model => model.VehicleFeature.Security)</th>
-                <th>@Html.DisplayFor(model => model.VehicleFeature.Airbags)</th>
-                <th>@Html.DisplayFor(model => model.VehicleFeature.ParkingSensor)</th>
-                <th>@Html.DisplayFor(model => model.VehicleFeature.Sports)</th>
-                <th>@Html.DisplayFor(model => model.VehicleFeature.InteriorMaterial)</th>
+                <td>@Html.DisplayFor(model => model.VehicleFeature.ExteriorColor)</td>
+                <td>@Html.DisplayFor(model => model.VehicleFeature.InteriorColor)</td>
+                <td>@Html.DisplayFor(model => model.VehicleFeature.AirConditioning)</td>
+                <td>@Html.DisplayFor(model => model.VehicleFeature.InteriorFeatures)</td>
+                <td>@Html.DisplayFor(model => model.VehicleFeature.Security)</td>
+                @*<td>@Html.DisplayFor(model => model.VehicleFeature.Airbags)</td>*@
+                @if (Model.VehicleFeature.Airbags == true)
+                { <td>YES</td>}
+                else { <td>NO</td>}
+                <td>@Html.DisplayFor(model => model.VehicleFeature.ParkingSensor)</td>
+                <td>@Html.DisplayFor(model => model.VehicleFeature.Sports)</td>
+                <td>@Html.DisplayFor(model => model.VehicleFeature.InteriorMaterial)</td>
             </tr>
         </tbody>
     </table>
 </div>
 
-@*<div class="col-md-6">
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.VehicleEngine.FuelType)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.VehicleEngine.FuelType)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.VehicleFeature.ExteriorColor)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.VehicleFeature.ExteriorColor)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.VehicleHistory.Purpose)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.VehicleHistory.Purpose)
-            </dd>
-        </dl>
-    </div>*@
-
-<ul class="bxslider">
-    <li><img src="http://www.thekrausemouse.com/wp-content/uploads/2016/03/sample-1.jpg" title="Funky roots" /></li>
-    <li><img src="http://imgsv.imaging.nikon.com/lineup/lens/zoom/normalzoom/af-s_dx_18-140mmf_35-56g_ed_vr/img/sample/sample1_l.jpg" /></li>
-    <li><img src="http://imgsv.imaging.nikon.com/lineup/lens/zoom/normalzoom/af-s_dx_18-300mmf_35-56g_ed_vr/img/sample/sample1_l.jpg" title="Happy trees" /></li>
-</ul>
 
 <script type="text/javascript">
     $(document).ready(function () {
