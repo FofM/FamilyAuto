@@ -10,6 +10,13 @@ namespace FamilyAuto.Models
     {
     }
 
+    public class VehicleMetadata
+    {
+        [Display(Name = "Date Uploaded")]
+        [DataType(DataType.Date)]
+        public System.DateTime DateUploaded { get; set; }
+    }
+
     public class VehicleHistoryMetadata
     {
         [Display(Name = "Owners")]
@@ -22,9 +29,6 @@ namespace FamilyAuto.Models
         [Display(Name = "First Registration")]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
         public Nullable<System.DateTime> FirstRegistration;
-
-        public bool Warranty { get; set; }
-
     }
 
     public class VehicleEngineMetadata
@@ -71,7 +75,53 @@ namespace FamilyAuto.Models
 
     public class SoldVehiclesMetadata
     {
+        [Display(Name = "Vehicle ID")]
+        public int VehicleId { get; set; }
+
+        [Display(Name = "Customer ID")]
+        public int CustomerId { get; set; }
+
+        [Display(Name = "Date Created")]
+        [DataType(DataType.Date)]
+        public System.DateTime DateCreated { get; set; }
+
+        [Display(Name = "Final Price")]
+        public int FinalPrice { get; set; }
+
+        [Display(Name = "Date Sold")]
         [DataType(DataType.Date)]
         public System.DateTime DateSold { get; set; }
+
+        [Display(Name = "Vehicle ID and Make")]
+        public string VehicleIdName;
+
+        [Display(Name = "Customer ID and Name")]
+        public string CustomerIdName;
     }
+
+    public class ArticlesMetadata
+    {
+        [Display(Name = "Article Title")]
+        public string ArticleTitle { get; set; }
+
+        [Display(Name = "Article Description")]
+        public string ArticleDescription { get; set; }
+
+        [Display(Name = "Article Type")]
+        public ArticleEnum ArticleType { get; set; }
+
+        [Display(Name = "Date Published")]
+        [DataType(DataType.Date)]
+        public System.DateTime DateUploaded { get; set; }
+    }
+
+    public class CustomersMetadata
+    {
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+    }
+
 }

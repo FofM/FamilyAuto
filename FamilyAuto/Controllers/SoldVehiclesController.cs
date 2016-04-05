@@ -51,7 +51,7 @@ namespace FamilyAuto.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,VehicleId,CustomerId,DateSold,DateCreated,FinalPrice")] SoldVehicles soldVehicles)
         {
-            Vehicle v = new Vehicle();
+            //Vehicle v = new Vehicle();
 
             if (ModelState.IsValid)
             {
