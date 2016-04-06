@@ -27,7 +27,7 @@ namespace FamilyAuto.Controllers
                            where n.ArticleType == 0
                            orderby n.DateUploaded descending
                            select n;
-            return View(topNews);
+            return View("News", topNews);
         }
 
         public ActionResult Services()
@@ -36,21 +36,14 @@ namespace FamilyAuto.Controllers
                           where (int)n.ArticleType == 1
                           orderby n.DateUploaded descending
                           select n;
-            return View(topNews);
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
+            return View("Services", topNews);
         }
 
         public ActionResult Contact()
         {
             ViewBag.Message = "Family Auto contact page.";
 
-            return View();
+            return View("Contact");
         }
     }
 }

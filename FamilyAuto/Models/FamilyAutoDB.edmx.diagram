@@ -27,6 +27,7 @@
         <EntityTypeShape EntityType="FamilyAutoModel.SoldVehicles" Width="1.5" PointX="12.125" PointY="9" />
         <AssociationConnector Association="FamilyAutoModel.FK_SoldVehicles_Customers" />
         <AssociationConnector Association="FamilyAutoModel.FK_SoldVehicles_Vehicle" />
+        <EntityTypeShape EntityType="FamilyAutoModel.Supplier" Width="1.5" PointX="8.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

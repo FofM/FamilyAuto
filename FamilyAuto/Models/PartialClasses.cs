@@ -55,4 +55,9 @@ namespace FamilyAuto.Models
     public partial class Customers
     {
     }
+
+    [MetadataType(typeof(SupplierMetadata))]
+    public partial class Supplier
+    {
+    }
 }

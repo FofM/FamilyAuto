@@ -89,6 +89,19 @@
           <Property Name="DateCreated" Type="date" Nullable="false" />
           <Property Name="FinalPrice" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompanyName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ContactName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Fax" Type="nvarchar" MaxLength="20" />
+          <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="WebAddress" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="Vehicle">
           <Key>
             <PropertyRef Name="Id" />
@@ -320,6 +333,7 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SoldVehicles" EntityType="Self.SoldVehicles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vehicle" EntityType="Self.Vehicle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VehiclePictures" EntityType="Self.VehiclePictures" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VehicleEngine" EntityType="Self.VehicleEngine" store:Type="Tables" Schema="dbo">
@@ -566,6 +580,7 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
             <End Role="Vehicle" EntitySet="Vehicles" />
             <End Role="SoldVehicles" EntitySet="SoldVehicles" />
           </AssociationSet>
+          <EntitySet Name="Supplier" EntityType="FamilyAutoModel.Supplier" />
         </EntityContainer>
         <EntityType Name="VehiclePicture">
           <Key>
@@ -768,6 +783,19 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContactName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Fax" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="WebAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -928,6 +956,20 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
                 <ScalarProperty Name="DateSold" ColumnName="DateSold" />
                 <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
                 <ScalarProperty Name="VehicleId" ColumnName="VehicleId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Supplier">
+            <EntityTypeMapping TypeName="FamilyAutoModel.Supplier">
+              <MappingFragment StoreEntitySet="Supplier">
+                <ScalarProperty Name="WebAddress" ColumnName="WebAddress" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

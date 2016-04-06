@@ -12,16 +12,15 @@ namespace FamilyAuto.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class SoldVehicles
+    public partial class Supplier
     {
         public int Id { get; set; }
-        public int VehicleId { get; set; }
-        public int CustomerId { get; set; }
-        public System.DateTime DateSold { get; set; }
-        public System.DateTime DateCreated { get; set; }
-        public int FinalPrice { get; set; }
-    
-        public virtual Customers Customers { get; set; }
-        public virtual Vehicle Vehicle { get; set; }
+        public string CompanyName { get; set; }
+        public string ContactName { get; set; }
+        public string Address { get; set; }
+        public string Phone { get; set; }
+        public string Fax { get; set; }
+        public string Email { get; set; }
+        public string WebAddress { get; set; }
     }
 }

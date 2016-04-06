@@ -39,8 +39,27 @@ namespace FamilyAuto.Controllers
         // GET: SoldVehicles/Create
         public ActionResult Create()
         {
-            ViewBag.CustomerId = new SelectList(db.Customers, "Id", "Id");
-            ViewBag.VehicleId = new SelectList(db.Vehicles, "Id", "Id");
+            //ViewBag.CustomerId = new SelectList(db.Customers, "Id", "Id");
+
+            ViewBag.CustomerId = new SelectList((from c in db.Customers.ToList()
+                                                select new
+                                                {
+                                                    Id = c.Id,
+                                                    customerName = c.Id + " - " + c.FirstName + " " + c.LastName
+                                                }),
+    "Id", "customerName", null);
+
+            //ViewBag.VehicleId = new SelectList(db.Vehicles, "Id", "Id");
+
+            //The SelectList values are defined by concatenating database values in order
+            //to provide a more readable Create view in SoldVehicles
+            ViewBag.VehicleId = new SelectList((from v in db.Vehicles.ToList() select new
+            {
+                Id = v.Id,
+                vehicleName = v.Id + " - " + v.Make
+            }),
+                "Id", "vehicleName", null);
+            //ViewBag.VehicleList = db.Vehicles;
             return View();
         }
 
@@ -64,6 +83,7 @@ namespace FamilyAuto.Controllers
 
             ViewBag.CustomerId = new SelectList(db.Customers, "Id", "Id", soldVehicles.CustomerId);
             ViewBag.VehicleId = new SelectList(db.Vehicles, "Id", "Id", soldVehicles.VehicleId);
+            ViewBag.VehicleList = db.Vehicles;
             return View(soldVehicles);
         }
 

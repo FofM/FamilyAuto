@@ -124,4 +124,18 @@ namespace FamilyAuto.Models
         public string LastName { get; set; }
     }
 
+    public class SupplierMetadata
+    {
+        [Display(Name = "Company Name")]
+        public string CompanyName { get; set; }
+
+        [Display(Name = "Contact Name")]
+        public string ContactName { get; set; }
+
+        [Display(Name = "E-Mail")]
+        public string Email { get; set; }
+
+        [Display(Name = "Web Address")]
+        public string WebAddress { get; set; }
+    }
 }
