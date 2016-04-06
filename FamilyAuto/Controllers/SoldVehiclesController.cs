@@ -144,6 +144,7 @@ namespace FamilyAuto.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             SoldVehicles soldVehicles = db.SoldVehicles.Find(id);
+            SellVehicleCancel(soldVehicles.VehicleId);
             db.SoldVehicles.Remove(soldVehicles);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -162,6 +163,13 @@ namespace FamilyAuto.Controllers
         {
             Vehicle v = db.Vehicles.Find(id);
             v.Sold = true;
+            db.SaveChanges();
+        }
+
+        public void SellVehicleCancel(int id)
+        {
+            Vehicle v = db.Vehicles.Find(id);
+            v.Sold = false;
             db.SaveChanges();
         }
     }
