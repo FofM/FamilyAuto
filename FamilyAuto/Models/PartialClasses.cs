@@ -50,4 +50,9 @@ namespace FamilyAuto.Models
     public partial class Articles
     {
     }
+
+    [MetadataType(typeof(CustomersMetadata))]
+    public partial class Customers
+    {
+    }
 }

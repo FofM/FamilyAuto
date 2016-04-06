@@ -9,7 +9,7 @@
 <div class="row">
     <div class=col-md-4>
         <h4>Maintain Customers and Suppliers</h4>
-        <a class="btn btn-default" href="#">Customers</a>
+        @Html.ActionLink("Manage Customers", "Index", new { Controller = "User" }, new { @class = "btn btn-primary" })
         <a class="btn btn-default" href="#">Suppliers</a>
     </div>
     <div class=col-md-4>

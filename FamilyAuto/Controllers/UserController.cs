@@ -55,13 +55,8 @@ namespace FamilyAuto.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                //Guid uID = (Guid)Membership.GetUser().ProviderUserKey;
                 string uID = User.Identity.GetUserId();
                 customers.UserId = uID;
-            }
-            else
-            {
-                customers.UserId = "";
             }
             if (ModelState.IsValid)
             {
