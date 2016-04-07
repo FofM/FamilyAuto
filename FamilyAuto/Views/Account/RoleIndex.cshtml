@@ -4,16 +4,20 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <p>&nbsp;</p>
-<div class="spacerBody">
-    @Html.ActionLink("Create New Role", "RoleCreate") | @Html.ActionLink("Add Role to User", "RoleAddToUser")
-    <h2>Role index</h2>
+<div class="container">
+    
+    <h2>List of Roles</h2>
+    @{int counter = 1; }
     @foreach (string s in Model)
     {
         <p>
-            @s
+            @counter. @s
             <span onclick=" return confirm('Are you sure to delete?') ">
                 <a href="/Account/RoleDelete?RoleName=@s" class="delLink">Delete</a>
             </span>
         </p>
+        counter++;
     }
+
+    @Html.ActionLink("Create New Role", "RoleCreate", new { Controller = "Account" }, new { @class = "btn btn-default" }) | @Html.ActionLink("Add Role to User", "RoleAddToUser", new { Controller = "Account" }, new { @class = "btn btn-default" })
 </div>

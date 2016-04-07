@@ -2,59 +2,73 @@
     ViewBag.Title = "RoleAddToUser";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="spacerBody">
+<div class="container">
     <p>&nbsp;</p>
-    @Html.ActionLink("Create New Role", "RoleCreate") | @Html.ActionLink("Roles", "RoleIndex")
+    @Html.ActionLink("Create New Role", "RoleCreate", new { Controller = "Account" }, new { @class = "btn btn-default" }) | @Html.ActionLink("Roles", "RoleIndex", new { Controller = "Account" }, new { @class = "btn btn-default" })
+    <br />
+    <br />
+    <hr />
+    <div class="row">
+        <div class="col-lg-4">
+            <h4>Add role to user</h4>
+            @using (Html.BeginForm("RoleAddToUser", "Account"))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
 
-    <h2>Add role to user</h2>
-    @using (Html.BeginForm("RoleAddToUser", "Account"))
-    {
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true)
+                <div class="message-success">@ViewBag.ResultMessage</div>
+                <p>
+                    Username : @Html.DropDownList("UserName", ViewBag.Users as SelectList)
+                </p>
+                <p>
+                    Role Name: @Html.DropDownList("RoleName", ViewBag.Roles as SelectList)
+                </p>
 
-        <div class="message-success">@ViewBag.ResultMessage</div>
-        <p>
-            Username : @Html.DropDownList("UserName", ViewBag.Users as SelectList)
-            Role Name: @Html.DropDownList("RoleName", ViewBag.Roles as SelectList)
-        </p>
+                <input type="submit" value="Save" class="btn btn-primary" />
+            }
+        </div>
+        <div class="col-lg-4">
+            <h4>Remove role from user</h4>
+            @using (Html.BeginForm("DeleteRoleForUser", "Account"))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
 
-        <input type="submit" value="Save" />
-    }
+                <p>
+                    Username : @Html.DropDownList("UserName", ViewBag.Users as SelectList)
+                </p>
+                    <p>
+                        Role Name: @Html.DropDownList("RoleName", ViewBag.Roles as SelectList)
+                    </p>
 
-    <h2>Remove role from user</h2>
-    @using (Html.BeginForm("DeleteRoleForUser", "Account"))
-    {
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true)
+                    <input type="submit" value="Delete this user from Role" class="btn btn-primary" />
+            }
+        </div>
+        <div class="col-lg-4">
+            <h4>List roles for user</h4>
+            @using (Html.BeginForm("GetRoles", "Account"))
+            {
+                @Html.AntiForgeryToken()
+                <p>
+                    Username : @Html.DropDownList("UserName", ViewBag.Users as SelectList)
+                    </p>
+                    <p>
+                    <input type="submit" value="Get Roles for this User" class="btn btn-primary" />
+                </p>
+            }
 
-        <p>
-            Username : @Html.DropDownList("UserName", ViewBag.Users as SelectList)
-            Role Name: @Html.DropDownList("RoleName", ViewBag.Roles as SelectList)
-        </p>
-
-        <input type="submit" value="Delete this user from Role" />
-    }
-
-    <h2>List roles for user</h2>
-    @using (Html.BeginForm("GetRoles", "Account"))
-    {
-        @Html.AntiForgeryToken()
-        <p>
-            Username : @Html.DropDownList("UserName", ViewBag.Users as SelectList)
-            <input type="submit" value="Get Roles for this User" />
-        </p>
-    }
-
-    @if (ViewBag.RolesForThisUser != null)
-    {
-        <text>
-            <h3>Roles for this user </h3>
-            <ol>
-                @foreach (string s in ViewBag.RolesForThisUser)
+            @if (ViewBag.RolesForThisUser != null)
+            {
+                <text>
+                    <h3>Roles for this user </h3>
+                    <ol>
+                        @foreach (string s in ViewBag.RolesForThisUser)
                 {
-                    <li>@s</li>
-                }
-            </ol>
-        </text>
-    }
+                            <li>@s</li>
+                        }
+                    </ol>
+                </text>
+            }
+        </div>
+    </div>
 </div>

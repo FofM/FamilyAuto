@@ -14,10 +14,10 @@ namespace FamilyAuto.Controllers
     {
         private FamilyAutoEntities db = new FamilyAutoEntities();
 
-        // GET: Vehicle
+        // GET: Showroom
         public ActionResult Showroom()
         {
-            var vehicles = db.Vehicles.Include(v => v.VehicleEngine).Include(v => v.VehicleFeature).Include(v => v.VehicleHistory);
+            var vehicles = db.Vehicles.Include(v => v.VehicleEngine).Include(v => v.VehicleFeature).Include(v => v.VehicleHistory).Where(v => v.Sold == false);
             
             //var vehicles = from v in db.Vehicles
             //               from ve in db.VehicleEngines
@@ -50,6 +50,15 @@ namespace FamilyAuto.Controllers
         {
             var vehicles = db.Vehicles.Include(v => v.VehicleEngine).Include(v => v.VehicleFeature).Include(v => v.VehicleHistory);
             return View(vehicles.ToList());
+        }
+
+        // GET: Statistics
+        public ActionResult Statistics()
+        {
+            ViewBag.VehiclesSold = (from v in db.Vehicles where v.Sold == true select v).Count();
+            ViewBag.VehiclesNotSold = (from v in db.Vehicles where v.Sold == false select v).Count();
+
+            return View("Statistics");
         }
 
         // GET: Vehicle/Details/5
