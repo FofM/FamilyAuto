@@ -1,10 +1,45 @@
-﻿
+﻿@model IEnumerable<FamilyAuto.Models.DateSoldGroup>
+
 @{
     ViewBag.Title = "Statistics";
 }
 
 <h2>Statistics</h2>
-
-<h4>Vehicles Sold @ViewBag.VehiclesSold</h4>
 <br />
-<h4>Vehicles Not Sold @ViewBag.VehiclesNotSold</h4>
+
+<h4>@Html.ActionLink("Vehicles Not Sold: " + (string)ViewBag.VehiclesSold, "Index", new { Controller = "Vehicle" }, new { @class = "" })</h4>
+
+<h4>@Html.ActionLink("Vehicles Sold: " + (string)ViewBag.VehiclesNotSold, "Index", new { Controller = "SoldVehicles" }, new { @class = "" })</h4>
+
+<h4>@Html.ActionLink("Registered Customers: " + (string)ViewBag.RegisteredCustomers, "Index", new { Controller = "User" }, new { @class = "" })</h4>
+
+<h4>@Html.ActionLink("Non-Registered Customers: " + (string)ViewBag.NonRegisteredCustomers, "Index", new { Controller = "User" }, new { @class = "" })</h4>
+
+@*@foreach (string m in ViewBag.Months)*@
+@*@foreach (var m in ViewBag.SalesPerMonth)
+{
+    <p>@m</p>
+}*@
+
+<table class="table table-striped">
+    <tr>
+        <th>
+            Date Sold
+        </th>
+        <th>
+            Count
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateSold)
+            </td>
+            <td>
+                @item.SoldCount
+            </td>
+        </tr>
+    }
+</table>

@@ -20,6 +20,27 @@ namespace FamilyAuto.Controllers
             return View(db.Articles.ToList());
         }
 
+        // GET: Statistics
+        public ActionResult Statistics()
+        {
+            ViewBag.VehiclesSold = (from v in db.Vehicles where v.Sold == true select v).Count().ToString();
+            ViewBag.VehiclesNotSold = (from v in db.Vehicles where v.Sold == false select v).Count().ToString();
+            ViewBag.RegisteredCustomers = (from c in db.Customers where c.UserId != null select c).Count().ToString();
+            ViewBag.NonRegisteredCustomers = (from c in db.Customers where c.UserId == null select c).Count().ToString();
+
+            //ViewBag.SalesPerMonth = db.SoldVehicles.GroupBy(d => d.DateSold).Select(c => new { Month = c.FirstOrDefault().DateSold.Month, Quantity = c.Count().ToString() });
+
+            var SalesPerMonth = from s in db.SoldVehicles
+                                group s by s.DateSold into dateSold
+                                select new DateSoldGroup()
+                                {
+                                    DateSold = dateSold.Key,
+                                    SoldCount = dateSold.Count()
+                                };
+
+            return View("Statistics", SalesPerMonth);
+        }
+
         // GET: IMS/Details/5
         public ActionResult Details(int? id)
         {
@@ -124,6 +145,22 @@ namespace FamilyAuto.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public void SalesPerMonth()
+        {
+            string[] monthNames = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.MonthGenitiveNames;
+            ViewBag.Months = monthNames;
+
+            DateTime[] spm = (from s in db.SoldVehicles select s.DateSold).ToArray();
+
+            System.Collections.ArrayList som = new System.Collections.ArrayList();
+            foreach (var i in spm)
+            {
+                som.Add(i.ToString("MMMM"));
+            }
+
+            ViewBag.SalesPerMonth = som;
         }
     }
 }

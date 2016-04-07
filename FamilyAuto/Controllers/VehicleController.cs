@@ -52,15 +52,6 @@ namespace FamilyAuto.Controllers
             return View(vehicles.ToList());
         }
 
-        // GET: Statistics
-        public ActionResult Statistics()
-        {
-            ViewBag.VehiclesSold = (from v in db.Vehicles where v.Sold == true select v).Count();
-            ViewBag.VehiclesNotSold = (from v in db.Vehicles where v.Sold == false select v).Count();
-
-            return View("Statistics");
-        }
-
         // GET: Vehicle/Details/5
         public ActionResult Details(int? id)
         {
