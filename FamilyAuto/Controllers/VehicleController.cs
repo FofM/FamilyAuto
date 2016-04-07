@@ -15,10 +15,16 @@ namespace FamilyAuto.Controllers
         private FamilyAutoEntities db = new FamilyAutoEntities();
 
         // GET: Showroom
-        public ActionResult Showroom()
+        public ActionResult Showroom(string make, string model)
         {
-            var vehicles = db.Vehicles.Include(v => v.VehicleEngine).Include(v => v.VehicleFeature).Include(v => v.VehicleHistory).Where(v => v.Sold == false);
-            
+            var vehicles = db.Vehicles.Include(v => v.VehicleEngine).Include(v => v.VehicleFeature).Include(v => v.VehicleHistory).Where(v => v.Sold == false)
+                .Where(v => v.Make == make || make == null || make == "")
+                .Where(v => v.Model == model || model == null || model == "");
+
+            ViewBag.Make = (from v in db.Vehicles select v.Make).Distinct();
+
+            ViewBag.Model = (from v in db.Vehicles select v.Model).Distinct();
+
             //var vehicles = from v in db.Vehicles
             //               from ve in db.VehicleEngines
             //               from vh in db.VehicleHistories
@@ -36,7 +42,7 @@ namespace FamilyAuto.Controllers
             //               };
 
             //IEnumerable<string> make = new IEnumerable<string>();
-            
+
             //ViewBag.VehicleMake = from v in db.Vehicles select v.Make;
 
             //if (!User.Identity.IsAuthenticated)
@@ -185,6 +191,16 @@ namespace FamilyAuto.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult FillModel(string make)
+        {
+            var context = new FamilyAutoEntities();
+            
+                context.Configuration.ProxyCreationEnabled = false;
+                var models = context.Vehicles.Where(v => v.Make == make);
+                return Json(models, JsonRequestBehavior.AllowGet);
+            
         }
     }
 }
