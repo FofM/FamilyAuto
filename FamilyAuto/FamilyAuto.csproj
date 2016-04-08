@@ -282,6 +282,8 @@
     <Compile Include="Startup.cs" />
     <Compile Include="UnitTests\test.cs" />
     <Compile Include="UnitTests\TestHomeControllerBasics.cs" />
+    <Compile Include="UnitTests\TestIMSControllerBasics.cs" />
+    <Compile Include="UnitTests\TestVehicleControllerBasics.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -293,6 +295,18 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\TypeIcons\4wd.PNG" />
+    <Content Include="Images\TypeIcons\Commercial.PNG" />
+    <Content Include="Images\TypeIcons\Convertible.PNG" />
+    <Content Include="Images\TypeIcons\Coupe.PNG" />
+    <Content Include="Images\TypeIcons\Hatchback.PNG" />
+    <Content Include="Images\TypeIcons\Hybrid.PNG" />
+    <Content Include="Images\TypeIcons\Luxury.PNG" />
+    <Content Include="Images\TypeIcons\Minivan.PNG" />
+    <Content Include="Images\TypeIcons\Sedan.PNG" />
+    <Content Include="Images\TypeIcons\SUV.PNG" />
+    <Content Include="Images\TypeIcons\Truck.PNG" />
+    <Content Include="Images\TypeIcons\Wagon.PNG" />
     <Content Include="Models\FamilyAutoDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>FamilyAutoDB.edmx</DependentUpon>

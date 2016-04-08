@@ -17,7 +17,7 @@ namespace FamilyAuto.Controllers
         // GET: IMS
         public ActionResult Index()
         {
-            return View(db.Articles.ToList());
+            return View("Index", db.Articles.ToList());
         }
 
         // GET: Statistics
@@ -53,7 +53,7 @@ namespace FamilyAuto.Controllers
             {
                 return HttpNotFound();
             }
-            return View(articles);
+            return View("Details", articles);
         }
 
         // GET: IMS/Create
@@ -147,20 +147,20 @@ namespace FamilyAuto.Controllers
             base.Dispose(disposing);
         }
 
-        public void SalesPerMonth()
-        {
-            string[] monthNames = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.MonthGenitiveNames;
-            ViewBag.Months = monthNames;
+        //public void SalesPerMonth()
+        //{
+        //    string[] monthNames = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.MonthGenitiveNames;
+        //    ViewBag.Months = monthNames;
 
-            DateTime[] spm = (from s in db.SoldVehicles select s.DateSold).ToArray();
+        //    DateTime[] spm = (from s in db.SoldVehicles select s.DateSold).ToArray();
 
-            System.Collections.ArrayList som = new System.Collections.ArrayList();
-            foreach (var i in spm)
-            {
-                som.Add(i.ToString("MMMM"));
-            }
+        //    System.Collections.ArrayList som = new System.Collections.ArrayList();
+        //    foreach (var i in spm)
+        //    {
+        //        som.Add(i.ToString("MMMM"));
+        //    }
 
-            ViewBag.SalesPerMonth = som;
-        }
+        //    ViewBag.SalesPerMonth = som;
+        //}
     }
 }

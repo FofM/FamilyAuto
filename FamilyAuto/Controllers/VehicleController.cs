@@ -49,13 +49,13 @@ namespace FamilyAuto.Controllers
             //{
             //    return View("Showroom", vehicles.ToList());
             //}
-            return View(vehicles.ToList());
+            return View("Showroom", vehicles.ToList());
         }
 
         public ActionResult Index()
         {
             var vehicles = db.Vehicles.Include(v => v.VehicleEngine).Include(v => v.VehicleFeature).Include(v => v.VehicleHistory);
-            return View(vehicles.ToList());
+            return View("Index", vehicles.ToList());
         }
 
         // GET: Vehicle/Details/5
@@ -75,7 +75,7 @@ namespace FamilyAuto.Controllers
             //pictureData.VehiclePictures = pictureData.VehiclePictures.Where(i => i.VehicleID == id);
             ViewBag.VehicleID = id.Value;
 
-            return View(vehicle);
+            return View("Details", vehicle);
         }
 
         // GET: Vehicle/Create
@@ -84,7 +84,7 @@ namespace FamilyAuto.Controllers
             ViewBag.Id = new SelectList(db.VehicleEngines, "Id", "FuelType");
             ViewBag.Id = new SelectList(db.VehicleFeatures, "Id", "ExteriorColor");
             ViewBag.Id = new SelectList(db.VehicleHistories, "Id", "Purpose");
-            return View();
+            return View("Create");
         }
 
         // POST: Vehicle/Create
@@ -135,7 +135,7 @@ namespace FamilyAuto.Controllers
             ViewBag.Id = new SelectList(db.VehicleEngines, "Id", "FuelType", vehicle.Id);
             ViewBag.Id = new SelectList(db.VehicleFeatures, "Id", "ExteriorColor", vehicle.Id);
             ViewBag.Id = new SelectList(db.VehicleHistories, "Id", "Purpose", vehicle.Id);
-            return View(vehicle);
+            return View("Edit", vehicle);
         }
 
         // POST: Vehicle/Edit/5
@@ -170,7 +170,7 @@ namespace FamilyAuto.Controllers
             {
                 return HttpNotFound();
             }
-            return View(vehicle);
+            return View("Delete", vehicle);
         }
 
         // POST: Vehicle/Delete/5

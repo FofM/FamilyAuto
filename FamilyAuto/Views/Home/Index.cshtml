@@ -5,7 +5,78 @@
 }
 
 <div class="jumbotron">
-    <h1>Family Auto</h1>
+        <h1>Family Auto</h1>
+        <br />
+    <button class="btn btn-info btn-lg" data-toggle="collapse" data-target="#VehicleType">Choose Vehicle Type</button>
+    <div class="container collapse" id="VehicleType">
+        <div class="row">
+            <div class="col-lg-2 col-md-2">
+                <a href="#" class="thumbnail">
+                    <img src="~/Images/TypeIcons/4wd.PNG" /> 4WD
+                </a>
+            </div>
+            <div class="col-lg-2 col-md-2">
+                <a href="#" class="thumbnail">
+                    <img src="~/Images/TypeIcons/Commercial.PNG" /> Commercial
+                </a>
+            </div>
+            <div class="col-lg-2">
+                <a href="#" class="thumbnail">
+                    <img src="~/Images/TypeIcons/Convertible.PNG" />
+                </a>
+            </div>
+            <div class="col-lg-2">
+                <a href="#" class="thumbnail">
+                    <img src="~/Images/TypeIcons/Coupe.PNG" />
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-2">
+                <a href="#" class="thumbnail">
+                    <img src="~/Images/TypeIcons/Hatchback.PNG" />
+                </a>
+            </div>
+            <div class="col-lg-2">
+                <a href="#" class="thumbnail">
+                    <img src="~/Images/TypeIcons/Hybrid.PNG" />
+                </a>
+            </div>
+            <div class="col-lg-2">
+                <a href="#" class="thumbnail">
+                    <img src="~/Images/TypeIcons/Luxury.PNG" />
+                </a>
+            </div>
+            <div class="col-lg-2">
+                <a href="#" class="thumbnail">
+                    <img src="~/Images/TypeIcons/Minivan.PNG" />
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-2">
+                <a href="#" class="thumbnail">
+                    <img src="~/Images/TypeIcons/Sedan.PNG" />
+                </a>
+            </div>
+            <div class="col-lg-2">
+                <a href="#" class="thumbnail">
+                    <img src="~/Images/TypeIcons/SUV.PNG" />
+                </a>
+            </div>
+            <div class="col-lg-2">
+                <a href="#" class="thumbnail">
+                    <img src="~/Images/TypeIcons/Truck.PNG" />
+                </a>
+            </div>
+            <div class="col-lg-2">
+                <a href="#" class="thumbnail">
+                    <img src="~/Images/TypeIcons/Wagon.PNG" />
+                </a>
+            </div>
+        </div>
+        <br />
+    </div>
     @Html.ActionLink("SHOWROOM", "Showroom", new { Controller = "Vehicle" }, new { @class = "btn btn-primary btn-lg" })
 </div>
 
