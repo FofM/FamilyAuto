@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FamilyAuto.Models;
+using System.IO;
 
 namespace FamilyAuto.Controllers
 {
@@ -101,7 +102,7 @@ namespace FamilyAuto.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Make,Model,Variant,Condition,Type,Description,DateUploaded")] Vehicle vehicle, FormCollection form )
+        public ActionResult Create([Bind(Include = "Id,Make,Model,Variant,Condition,Type,Description,DateUploaded")] Vehicle vehicle, FormCollection form)
         {
             if (ModelState.IsValid)
             {
@@ -115,9 +116,24 @@ namespace FamilyAuto.Controllers
                 //}
                 //vh.Id = vehicle.Id;
                 //db.VehicleHistories.Add(vh);
-                VehicleHistory vh = new VehicleHistory();
-                vh.Id = vehicle.Id;
-                vh.Mileage = int.Parse(form["VehicleHistory.Mileage"]);
+
+                //VehicleHistory vh = new VehicleHistory();
+                //vh.Id = vehicle.Id;
+                //vh.Mileage = int.Parse(form["VehicleHistory.Mileage"]);
+
+                //bool war = StringToBool(form["VehicleHistory.Warranty"]);
+
+                VehicleHistory vh = new VehicleHistory()
+                {
+                    Id = vehicle.Id,
+                    Purpose = form["VehicleHistory.Purpose"].ToString(),
+                    NoOfOwners = int.Parse(form["VehicleHistory.NoOfOwners"]),
+                    HUValidUntil = DateTime.Parse(form["VehicleHistory.HUValidUntil"]),
+                    Warranty = StringToBool(form["VehicleHistory.Warranty"]),
+                    Mileage = int.Parse(form["VehicleHistory.Mileage"]),
+                    FirstRegistration = DateTime.Parse(form["VehicleHistory.FirstRegistration"])
+                };
+
                 db.VehicleHistories.Add(vh);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -128,6 +144,46 @@ namespace FamilyAuto.Controllers
             ViewBag.Id = new SelectList(db.VehicleHistories, "Id", "Purpose", vehicle.Id);
             return View(vehicle);
         }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create([Bind(Include = "Id,Make,Model,Variant,Condition,Type,Description,DateUploaded")] Vehicle vehicle, FormCollection form)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        List<VehiclePicture> vehiclePictures = new List<VehiclePicture>();
+        //        for (int i = 0; i < Request.Files.Count; i++)
+        //        {
+        //            var file = Request.Files[i];
+
+        //            if (file != null && file.ContentLength > 0)
+        //            {
+        //                var fileName = Path.GetFileName(file.FileName);
+        //                VehiclePicture vehiclePicture = new VehiclePicture()
+        //                {
+        //                    Description = "",
+        //                    ImageURL = fileName
+        //                };
+        //                vehiclePictures.Add(vehiclePicture);
+        //                var path = Path.Combine(Server.MapPath("~/Images/"), fileName + Guid.NewGuid());
+        //                file.SaveAs(path);
+        //            }
+        //        }
+        //        vehicle.VehiclePictures = vehiclePictures;
+        //        vehicle.DateUploaded = DateTime.Now;
+        //        db.Vehicles.Add(vehicle);
+        //        VehicleHistory vh = new VehicleHistory();
+        //        vh.Id = vehicle.Id;
+        //        vh.Mileage = int.Parse(form["VehicleHistory.Mileage"]);
+        //        db.VehicleHistories.Add(vh);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+
+        //    ViewBag.Id = new SelectList(db.VehicleEngines, "Id", "FuelType", vehicle.Id);
+        //    ViewBag.Id = new SelectList(db.VehicleFeatures, "Id", "ExteriorColor", vehicle.Id);
+        //    ViewBag.Id = new SelectList(db.VehicleHistories, "Id", "Purpose", vehicle.Id);
+        //    return View(vehicle);
+        //}
 
         // GET: Vehicle/Edit/5
         public ActionResult Edit(int? id)
@@ -210,6 +266,15 @@ namespace FamilyAuto.Controllers
                 var models = context.Vehicles.Where(v => v.Make == make);
                 return Json(models, JsonRequestBehavior.AllowGet);
             
+        }
+
+        public bool StringToBool(string s)
+        {
+            if (s.ToLower().Equals("true,false"))
+            {
+                return true;
+            }
+            else return false;
         }
     }
 }
