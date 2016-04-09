@@ -27,7 +27,7 @@ namespace FamilyAuto.UnitTests
         {
             var controller = new VehicleController();
 
-            ViewResult result = controller.Showroom(null, null) as ViewResult;
+            ViewResult result = controller.Showroom(null, null, null, null, null, null) as ViewResult;
 
             Assert.AreEqual("Showroom", result.ViewName);
         }
@@ -37,7 +37,7 @@ namespace FamilyAuto.UnitTests
         {
             var controller = new VehicleController();
 
-            ViewResult result = controller.Showroom("BMW", "Z1") as ViewResult;
+            ViewResult result = controller.Showroom("BMW", "Z1", "4WD", 100000, 1000, 5000) as ViewResult;
 
             Assert.AreEqual("Showroom", result.ViewName);
         }

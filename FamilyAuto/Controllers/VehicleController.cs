@@ -15,15 +15,24 @@ namespace FamilyAuto.Controllers
         private FamilyAutoEntities db = new FamilyAutoEntities();
 
         // GET: Showroom
-        public ActionResult Showroom(string make, string model)
+        public ActionResult Showroom(string make, string model, string type, int? mileage, int? priceFrom, int? priceTo)
         {
             var vehicles = db.Vehicles.Include(v => v.VehicleEngine).Include(v => v.VehicleFeature).Include(v => v.VehicleHistory).Where(v => v.Sold == false)
                 .Where(v => v.Make == make || make == null || make == "")
-                .Where(v => v.Model == model || model == null || model == "");
+                .Where(v => v.Model == model || model == null || model == "")
+                .Where(v => v.Type.ToString() == type || type == null || type == "")
+                .Where(v => v.VehicleHistory.Mileage < mileage || mileage == null)
+                .Where(v => v.Price > priceFrom && v.Price < priceTo || priceFrom == null || priceTo == null) ;
 
             ViewBag.Make = (from v in db.Vehicles select v.Make).Distinct();
 
             ViewBag.Model = (from v in db.Vehicles select v.Model).Distinct();
+
+            ViewBag.Type = (from v in db.Vehicles select v.Type).Distinct();
+
+            int[] mil = new int[5] { 10000, 50000, 100000, 200000, 300000 };
+
+            ViewBag.Mileage = mil;
 
             //var vehicles = from v in db.Vehicles
             //               from ve in db.VehicleEngines

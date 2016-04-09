@@ -58,7 +58,7 @@
             </div>
         </div>
     }
-    </div>
+</div>
 
 <div class="filterStyle">
     <h3>FILTERS:</h3>
@@ -66,108 +66,117 @@
     <a href="#" class="showAll">Show All</a>
     <br />
 
-    <h5>Vehicle Type</h5>
-    <div class="dropdown">
-        <label>
-            <select>
-                <option value="Sports Car">Sports Car</option>
-                <option value="Small Car">Small Car</option>
-                <option value="Sedan">Sedan</option>
-                <option value="Van">Van</option>
-                <option value="Luxury Car">Luxury Car</option>
-            </select>
-        </label>
-    </div>
-    
-    
+    @*<h5>Vehicle Type</h5>
+        <div class="dropdown">
+            <label>
+                <select>
+                    <option value="Sports Car">Sports Car</option>
+                    <option value="Small Car">Small Car</option>
+                    <option value="Sedan">Sedan</option>
+                    <option value="Van">Van</option>
+                    <option value="Luxury Car">Luxury Car</option>
+                </select>
+            </label>
+        </div>*@
+
+
     <div class="dropdown">
         @using (Html.BeginForm("Showroom", "Vehicle", FormMethod.Get))
         {
+            <h5>Type</h5>
+            @Html.DropDownList("type", new SelectList(ViewBag.Type), "")
             <h5>Make</h5>
-            @Html.DropDownList("make", new SelectList(ViewBag.Make), new { @onchange = "FillModel()" })
+            @Html.DropDownList("make", new SelectList(ViewBag.Make), "", new { @onchange = "FillModel()" })
             <h5>Model</h5>
             @*@Html.DropDownList("model", new SelectList(ViewBag.Model))*@
-            @Html.DropDownList("model", new SelectList(Enumerable.Empty<SelectListItem>(), "Id", "Model"), "Select Model")
-            <br />
-            <input type="submit" value="Filter" class="btn-sm btn-default" />
+            @Html.DropDownList("model", new SelectList(Enumerable.Empty<SelectListItem>(), "Id", "Model"), "")
+            <h5>Milleage</h5>
+            @Html.DropDownList("mileage", new SelectList(ViewBag.Mileage), "")
+            <h5>Price range</h5>
+            @*<div class="input-sm">*@
+                @Html.TextBox("priceFrom", "From", new { @type = "number", @placeholder = "From" })
+                @Html.TextBox("priceTo", "To", new { @type = "number", @placeholder = "To" })
+            @*</div>*@
+                <br /><br />
+                <input type="submit" value="Filter" class="btn-sm btn-default" />
         }
         @*<label>
-            <select>
-                <option value="BMW">BMW</option>
-                <option value="Nissan">Nissan</option>
-                <option value="Opel">Opel</option>
-                <option value="Volvo">Volvo</option>
-                <option value="Volkswagen">Volkswagen</option>
-            </select>
-        </label>*@
+                <select>
+                    <option value="BMW">BMW</option>
+                    <option value="Nissan">Nissan</option>
+                    <option value="Opel">Opel</option>
+                    <option value="Volvo">Volvo</option>
+                    <option value="Volkswagen">Volkswagen</option>
+                </select>
+            </label>*@
     </div>
 
     @*<h5>Model</h5>
-    <div class="dropdown">
+        <div class="dropdown">
+                <select>
+                    <option value="Z1">Z1</option>
+                    <option value="Astra">Astra</option>
+                    <option value="Pathfinder">Pathfinder</option>
+                    <option value="S60">S60</option>
+                    <option value="Polo">Polo</option>
+                </select>
+        </div>*@
+
+    @*<h5>Mileage (up to)</h5>
+        <div class="dropdown">
             <select>
-                <option value="Z1">Z1</option>
-                <option value="Astra">Astra</option>
-                <option value="Pathfinder">Pathfinder</option>
-                <option value="S60">S60</option>
-                <option value="Polo">Polo</option>
+                <option value="50000">50000</option>
+                <option value="100000">100000</option>
+                <option value="200000">200000</option>
+                <option value="300000">300000</option>
             </select>
-    </div>*@
+        </div>*@
 
-    <h5>Mileage (up to)</h5>
-    <div class="dropdown">
-        <select>
-            <option value="50000">50000</option>
-            <option value="100000">100000</option>
-            <option value="200000">200000</option>
-            <option value="300000">300000</option>
-        </select>
-    </div>
-
-    <h5>Price range</h5>
+    @*<h5>Price range</h5>
     <div class="input-sm">
         <input type="number" /> From<br />
         <input type="number" /> To
-    </div>
+    </div>*@
 
- </div>
+</div>
 <br style="clear: left;" />
 
 @section Scripts {
     @*<script>
+            function FillModel() {
+                var makeId = $('#make').val();
+                $.ajax({
+                    url: '/Vehicle/FillModel',
+                    type: "GET",
+                    dataType: "JSON",
+                    data: { Make: makeId },
+                    success: function (models) {
+                        $("#model").html("");
+                        $.each(models, function (i, model) {
+                            $("#model").append(
+                                $('<option></option>').val(model.modelId).html(model.Model));
+                        });
+                    }
+                });
+            }
+        </script>*@
+
+    <script>
         function FillModel() {
-            var makeId = $('#make').val();
+            var make = $('#make').val();
             $.ajax({
                 url: '/Vehicle/FillModel',
                 type: "GET",
                 dataType: "JSON",
-                data: { Make: makeId },
+                data: { make: make },
                 success: function (models) {
-                    $("#model").html("");
+                    $("#model").html(""); // clear before appending new list
                     $.each(models, function (i, model) {
                         $("#model").append(
-                            $('<option></option>').val(model.modelId).html(model.Model));
+                            $('<option></option>').val(model.Model).html(model.Model));
                     });
                 }
             });
         }
-    </script>*@
-
-<script>
-  function FillModel() {
-    var make = $('#make').val();
-    $.ajax({
-        url: '/Vehicle/FillModel',
-        type: "GET",
-        dataType: "JSON",
-        data: { make: make},
-        success: function (models) {
-            $("#model").html(""); // clear before appending new list
-            $.each(models, function (i, model) {
-                $("#model").append(
-                    $('<option></option>').val(model.Model).html(model.Model));
-            });
-        }
-    });
-  }
-</script>
-    }
+    </script>
+}
