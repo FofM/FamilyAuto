@@ -123,6 +123,27 @@ namespace FamilyAuto.Controllers
 
                 //bool war = StringToBool(form["VehicleHistory.Warranty"]);
 
+                List<VehiclePicture> vehiclePictures = new List<VehiclePicture>();
+                for (int i = 0; i < Request.Files.Count; i++)
+                {
+                    HttpPostedFileBase upload = Request.Files[i];
+
+                    if (upload != null && upload.ContentLength > 0)
+                    {
+                        var vehiclePicture = new VehiclePicture()
+                        {
+                            Description = "",
+                            ImageURL = System.IO.Path.GetFileName(upload.FileName)
+                        };
+                        vehicle.VehiclePictures = new List<VehiclePicture>();
+                        vehicle.VehiclePictures.Add(vehiclePicture);
+                        //vehiclePictures.Add(vehiclePicture);
+                        //var path = Path.Combine(Server.MapPath("~/Images/"), fileName + Guid.NewGuid());
+                        upload.SaveAs(Path.Combine(Server.MapPath("~/Images/"), upload.FileName));
+                    }
+                }
+
+
                 VehicleHistory vh = new VehicleHistory()
                 {
                     Id = vehicle.Id,

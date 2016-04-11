@@ -7,7 +7,7 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create", "Vehicle", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     <div class="container">
@@ -274,9 +274,10 @@
 
                 </div>
 
-                @*<div class="form-group">
-                    <input type="file" name="file" multiple="multiple" />
-                </div>*@
+                <div class="form-group">
+                    @Html.Label("photo", new { @class = "control-label col-md-2" })
+                    <input type="file" name="photo" multiple="multiple" />
+                </div>
 
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
