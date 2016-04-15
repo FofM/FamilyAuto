@@ -17,7 +17,7 @@ namespace FamilyAuto.UnitTests
         {
             var controller = new VehicleController();
 
-            ViewResult result = controller.Index() as ViewResult;
+            ViewResult result = controller.Index(null, null) as ViewResult;
 
             Assert.AreEqual("Index", result.ViewName);
         }

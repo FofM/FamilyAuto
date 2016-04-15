@@ -10,31 +10,48 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Search: @Html.TextBox("SearchString")
+        <input type="submit" value="Search" class="btn btn-sm btn-default" />
+    </p>
+}
+
 <table class="table table-striped table-hover">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Id)
+            @*@Html.DisplayNameFor(model => model.Id)*@
+            @Html.ActionLink("ID", "Index", new { sortOrder = ViewBag.IdSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Make)
+            @*@Html.DisplayNameFor(model => model.Make)*@
+            @Html.ActionLink("Make", "Index", new { sortOrder = ViewBag.MakeSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Model)
+            @*@Html.DisplayNameFor(model => model.Model)*@
+            @Html.ActionLink("Model", "Index", new { sortOrder = ViewBag.ModelSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Variant)
+            @*@Html.DisplayNameFor(model => model.Variant)*@
+            @Html.ActionLink("Variant", "Index", new { sortOrder = ViewBag.VariantSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Condition)
+            @*@Html.DisplayNameFor(model => model.Condition)*@
+            @Html.ActionLink("Condition", "Index", new { sortOrder = ViewBag.ConditionSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Type)
+            @*@Html.DisplayNameFor(model => model.Type)*@
+            @Html.ActionLink("Type", "Index", new { sortOrder = ViewBag.TypeSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DateUploaded)
+            @*@Html.DisplayNameFor(model => model.DateUploaded)*@
+            @Html.ActionLink("Date Uploaded", "Index", new { sortOrder = ViewBag.DateSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Sold)
+            @*@Html.DisplayNameFor(model => model.Sold)*@
+            @Html.ActionLink("Sold", "Index", new { sortOrder = ViewBag.SoldSortParm })
         </th>
         <th></th>
     </tr>

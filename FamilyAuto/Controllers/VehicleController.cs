@@ -64,9 +64,82 @@ namespace FamilyAuto.Controllers
             return View("Showroom", vehicles.ToList());
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string searchString)
         {
+
+            ViewBag.IdSortParm = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
+            ViewBag.MakeSortParm = sortOrder == "Make" ? "make_desc" : "Make";
+            ViewBag.ModelSortParm = sortOrder == "Model" ? "model_desc" : "Model";
+            ViewBag.VariantSortParm = sortOrder == "Variant" ? "variant_desc" : "Variant";
+            ViewBag.ConditionSortParm = sortOrder == "Condition" ? "condition_desc" : "Condition";
+            ViewBag.TypeSortParm = sortOrder == "Type" ? "type_desc" : "Type";
+            ViewBag.SoldSortParm = sortOrder == "Sold" ? "sold_desc" : "Sold";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+
             var vehicles = db.Vehicles.Include(v => v.VehicleEngine).Include(v => v.VehicleFeature).Include(v => v.VehicleHistory);
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                vehicles = vehicles.Where(v => v.Make.Contains(searchString) || v.Model.Contains(searchString) || v.Variant.Contains(searchString)
+                || v.Condition.Contains(searchString));
+                
+                //|| v .Contains(searchString) || v => v.Make.Contains(searchString) ||
+                //    v => v.Make.Contains(searchString) || v => v.Make.Contains(searchString) || v => v.Make.Contains(searchString) || v => v.Make.Contains(searchString) ||
+                //    v => v.Make.Contains(searchString) || )
+            }
+
+            switch (sortOrder)
+            {
+                case "id_desc":
+                    vehicles = vehicles.OrderByDescending(s => s.Id);
+                    break;
+                case "Model":
+                    vehicles = vehicles.OrderBy(s => s.Model);
+                    break;
+                case "model_desc":
+                    vehicles = vehicles.OrderByDescending(s => s.Model);
+                    break;
+                case "Make":
+                    vehicles = vehicles.OrderBy(s => s.Make);
+                    break;
+                case "make_desc":
+                    vehicles = vehicles.OrderByDescending(s => s.Make);
+                    break;
+                case "Variant":
+                    vehicles = vehicles.OrderBy(s => s.Variant);
+                    break;
+                case "variant_desc":
+                    vehicles = vehicles.OrderByDescending(s => s.Variant);
+                    break;
+                case "Condition":
+                    vehicles = vehicles.OrderBy(s => s.Condition);
+                    break;
+                case "condition_desc":
+                    vehicles = vehicles.OrderByDescending(s => s.Condition);
+                    break;
+                case "Type":
+                    vehicles = vehicles.OrderBy(s => s.Type);
+                    break;
+                case "type_desc":
+                    vehicles = vehicles.OrderByDescending(s => s.Type);
+                    break;
+                case "Sold":
+                    vehicles = vehicles.OrderBy(s => s.Sold);
+                    break;
+                case "sold_desc":
+                    vehicles = vehicles.OrderByDescending(s => s.Sold);
+                    break;
+                case "Date":
+                    vehicles = vehicles.OrderBy(s => s.DateUploaded);
+                    break;
+                case "date_desc":
+                    vehicles = vehicles.OrderByDescending(s => s.DateUploaded);
+                    break;
+                default:
+                    vehicles = vehicles.OrderBy(s => s.Id);
+                    break;
+            }
+
             return View("Index", vehicles.ToList());
         }
 
