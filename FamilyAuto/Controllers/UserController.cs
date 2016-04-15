@@ -41,7 +41,21 @@ namespace FamilyAuto.Controllers
         // GET: User/Create
         public ActionResult Create()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                string uID = User.Identity.GetUserId();
+                var loggedUser = db.Customers.Where(x => x.UserId == uID).FirstOrDefault();
+                if (loggedUser != null)
+                {
+                    string idCompare = loggedUser.UserId;
+                    int pKey = loggedUser.Id;
+                    if (uID.Equals(idCompare))
+                    {
+                        return RedirectToAction("Edit", new { id = pKey });
+                    }
+                }
 
+            }
             //ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email");
             return View();
         }

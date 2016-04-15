@@ -23,7 +23,9 @@ namespace FamilyAuto.Controllers
                 .Where(v => v.Model == model || model == null || model == "")
                 .Where(v => v.Type.ToString() == type || type == null || type == "")
                 .Where(v => v.VehicleHistory.Mileage < mileage || mileage == null)
-                .Where(v => v.Price > priceFrom && v.Price < priceTo || priceFrom == null || priceTo == null) ;
+                .Where(v => v.Price > priceFrom && v.Price < priceTo || priceFrom == null || priceTo == null);
+                
+
 
             ViewBag.Make = (from v in db.Vehicles select v.Make).Distinct();
 
@@ -102,7 +104,7 @@ namespace FamilyAuto.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Make,Model,Variant,Condition,Type,Description,DateUploaded")] Vehicle vehicle, FormCollection form)
+        public ActionResult Create([Bind(Include = "Id,Make,Model,Variant,Condition,Type,Description,Price,DateUploaded")] Vehicle vehicle, FormCollection form)
         {
             if (ModelState.IsValid)
             {
@@ -156,7 +158,33 @@ namespace FamilyAuto.Controllers
                     FirstRegistration = DateTime.Parse(form["VehicleHistory.FirstRegistration"])
                 };
 
+                VehicleEngine ve = new VehicleEngine()
+                {
+                    FuelType = form["VehicleEngine.FuelType"].ToString(),
+                    Transmission = form["VehicleEngine.Transmission"].ToString(),
+                    CubicCapacity = int.Parse(form["VehicleEngine.CubicCapacity"]),
+                    Power = int.Parse(form["VehicleEngine.Power"]),
+                    FuelConsumption = form["VehicleEngine.FuelConsumption"].ToString(),
+                    EmissionClass = form["VehicleEngine.EmissionClass"].ToString(),
+                    EmissionSticker = form["VehicleEngine.EmissionSticker"].ToString()
+                };
+
+                VehicleFeature vf = new VehicleFeature()
+                {
+                    ExteriorColor = form["VehicleFeature.ExteriorColor"].ToString(),
+                    InteriorColor = form["VehicleFeature.InteriorColor"].ToString(),
+                    AirConditioning = StringToBool(form["VehicleFeature.AirConditioning"]),
+                    InteriorFeatures = form["VehicleFeature.InteriorFeatures"].ToString(),
+                    Security = form["VehicleFeature.Security"].ToString(),
+                    Airbags = StringToBool(form["VehicleFeature.Airbags"]),
+                    ParkingSensor = StringToBool(form["VehicleFeature.ParkingSensor"]),
+                    Sports = StringToBool(form["VehicleFeature.Sports"]),
+                    InteriorMaterial = form["VehicleFeature.InteriorMaterial"].ToString()
+                };
+
                 db.VehicleHistories.Add(vh);
+                db.VehicleEngines.Add(ve);
+                db.VehicleFeatures.Add(vf);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -166,46 +194,6 @@ namespace FamilyAuto.Controllers
             ViewBag.Id = new SelectList(db.VehicleHistories, "Id", "Purpose", vehicle.Id);
             return View(vehicle);
         }
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create([Bind(Include = "Id,Make,Model,Variant,Condition,Type,Description,DateUploaded")] Vehicle vehicle, FormCollection form)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        List<VehiclePicture> vehiclePictures = new List<VehiclePicture>();
-        //        for (int i = 0; i < Request.Files.Count; i++)
-        //        {
-        //            var file = Request.Files[i];
-
-        //            if (file != null && file.ContentLength > 0)
-        //            {
-        //                var fileName = Path.GetFileName(file.FileName);
-        //                VehiclePicture vehiclePicture = new VehiclePicture()
-        //                {
-        //                    Description = "",
-        //                    ImageURL = fileName
-        //                };
-        //                vehiclePictures.Add(vehiclePicture);
-        //                var path = Path.Combine(Server.MapPath("~/Images/"), fileName + Guid.NewGuid());
-        //                file.SaveAs(path);
-        //            }
-        //        }
-        //        vehicle.VehiclePictures = vehiclePictures;
-        //        vehicle.DateUploaded = DateTime.Now;
-        //        db.Vehicles.Add(vehicle);
-        //        VehicleHistory vh = new VehicleHistory();
-        //        vh.Id = vehicle.Id;
-        //        vh.Mileage = int.Parse(form["VehicleHistory.Mileage"]);
-        //        db.VehicleHistories.Add(vh);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    ViewBag.Id = new SelectList(db.VehicleEngines, "Id", "FuelType", vehicle.Id);
-        //    ViewBag.Id = new SelectList(db.VehicleFeatures, "Id", "ExteriorColor", vehicle.Id);
-        //    ViewBag.Id = new SelectList(db.VehicleHistories, "Id", "Purpose", vehicle.Id);
-        //    return View(vehicle);
-        //}
 
         // GET: Vehicle/Edit/5
         public ActionResult Edit(int? id)
@@ -230,12 +218,14 @@ namespace FamilyAuto.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Make,Model,Variant,Condition,Type,Description,Price,DateUploaded")] Vehicle vehicle)
+        public ActionResult Edit([Bind(Include = "Id,Make,Model,Variant,Condition,Type,Description,Price,DateUploaded")] Vehicle vehicle, [Bind(Include = "ExteriorColor,InteriorColor,AirConditioning,InteriorFeatures,Security,Airbags,ParkingSensor,Sports,InteriorMaterial")] VehicleFeature vehicleFeature)
         {
             if (ModelState.IsValid)
             {
+             //   vehicle.VehicleFeature = vehicleFeature;
                 vehicle.DateUploaded = DateTime.Now;
                 db.Entry(vehicle).State = EntityState.Modified;
+                //db.Entry(vehicle.VehicleFeature).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

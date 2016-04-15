@@ -172,5 +172,10 @@ namespace FamilyAuto.Controllers
             v.Sold = false;
             db.SaveChanges();
         }
+
+        public int AddVAT(int price)
+        {
+            return price * 20 / 100 + price;
+        }
     }
 }

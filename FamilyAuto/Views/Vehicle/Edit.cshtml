@@ -11,6 +11,9 @@
 {
     @Html.AntiForgeryToken()
 
+    @*@Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.VehicleFeature.Id)*@
+
     <div class="container">
         <div class="form-horizontal">
             <hr />
