@@ -59,6 +59,7 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.FinalPrice, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.FinalPrice, "", new { @class = "text-danger" })
+                <p>* 20% VAT is automatically calculated on submit</p>
             </div>
         </div>
 

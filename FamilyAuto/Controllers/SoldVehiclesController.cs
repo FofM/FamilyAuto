@@ -74,6 +74,7 @@ namespace FamilyAuto.Controllers
 
             if (ModelState.IsValid)
             {
+                soldVehicles.FinalPrice = AddVAT(soldVehicles.FinalPrice);
                 soldVehicles.DateCreated = DateTime.Now;
                 SellVehicle(soldVehicles.VehicleId);
                 db.SoldVehicles.Add(soldVehicles);
