@@ -10,18 +10,8 @@ using System.Web.Mvc;
 namespace FamilyAuto.UnitTests
 {
     [TestFixture]
-    public class test
+    public class TestArticleCRUD
     {
-        [Test]
-        public void TestHomeController()
-        {
-            var controller = new HomeController();
-
-            ViewResult result = controller.Index() as ViewResult;
-
-            Assert.AreEqual("Index", result.ViewName);
-        }
-
         [Test]
         public void TestArticleCreateRedirect()
         {
@@ -37,6 +27,47 @@ namespace FamilyAuto.UnitTests
 
             Assert.That(result.RouteValues["action"], Is.EqualTo("Index"));
         }
+
+        [Test]
+        public void TestArticleDetails()
+        {
+            var controller = new ArticleController();
+
+            FamilyAutoEntities db = new FamilyAutoEntities();
+
+            var expectedArticle = new Articles
+            {
+                ArticleTitle = "TestArticle",
+                ArticleDescription = "TestDescription"
+            };
+
+            var editArticle = db.Articles.Where(x => x.ArticleTitle == "TestArticle").FirstOrDefault();
+
+            int articleId = editArticle.Id;
+
+            ViewResult result = controller.Details(articleId) as ViewResult;
+            var resultData = (Articles)result.ViewData.Model;
+
+            Assert.AreEqual(expectedArticle.ArticleTitle, resultData.ArticleTitle);
+            Assert.AreEqual(expectedArticle.ArticleDescription, resultData.ArticleDescription);
+        }
+
+        [Test]
+        public void TestArticleEditRedirect()
+        {
+            var controller = new ArticleController();
+
+            FamilyAutoEntities db = new FamilyAutoEntities();
+
+            var editArticle = db.Articles.Where(x => x.ArticleTitle == "TestArticle").FirstOrDefault();
+
+            editArticle.ArticleDescription = "TestDescriptionEdit";
+
+            RedirectToRouteResult result = controller.Edit(editArticle) as RedirectToRouteResult;
+
+            Assert.That(result.RouteValues["action"], Is.EqualTo("Index"));
+        }
+
         [Test]
         public void TestArticleDeleteRedirect()
         {

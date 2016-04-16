@@ -281,7 +281,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="UnitTests\test.cs" />
+    <Compile Include="UnitTests\TestArticleCRUD.cs" />
     <Compile Include="UnitTests\TestHomeControllerBasics.cs" />
     <Compile Include="UnitTests\TestIMSControllerBasics.cs" />
     <Compile Include="UnitTests\TestVehicleControllerBasics.cs" />
