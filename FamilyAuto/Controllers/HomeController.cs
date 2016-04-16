@@ -4,6 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using FamilyAuto.Models;
+using System.Web.Helpers;
+using System.Threading.Tasks;
+using System.Net.Mail;
+using System.Net;
 
 namespace FamilyAuto.Controllers
 {
@@ -44,6 +48,43 @@ namespace FamilyAuto.Controllers
             ViewBag.Message = "Family Auto contact page.";
 
             return View("Contact");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Contact(EmailForm model)
+        {
+            if (ModelState.IsValid)
+            {
+                var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
+                var message = new MailMessage();
+                message.To.Add(new MailAddress("infofamilyauto@gmail.com"));  // replace with valid value 
+                message.From = new MailAddress("infofamilyauto@gmail.com");  // replace with valid value
+                message.Subject = "Your email subject";
+                message.Body = string.Format(body, model.FromName, model.FromEmail, model.Message);
+                message.IsBodyHtml = true;
+
+                using (var smtp = new SmtpClient())
+                {
+                    var credential = new NetworkCredential
+                    {
+                        UserName = "infofamilyauto@gmail.com",  // replace with valid value
+                        Password = "throwAwayAccount"  // replace with valid value
+                    };
+                    smtp.Credentials = credential;
+                    smtp.Host = "smtp.gmail.com";
+                    smtp.Port = 587;
+                    smtp.EnableSsl = true;
+                    await smtp.SendMailAsync(message);
+                    return RedirectToAction("Sent");
+                }
+            }
+            return View(model);
+        }
+
+        public ActionResult Sent()
+        {
+            return View();
         }
     }
 }

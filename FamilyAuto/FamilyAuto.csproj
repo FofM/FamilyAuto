@@ -235,6 +235,7 @@
       <DependentUpon>FamilyAutoDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DateSoldGroup.cs" />
+    <Compile Include="Models\EmailForm.cs" />
     <Compile Include="Models\FamilyAutoDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -420,6 +421,7 @@
     <Content Include="Views\Supplier\Edit.cshtml" />
     <Content Include="Views\Supplier\Index.cshtml" />
     <Content Include="Views\IMS\Statistics.cshtml" />
+    <Content Include="Views\Home\Sent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
