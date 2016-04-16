@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using FamilyAuto.Models;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace FamilyAuto.Controllers
 {
@@ -78,14 +79,16 @@ namespace FamilyAuto.Controllers
 
             var vehicles = db.Vehicles.Include(v => v.VehicleEngine).Include(v => v.VehicleFeature).Include(v => v.VehicleHistory);
 
-            if (!String.IsNullOrEmpty(searchString))
+            if (!String.IsNullOrEmpty(searchString) && Regex.IsMatch(searchString, @"^\d+$"))
+            {
+                int searchInt = int.Parse(searchString);
+                vehicles = vehicles.Where(v => v.Id.Equals(searchInt));
+            }
+
+            else if (!String.IsNullOrEmpty(searchString))
             {
                 vehicles = vehicles.Where(v => v.Make.Contains(searchString) || v.Model.Contains(searchString) || v.Variant.Contains(searchString)
                 || v.Condition.Contains(searchString));
-                
-                //|| v .Contains(searchString) || v => v.Make.Contains(searchString) ||
-                //    v => v.Make.Contains(searchString) || v => v.Make.Contains(searchString) || v => v.Make.Contains(searchString) || v => v.Make.Contains(searchString) ||
-                //    v => v.Make.Contains(searchString) || )
             }
 
             switch (sortOrder)
@@ -361,5 +364,6 @@ namespace FamilyAuto.Controllers
             }
             else return false;
         }
+
     }
 }
