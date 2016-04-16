@@ -18,9 +18,9 @@ namespace FamilyAuto.Controllers
         public ActionResult Index()
         {
             var topNews = (from n in db.Articles
-                          where n.ArticleType == 0
-                          orderby n.DateUploaded descending
-                          select n).Take(3);
+                           where n.ArticleType == 0
+                           orderby n.DateUploaded descending
+                           select n).Take(3);
             //topNews.Take(3).ToList();
             return View("Index", topNews);
         }
@@ -28,9 +28,9 @@ namespace FamilyAuto.Controllers
         public ActionResult News()
         {
             var topNews = from n in db.Articles
-                           where n.ArticleType == 0
-                           orderby n.DateUploaded descending
-                           select n;
+                          where n.ArticleType == 0
+                          orderby n.DateUploaded descending
+                          select n;
             return View("News", topNews);
         }
 
@@ -56,11 +56,20 @@ namespace FamilyAuto.Controllers
         {
             if (ModelState.IsValid)
             {
+                string subject = "General Inquiry";
+                //if (!String.IsNullOrEmpty(ViewBag.vID))
+                //{
+                //    subject = "Inquiry for Vehicle ID " + ViewBag.vID;
+                //}
+                if (model.vID != null)
+                {
+                    subject = "Inquiry for Vehicle ID: " + model.vID;
+                }
                 var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
                 var message = new MailMessage();
                 message.To.Add(new MailAddress("infofamilyauto@gmail.com"));  // replace with valid value 
                 message.From = new MailAddress("infofamilyauto@gmail.com");  // replace with valid value
-                message.Subject = "Your email subject";
+                message.Subject = subject;
                 message.Body = string.Format(body, model.FromName, model.FromEmail, model.Message);
                 message.IsBodyHtml = true;
 

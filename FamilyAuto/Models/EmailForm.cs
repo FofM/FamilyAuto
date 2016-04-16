@@ -14,5 +14,6 @@ namespace FamilyAuto.Models
         public string FromEmail { get; set; }
         [Required]
         public string Message { get; set; }
+        public int? vID { get; set; }
     }
 }
