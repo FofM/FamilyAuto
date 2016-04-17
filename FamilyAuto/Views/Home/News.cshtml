@@ -4,15 +4,16 @@
     ViewBag.Title = "News";
 }
 
-<h2>News</h2>
+@*<h2>News</h2>*@
 
 <div class="row">
     <div class="col-md-8">
         <h2>NEWS</h2>
+        <br />
         @foreach (var n in Model)
         {
             <div class="col-md-8">
-                <p>@Html.DisplayFor(item => n.DateUploaded)</p>
+                <p><b>Published on: </b> @Html.DisplayFor(item => n.DateUploaded)</p>
                 <h4>@Html.DisplayFor(item => n.ArticleTitle)</h4>
                 <p>@Html.DisplayFor(item => n.ArticleDescription)</p>
                 <hr />

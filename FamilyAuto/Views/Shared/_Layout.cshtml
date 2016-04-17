@@ -28,8 +28,17 @@
                     <li>@Html.ActionLink("Showroom", "Showroom", new { Controller = "Vehicle" })</li>
                     <li>@Html.ActionLink("Services", "Services", new { Controller = "Home" })</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("IMS", "Index", new { Controller = "IMS" })</li>
-                    <li>@Html.ActionLink("CMS", "Index", new { Controller = "Vehicle" })</li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manage <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Vehicles", "Index", new { Controller = "Vehicle" })</li>
+                            <li>@Html.ActionLink("Articles", "Index", new { Controller = "Article" })</li>
+                            <li role="separator" class="divider"></li>
+                            <li>@Html.ActionLink("Business Data", "Index", new { Controller = "IMS" })</li>
+                        </ul>
+                    </li>
+                    @*<li>@Html.ActionLink("IMS", "Index", new { Controller = "IMS" })</li>*@
+                    @*<li>@Html.ActionLink("CMS", "Index", new { Controller = "Vehicle" })</li>*@
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

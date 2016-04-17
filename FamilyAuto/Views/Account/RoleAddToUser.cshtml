@@ -10,6 +10,32 @@
     <hr />
     <div class="row">
         <div class="col-lg-4">
+            <h4>List roles for user</h4>
+            @using (Html.BeginForm("GetRoles", "Account"))
+            {
+                @Html.AntiForgeryToken()
+                <p>
+                    Username : @Html.DropDownList("UserName", ViewBag.Users as SelectList)
+                </p>
+                    <p>
+                        <input type="submit" value="Get Roles for this User" class="btn btn-primary" />
+                    </p>
+            }
+
+            @if (ViewBag.RolesForThisUser != null)
+            {
+                <text>
+                    <h3>Roles for this user </h3>
+                    <ol>
+                        @foreach (string s in ViewBag.RolesForThisUser)
+                {
+                            <li>@s</li>
+                        }
+                    </ol>
+                </text>
+            }
+        </div>
+        <div class="col-lg-4">
             <h4>Add role to user</h4>
             @using (Html.BeginForm("RoleAddToUser", "Account"))
             {
@@ -42,32 +68,6 @@
                     </p>
 
                     <input type="submit" value="Delete this user from Role" class="btn btn-primary" />
-            }
-        </div>
-        <div class="col-lg-4">
-            <h4>List roles for user</h4>
-            @using (Html.BeginForm("GetRoles", "Account"))
-            {
-                @Html.AntiForgeryToken()
-                <p>
-                    Username : @Html.DropDownList("UserName", ViewBag.Users as SelectList)
-                    </p>
-                    <p>
-                    <input type="submit" value="Get Roles for this User" class="btn btn-primary" />
-                </p>
-            }
-
-            @if (ViewBag.RolesForThisUser != null)
-            {
-                <text>
-                    <h3>Roles for this user </h3>
-                    <ol>
-                        @foreach (string s in ViewBag.RolesForThisUser)
-                {
-                            <li>@s</li>
-                        }
-                    </ol>
-                </text>
             }
         </div>
     </div>

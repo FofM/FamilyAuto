@@ -17,7 +17,7 @@
         {
             <p>
                 @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-                @Html.ActionLink("Manage Page", "Index")
+                @Html.ActionLink("Go To Manage Vehicles", "Index")
             </p>
         }
         <hr />
@@ -107,9 +107,9 @@
 
 <div class="container">
     <h4>Vehicle History</h4>
-    <table class="table">
+    <table class="table table-striped table-bordered table-condensed">
         <thead>
-            <tr>
+            <tr class="active">
                 <th>@Html.DisplayNameFor(model => model.VehicleHistory.Purpose)</th>
                 <th>@Html.DisplayNameFor(model => model.VehicleHistory.NoOfOwners)</th>
                 <th>@Html.DisplayNameFor(model => model.VehicleHistory.HUValidUntil)</th>
@@ -119,7 +119,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
+            <tr class="info">
                 <td>@Html.DisplayFor(model => model.VehicleHistory.Purpose)</td>
                 <td>@Html.DisplayFor(model => model.VehicleHistory.NoOfOwners)</td>
                 <td>@Html.DisplayFor(model => model.VehicleHistory.HUValidUntil)</td>
@@ -134,9 +134,9 @@
 
 <div class="container">
     <h4>Vehicle Engine</h4>
-    <table class="table">
+    <table class="table table-striped table-bordered table-condensed">
         <thead>
-            <tr>
+            <tr class="active">
                 <th>@Html.DisplayNameFor(model => model.VehicleEngine.FuelType)</th>
                 <th>@Html.DisplayNameFor(model => model.VehicleEngine.Transmission)</th>
                 <th>@Html.DisplayNameFor(model => model.VehicleEngine.CubicCapacity)</th>
@@ -147,7 +147,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
+            <tr class="info">
                 <td>@Html.DisplayFor(model => model.VehicleEngine.FuelType)</td>
                 <td>@Html.DisplayFor(model => model.VehicleEngine.Transmission)</td>
                 <td>@Html.DisplayFor(model => model.VehicleEngine.CubicCapacity)</td>
@@ -162,9 +162,9 @@
 
 <div class="container">
     <h4>Vehicle Features</h4>
-    <table class="table">
+    <table class="table table-striped table-bordered table-condensed">
         <thead>
-            <tr>
+            <tr class="active">
                 <th>@Html.DisplayNameFor(model => model.VehicleFeature.ExteriorColor)</th>
                 <th>@Html.DisplayNameFor(model => model.VehicleFeature.InteriorColor)</th>
                 <th>@Html.DisplayNameFor(model => model.VehicleFeature.AirConditioning)</th>
@@ -177,7 +177,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
+            <tr class="info">
                 <td>@Html.DisplayFor(model => model.VehicleFeature.ExteriorColor)</td>
                 <td>@Html.DisplayFor(model => model.VehicleFeature.InteriorColor)</td>
                 <td>@Html.DisplayFor(model => model.VehicleFeature.AirConditioning)</td>
