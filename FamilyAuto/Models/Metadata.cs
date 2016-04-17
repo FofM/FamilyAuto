@@ -162,4 +162,24 @@ namespace FamilyAuto.Models
         [Display(Name = "Customer Id and Name")]
         public int CustomerId { get; set; }
     }
+
+    public class StaffMetadata
+    {
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+
+        [DataType(DataType.Date)]
+        [Display(Name = "Birth Date")]
+        public System.DateTime BirthDate { get; set; }
+
+        [DataType(DataType.Date)]
+        [Display(Name = "Hired Date")]
+        public System.DateTime HiredDate { get; set; }
+
+        [Display(Name = "User ID")]
+        public string UserId { get; set; }
+    }
 }

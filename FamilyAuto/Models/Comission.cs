@@ -12,18 +12,14 @@ namespace FamilyAuto.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ServiceOrder
+    public partial class Comission
     {
         public int Id { get; set; }
-        public int Price { get; set; }
-        public bool Paid { get; set; }
-        public System.DateTime OrderedOnDate { get; set; }
-        public System.DateTime DueDate { get; set; }
-        public Nullable<System.DateTime> DeliveredDate { get; set; }
-        public int ServiceId { get; set; }
-        public int CustomerId { get; set; }
+        public int Comission1 { get; set; }
+        public int StaffId { get; set; }
+        public int VehicleId { get; set; }
     
-        public virtual Articles Articles { get; set; }
-        public virtual Customers Customers { get; set; }
+        public virtual Staff Staff { get; set; }
+        public virtual Vehicle Vehicle { get; set; }
     }
 }

@@ -31,6 +31,11 @@
         <EntityTypeShape EntityType="FamilyAutoModel.ServiceOrder" Width="1.5" PointX="6" PointY="21.125" />
         <AssociationConnector Association="FamilyAutoModel.FK_ServiceOrder_Articles" />
         <AssociationConnector Association="FamilyAutoModel.FK_ServiceOrder_Customers" />
+        <EntityTypeShape EntityType="FamilyAutoModel.Comission" Width="1.5" PointX="6" PointY="25" />
+        <EntityTypeShape EntityType="FamilyAutoModel.Staff" Width="1.5" PointX="3.75" PointY="35.125" />
+        <AssociationConnector Association="FamilyAutoModel.FK_Staff_AspNetUsers" />
+        <AssociationConnector Association="FamilyAutoModel.FK_Comission_Staff" />
+        <AssociationConnector Association="FamilyAutoModel.FK_Comission_Vehicle" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

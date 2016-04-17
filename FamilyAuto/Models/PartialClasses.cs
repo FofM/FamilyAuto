@@ -65,4 +65,9 @@ namespace FamilyAuto.Models
     public partial class ServiceOrder
     {
     }
+
+    [MetadataType(typeof(StaffMetadata))]
+    public partial class Staff
+    {
+    }
 }

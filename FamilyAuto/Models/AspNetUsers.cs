@@ -21,6 +21,7 @@ namespace FamilyAuto.Models
             this.AspNetUserLogins = new HashSet<AspNetUserLogins>();
             this.AspNetRoles = new HashSet<AspNetRoles>();
             this.Customers = new HashSet<Customers>();
+            this.Staff = new HashSet<Staff>();
         }
     
         public string Id { get; set; }
@@ -44,5 +45,7 @@ namespace FamilyAuto.Models
         public virtual ICollection<AspNetRoles> AspNetRoles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Customers> Customers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Staff> Staff { get; set; }
     }
 }
