@@ -204,6 +204,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IMSController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ServiceOrderController.cs" />
     <Compile Include="Controllers\SoldVehiclesController.cs" />
     <Compile Include="Controllers\SupplierController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -255,6 +256,9 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Metadata.cs" />
     <Compile Include="Models\PartialClasses.cs" />
+    <Compile Include="Models\ServiceOrder.cs">
+      <DependentUpon>FamilyAutoDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SoldVehicles.cs">
       <DependentUpon>FamilyAutoDB.tt</DependentUpon>
     </Compile>
@@ -423,6 +427,11 @@
     <Content Include="Views\IMS\Statistics.cshtml" />
     <Content Include="Views\Home\Sent.cshtml" />
     <Content Include="Views\Vehicle\_PartialVehicleContact.cshtml" />
+    <Content Include="Views\ServiceOrder\Create.cshtml" />
+    <Content Include="Views\ServiceOrder\Delete.cshtml" />
+    <Content Include="Views\ServiceOrder\Details.cshtml" />
+    <Content Include="Views\ServiceOrder\Edit.cshtml" />
+    <Content Include="Views\ServiceOrder\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

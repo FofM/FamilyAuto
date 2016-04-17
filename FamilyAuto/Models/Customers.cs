@@ -18,6 +18,7 @@ namespace FamilyAuto.Models
         public Customers()
         {
             this.SoldVehicles = new HashSet<SoldVehicles>();
+            this.ServiceOrder = new HashSet<ServiceOrder>();
         }
     
         public int Id { get; set; }
@@ -31,5 +32,7 @@ namespace FamilyAuto.Models
         public virtual AspNetUsers AspNetUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SoldVehicles> SoldVehicles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ServiceOrder> ServiceOrder { get; set; }
     }
 }

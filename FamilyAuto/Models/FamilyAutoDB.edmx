@@ -78,6 +78,19 @@
           <Property Name="Address" Type="nchar" MaxLength="200" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" />
         </EntityType>
+        <EntityType Name="ServiceOrder">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Price" Type="int" Nullable="false" />
+          <Property Name="Paid" Type="bit" Nullable="false" />
+          <Property Name="OrderedOnDate" Type="date" Nullable="false" />
+          <Property Name="DueDate" Type="date" Nullable="false" />
+          <Property Name="DeliveredDate" Type="date" Nullable="false" />
+          <Property Name="ServiceId" Type="int" Nullable="false" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="SoldVehicles">
           <Key>
             <PropertyRef Name="Id" />
@@ -240,6 +253,34 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ServiceOrder_Articles">
+          <End Role="Articles" Type="Self.Articles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ServiceOrder" Type="Self.ServiceOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Articles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ServiceOrder">
+              <PropertyRef Name="ServiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServiceOrder_Customers">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ServiceOrder" Type="Self.ServiceOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ServiceOrder">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SoldVehicles_Customers">
           <End Role="Customers" Type="Self.Customers" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -332,6 +373,7 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ServiceOrder" EntityType="Self.ServiceOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SoldVehicles" EntityType="Self.SoldVehicles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vehicle" EntityType="Self.Vehicle" Schema="dbo" store:Type="Tables" />
@@ -392,6 +434,14 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
           <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServiceOrder_Articles" Association="Self.FK_ServiceOrder_Articles">
+            <End Role="Articles" EntitySet="Articles" />
+            <End Role="ServiceOrder" EntitySet="ServiceOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServiceOrder_Customers" Association="Self.FK_ServiceOrder_Customers">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="ServiceOrder" EntitySet="ServiceOrder" />
           </AssociationSet>
           <AssociationSet Name="FK_SoldVehicles_Customers" Association="Self.FK_SoldVehicles_Customers">
             <End Role="Customers" EntitySet="Customers" />
@@ -581,6 +631,15 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
             <End Role="SoldVehicles" EntitySet="SoldVehicles" />
           </AssociationSet>
           <EntitySet Name="Supplier" EntityType="FamilyAutoModel.Supplier" />
+          <EntitySet Name="ServiceOrder" EntityType="FamilyAutoModel.ServiceOrder" />
+          <AssociationSet Name="FK_ServiceOrder_Articles" Association="FamilyAutoModel.FK_ServiceOrder_Articles">
+            <End Role="Articles" EntitySet="Articles" />
+            <End Role="ServiceOrder" EntitySet="ServiceOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServiceOrder_Customers" Association="FamilyAutoModel.FK_ServiceOrder_Customers">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="ServiceOrder" EntitySet="ServiceOrder" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="VehiclePicture">
           <Key>
@@ -633,6 +692,7 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
           <Property Name="ArticleDescription" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ArticleType" Type="FamilyAutoModel.ArticleEnum" Nullable="false" />
           <Property Name="DateUploaded" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="ServiceOrder" Relationship="FamilyAutoModel.FK_ServiceOrder_Articles" FromRole="Articles" ToRole="ServiceOrder" />
         </EntityType>
         <EntityType Name="AspNetRoles">
           <Key>
@@ -729,6 +789,7 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
           <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUsers" Relationship="FamilyAutoModel.FK_Customers_AspNetUsers" FromRole="Customers" ToRole="AspNetUsers" />
           <NavigationProperty Name="SoldVehicles" Relationship="FamilyAutoModel.FK_SoldVehicles_Customers" FromRole="Customers" ToRole="SoldVehicles" />
+          <NavigationProperty Name="ServiceOrder" Relationship="FamilyAutoModel.FK_ServiceOrder_Customers" FromRole="Customers" ToRole="ServiceOrder" />
         </EntityType>
         <Association Name="FK_Customers_AspNetUsers">
           <End Type="FamilyAutoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
@@ -796,6 +857,49 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
           <Property Name="Email" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="WebAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="ServiceOrder">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Price" Type="Int32" Nullable="false" />
+          <Property Name="Paid" Type="Boolean" Nullable="false" />
+          <Property Name="OrderedOnDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DueDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DeliveredDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ServiceId" Type="Int32" Nullable="false" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Articles" Relationship="FamilyAutoModel.FK_ServiceOrder_Articles" FromRole="ServiceOrder" ToRole="Articles" />
+          <NavigationProperty Name="Customers" Relationship="FamilyAutoModel.FK_ServiceOrder_Customers" FromRole="ServiceOrder" ToRole="Customers" />
+        </EntityType>
+        <Association Name="FK_ServiceOrder_Articles">
+          <End Type="FamilyAutoModel.Articles" Role="Articles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="FamilyAutoModel.ServiceOrder" Role="ServiceOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Articles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ServiceOrder">
+              <PropertyRef Name="ServiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServiceOrder_Customers">
+          <End Type="FamilyAutoModel.Customers" Role="Customers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="FamilyAutoModel.ServiceOrder" Role="ServiceOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ServiceOrder">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -970,6 +1074,20 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="ContactName" ColumnName="ContactName" />
                 <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ServiceOrder">
+            <EntityTypeMapping TypeName="FamilyAutoModel.ServiceOrder">
+              <MappingFragment StoreEntitySet="ServiceOrder">
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+                <ScalarProperty Name="DeliveredDate" ColumnName="DeliveredDate" />
+                <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+                <ScalarProperty Name="OrderedOnDate" ColumnName="OrderedOnDate" />
+                <ScalarProperty Name="Paid" ColumnName="Paid" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

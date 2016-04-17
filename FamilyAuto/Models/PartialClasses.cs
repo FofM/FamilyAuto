@@ -60,4 +60,9 @@ namespace FamilyAuto.Models
     public partial class Supplier
     {
     }
+
+    [MetadataType(typeof(ServiceOrderMetadata))]
+    public partial class ServiceOrder
+    {
+    }
 }

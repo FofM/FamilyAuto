@@ -38,5 +38,6 @@ namespace FamilyAuto.Models
         public virtual DbSet<Customers> Customers { get; set; }
         public virtual DbSet<SoldVehicles> SoldVehicles { get; set; }
         public virtual DbSet<Supplier> Supplier { get; set; }
+        public virtual DbSet<ServiceOrder> ServiceOrder { get; set; }
     }
 }

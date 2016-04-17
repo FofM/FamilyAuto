@@ -14,10 +14,19 @@ namespace FamilyAuto.Models
     
     public partial class Articles
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Articles()
+        {
+            this.ServiceOrder = new HashSet<ServiceOrder>();
+        }
+    
         public int Id { get; set; }
         public string ArticleTitle { get; set; }
         public string ArticleDescription { get; set; }
         public ArticleEnum ArticleType { get; set; }
         public System.DateTime DateUploaded { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ServiceOrder> ServiceOrder { get; set; }
     }
 }

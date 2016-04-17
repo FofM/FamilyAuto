@@ -138,4 +138,28 @@ namespace FamilyAuto.Models
         [Display(Name = "Web Address")]
         public string WebAddress { get; set; }
     }
+
+    public class ServiceOrderMetadata
+    {
+        [Display(Name = "Price in EUR")]
+        public int Price { get; set; }
+
+        [DataType(DataType.Date)]
+        [Display(Name = "Ordered On Date")]
+        public System.DateTime OrderedOnDate { get; set; }
+
+        [DataType(DataType.Date)]
+        [Display(Name = "Due Date")]
+        public System.DateTime DueDate { get; set; }
+
+        [DataType(DataType.Date)]
+        [Display(Name = "Delivered Date")]
+        public System.DateTime DeliveredDate { get; set; }
+
+        [Display(Name = "Service")]
+        public int ServiceId { get; set; }
+
+        [Display(Name = "Customer Id and Name")]
+        public int CustomerId { get; set; }
+    }
 }

@@ -1,0 +1,80 @@
+﻿@model FamilyAuto.Models.ServiceOrder
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>ServiceOrder</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Paid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Paid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderedOnDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OrderedOnDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DueDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DueDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeliveredDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeliveredDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Articles.ArticleTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Articles.ArticleTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Customers.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Customers.FirstName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

@@ -5,29 +5,32 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="842a8b1eb3d343b9baf64865e93f9045" Name="Diagram1">
-        <EntityTypeShape EntityType="FamilyAutoModel.Vehicle" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="FamilyAutoModel.VehicleEngine" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="FamilyAutoModel.VehicleFeature" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="FamilyAutoModel.VehicleHistory" Width="1.5" PointX="3" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FamilyAutoModel.Vehicle" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="FamilyAutoModel.VehicleEngine" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FamilyAutoModel.VehicleFeature" Width="1.5" PointX="3" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FamilyAutoModel.VehicleHistory" Width="1.5" PointX="3" PointY="10.625" IsExpanded="true" />
         <AssociationConnector Association="FamilyAutoModel.FK_VehicleEngine_Vehicle" ManuallyRouted="false" />
         <AssociationConnector Association="FamilyAutoModel.FK_VehicleFeature_Vehicle" ManuallyRouted="false" />
         <AssociationConnector Association="FamilyAutoModel.FK_VehicleHistory_Vehicle" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="FamilyAutoModel.VehiclePicture" Width="1.5" PointX="3" PointY="12.5" />
+        <EntityTypeShape EntityType="FamilyAutoModel.VehiclePicture" Width="1.5" PointX="3" PointY="17.25" />
         <AssociationConnector Association="FamilyAutoModel.FK_VehiclePictures_Vehicle" />
-        <EntityTypeShape EntityType="FamilyAutoModel.Articles" Width="1.5" PointX="6.25" PointY="3.75" />
-        <EntityTypeShape EntityType="FamilyAutoModel.AspNetRoles" Width="1.5" PointX="5.375" PointY="8.5" />
-        <EntityTypeShape EntityType="FamilyAutoModel.AspNetUserClaims" Width="1.5" PointX="9.875" PointY="7" />
-        <EntityTypeShape EntityType="FamilyAutoModel.AspNetUserLogins" Width="1.5" PointX="9.875" PointY="9.75" />
-        <EntityTypeShape EntityType="FamilyAutoModel.AspNetUsers" Width="1.5" PointX="7.625" PointY="7.375" />
+        <EntityTypeShape EntityType="FamilyAutoModel.Articles" Width="1.5" PointX="3.75" PointY="31.5" />
+        <EntityTypeShape EntityType="FamilyAutoModel.AspNetRoles" Width="1.5" PointX="1.5" PointY="25.875" />
+        <EntityTypeShape EntityType="FamilyAutoModel.AspNetUserClaims" Width="1.5" PointX="3.75" PointY="25.375" />
+        <EntityTypeShape EntityType="FamilyAutoModel.AspNetUserLogins" Width="1.5" PointX="3.75" PointY="28.125" />
+        <EntityTypeShape EntityType="FamilyAutoModel.AspNetUsers" Width="1.5" PointX="1.5" PointY="20.625" />
         <AssociationConnector Association="FamilyAutoModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="FamilyAutoModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="FamilyAutoModel.AspNetUserRoles" />
-        <EntityTypeShape EntityType="FamilyAutoModel.Customers" Width="1.5" PointX="9.875" PointY="13.125" />
+        <EntityTypeShape EntityType="FamilyAutoModel.Customers" Width="1.5" PointX="3.75" PointY="21.125" />
         <AssociationConnector Association="FamilyAutoModel.FK_Customers_AspNetUsers" />
-        <EntityTypeShape EntityType="FamilyAutoModel.SoldVehicles" Width="1.5" PointX="12.125" PointY="9" />
+        <EntityTypeShape EntityType="FamilyAutoModel.SoldVehicles" Width="1.5" PointX="6" PointY="8.375" />
         <AssociationConnector Association="FamilyAutoModel.FK_SoldVehicles_Customers" />
         <AssociationConnector Association="FamilyAutoModel.FK_SoldVehicles_Vehicle" />
-        <EntityTypeShape EntityType="FamilyAutoModel.Supplier" Width="1.5" PointX="8.375" PointY="0.75" />
+        <EntityTypeShape EntityType="FamilyAutoModel.Supplier" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="FamilyAutoModel.ServiceOrder" Width="1.5" PointX="6" PointY="21.125" />
+        <AssociationConnector Association="FamilyAutoModel.FK_ServiceOrder_Articles" />
+        <AssociationConnector Association="FamilyAutoModel.FK_ServiceOrder_Customers" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
