@@ -18,7 +18,7 @@ namespace FamilyAuto.Controllers
         public ActionResult Index()
         {
             var serviceOrder = db.ServiceOrder.Include(s => s.Articles).Include(s => s.Customers);
-            return View(serviceOrder.ToList());
+            return View("Index", serviceOrder.ToList());
         }
 
         // GET: ServiceOrder/Details/5
@@ -33,7 +33,7 @@ namespace FamilyAuto.Controllers
             {
                 return HttpNotFound();
             }
-            return View(serviceOrder);
+            return View("Details", serviceOrder);
         }
 
         // GET: ServiceOrder/Create
@@ -62,7 +62,7 @@ namespace FamilyAuto.Controllers
                                                      customerName = c.Id + " - " + c.FirstName + " " + c.LastName
                                                  }),
                                                 "Id", "customerName", null);
-            return View();
+            return View("Create");
         }
 
         // POST: ServiceOrder/Create
@@ -98,7 +98,7 @@ namespace FamilyAuto.Controllers
             }
             ViewBag.ServiceId = new SelectList(db.Articles, "Id", "ArticleTitle", serviceOrder.ServiceId);
             ViewBag.CustomerId = new SelectList(db.Customers, "Id", "FirstName", serviceOrder.CustomerId);
-            return View(serviceOrder);
+            return View("Edit", serviceOrder);
         }
 
         // POST: ServiceOrder/Edit/5
@@ -131,7 +131,7 @@ namespace FamilyAuto.Controllers
             {
                 return HttpNotFound();
             }
-            return View(serviceOrder);
+            return View("Delete", serviceOrder);
         }
 
         // POST: ServiceOrder/Delete/5

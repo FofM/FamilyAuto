@@ -20,7 +20,7 @@ namespace FamilyAuto.Controllers
         public ActionResult Index()
         {
             var customers = db.Customers.Include(c => c.AspNetUsers);
-            return View(customers.ToList());
+            return View("Index", customers.ToList());
         }
 
         // GET: User/Details/5
@@ -35,7 +35,7 @@ namespace FamilyAuto.Controllers
             {
                 return HttpNotFound();
             }
-            return View(customers);
+            return View("Details", customers);
         }
 
         // GET: User/Create
@@ -57,7 +57,7 @@ namespace FamilyAuto.Controllers
 
             }
             //ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email");
-            return View();
+            return View("Create");
         }
 
         // POST: User/Create
@@ -96,7 +96,7 @@ namespace FamilyAuto.Controllers
                 return HttpNotFound();
             }
             ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email", customers.UserId);
-            return View(customers);
+            return View("Edit", customers);
         }
 
         // POST: User/Edit/5
@@ -128,7 +128,7 @@ namespace FamilyAuto.Controllers
             {
                 return HttpNotFound();
             }
-            return View(customers);
+            return View("Delete", customers);
         }
 
         // POST: User/Delete/5

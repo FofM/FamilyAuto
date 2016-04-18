@@ -59,7 +59,7 @@ namespace FamilyAuto.Controllers
         // GET: IMS/Create
         public ActionResult Create()
         {
-            return View();
+            return View("Create");
         }
 
         // POST: IMS/Create
@@ -93,7 +93,7 @@ namespace FamilyAuto.Controllers
             {
                 return HttpNotFound();
             }
-            return View(articles);
+            return View("Edit", articles);
         }
 
         // POST: IMS/Edit/5
@@ -124,7 +124,7 @@ namespace FamilyAuto.Controllers
             {
                 return HttpNotFound();
             }
-            return View(articles);
+            return View("Delete", articles);
         }
 
         // POST: IMS/Delete/5

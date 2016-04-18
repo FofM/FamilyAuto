@@ -445,8 +445,8 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
           <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vehicle" EntityType="Self.Vehicle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VehiclePictures" EntityType="Self.VehiclePictures" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="VehicleEngine" EntityType="Self.VehicleEngine" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
+          <EntitySet Name="VehicleEngine" EntityType="Self.VehicleEngine" store:Type="Tables" Schema="dbo">
+            <!--<DefiningQuery>SELECT 
     [VehicleEngine].[Id] AS [Id], 
     [VehicleEngine].[FuelType] AS [FuelType], 
     [VehicleEngine].[Transmission] AS [Transmission], 
@@ -455,10 +455,10 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
     [VehicleEngine].[FuelConsumption] AS [FuelConsumption], 
     [VehicleEngine].[EmissionClass] AS [EmissionClass], 
     [VehicleEngine].[EmissionSticker] AS [EmissionSticker]
-    FROM [dbo].[VehicleEngine] AS [VehicleEngine]</DefiningQuery>
+    FROM [dbo].[VehicleEngine] AS [VehicleEngine]</DefiningQuery>-->
           </EntitySet>
-          <EntitySet Name="VehicleFeature" EntityType="Self.VehicleFeature" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
+          <EntitySet Name="VehicleFeature" EntityType="Self.VehicleFeature" store:Type="Tables" Schema="dbo">
+            <!--<DefiningQuery>SELECT 
     [VehicleFeature].[Id] AS [Id], 
     [VehicleFeature].[ExteriorColor] AS [ExteriorColor], 
     [VehicleFeature].[InteriorColor] AS [InteriorColor], 
@@ -469,10 +469,10 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
     [VehicleFeature].[ParkingSensor] AS [ParkingSensor], 
     [VehicleFeature].[Sports] AS [Sports], 
     [VehicleFeature].[InteriorMaterial] AS [InteriorMaterial]
-    FROM [dbo].[VehicleFeature] AS [VehicleFeature]</DefiningQuery>
+    FROM [dbo].[VehicleFeature] AS [VehicleFeature]</DefiningQuery>-->
           </EntitySet>
-          <EntitySet Name="VehicleHistory" EntityType="Self.VehicleHistory" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
+          <EntitySet Name="VehicleHistory" EntityType="Self.VehicleHistory" store:Type="Tables" Schema="dbo">
+            <!--<DefiningQuery>SELECT 
     [VehicleHistory].[Id] AS [Id], 
     [VehicleHistory].[Purpose] AS [Purpose], 
     [VehicleHistory].[NoOfOwners] AS [NoOfOwners], 
@@ -480,7 +480,7 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
     [VehicleHistory].[Warranty] AS [Warranty], 
     [VehicleHistory].[Mileage] AS [Mileage], 
     [VehicleHistory].[FirstRegistration] AS [FirstRegistration]
-    FROM [dbo].[VehicleHistory] AS [VehicleHistory]</DefiningQuery>
+    FROM [dbo].[VehicleHistory] AS [VehicleHistory]</DefiningQuery>-->
           </EntitySet>
           <AssociationSet Name="FK_Comission_Staff" Association="Self.FK_Comission_Staff">
             <End Role="Staff" EntitySet="Staff" />

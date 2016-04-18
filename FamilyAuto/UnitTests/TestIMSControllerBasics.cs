@@ -31,5 +31,45 @@ namespace FamilyAuto.UnitTests
 
             Assert.AreEqual("Statistics", result.ViewName);
         }
+
+        [Test]
+        public void TestIMSControllerDetails()
+        {
+            var controller = new IMSController();
+
+            ViewResult result = controller.Details(1002) as ViewResult;
+
+            Assert.AreEqual("Details", result.ViewName);
+        }
+
+        [Test]
+        public void TestIMSControllerCreate()
+        {
+            var controller = new IMSController();
+
+            ViewResult result = controller.Create() as ViewResult;
+
+            Assert.AreEqual("Create", result.ViewName);
+        }
+
+        [Test]
+        public void TestIMSControllerEdit()
+        {
+            var controller = new IMSController();
+
+            ViewResult result = controller.Edit(1002) as ViewResult;
+
+            Assert.AreEqual("Edit", result.ViewName);
+        }
+
+        [Test]
+        public void TestIMSControllerDelete()
+        {
+            var controller = new IMSController();
+
+            ViewResult result = controller.Delete(1002) as ViewResult;
+
+            Assert.AreEqual("Delete", result.ViewName);
+        }
     }
 }

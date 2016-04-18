@@ -17,7 +17,7 @@ namespace FamilyAuto.Controllers
         // GET: Supplier
         public ActionResult Index()
         {
-            return View(db.Supplier.ToList());
+            return View("Index", db.Supplier.ToList());
         }
 
         // GET: Supplier/Details/5
@@ -32,13 +32,13 @@ namespace FamilyAuto.Controllers
             {
                 return HttpNotFound();
             }
-            return View(supplier);
+            return View("Details", supplier);
         }
 
         // GET: Supplier/Create
         public ActionResult Create()
         {
-            return View();
+            return View("Create");
         }
 
         // POST: Supplier/Create
@@ -70,7 +70,7 @@ namespace FamilyAuto.Controllers
             {
                 return HttpNotFound();
             }
-            return View(supplier);
+            return View("Edit", supplier);
         }
 
         // POST: Supplier/Edit/5
@@ -101,7 +101,7 @@ namespace FamilyAuto.Controllers
             {
                 return HttpNotFound();
             }
-            return View(supplier);
+            return View("Delete", supplier);
         }
 
         // POST: Supplier/Delete/5

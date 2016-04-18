@@ -292,9 +292,15 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="UnitTests\TestArticleControllerBasics.cs" />
     <Compile Include="UnitTests\TestArticleCRUD.cs" />
+    <Compile Include="UnitTests\TestCustomerControllerBasics.cs" />
     <Compile Include="UnitTests\TestHomeControllerBasics.cs" />
     <Compile Include="UnitTests\TestIMSControllerBasics.cs" />
+    <Compile Include="UnitTests\TestServiceOrderControllerBasics.cs" />
+    <Compile Include="UnitTests\TestSoldVehiclesControllerBasics.cs" />
+    <Compile Include="UnitTests\TestStaffControllerBasics.cs" />
+    <Compile Include="UnitTests\TestSupplierControllerBasics.cs" />
     <Compile Include="UnitTests\TestVehicleControllerBasics.cs" />
   </ItemGroup>
   <ItemGroup>

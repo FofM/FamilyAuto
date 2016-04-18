@@ -18,7 +18,7 @@ namespace FamilyAuto.Controllers
         public ActionResult Index()
         {
             var staff = db.Staff.Include(s => s.AspNetUsers);
-            return View(staff.ToList());
+            return View("Index", staff.ToList());
         }
 
         // GET: Staff/Details/5
@@ -33,14 +33,14 @@ namespace FamilyAuto.Controllers
             {
                 return HttpNotFound();
             }
-            return View(staff);
+            return View("Details", staff);
         }
 
         // GET: Staff/Create
         public ActionResult Create()
         {
             ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email");
-            return View();
+            return View("Create");
         }
 
         // POST: Staff/Create
@@ -74,7 +74,7 @@ namespace FamilyAuto.Controllers
                 return HttpNotFound();
             }
             ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email", staff.UserId);
-            return View(staff);
+            return View("Edit", staff);
         }
 
         // POST: Staff/Edit/5
@@ -106,7 +106,7 @@ namespace FamilyAuto.Controllers
             {
                 return HttpNotFound();
             }
-            return View(staff);
+            return View("Delete", staff);
         }
 
         // POST: Staff/Delete/5

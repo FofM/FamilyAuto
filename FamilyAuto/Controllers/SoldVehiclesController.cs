@@ -18,7 +18,7 @@ namespace FamilyAuto.Controllers
         public ActionResult Index()
         {
             var soldVehicles = db.SoldVehicles.Include(s => s.Customers).Include(s => s.Vehicle);
-            return View(soldVehicles.ToList());
+            return View("Index", soldVehicles.ToList());
         }
 
         // GET: SoldVehicles/Details/5
@@ -33,7 +33,7 @@ namespace FamilyAuto.Controllers
             {
                 return HttpNotFound();
             }
-            return View(soldVehicles);
+            return View("Details", soldVehicles);
         }
 
         // GET: SoldVehicles/Create
@@ -69,7 +69,7 @@ namespace FamilyAuto.Controllers
                                                 }),
                 "Id", "vehicleName", null);
             //ViewBag.VehicleList = db.Vehicles;
-            return View();
+            return View("Create");
         }
 
         // POST: SoldVehicles/Create
@@ -111,7 +111,7 @@ namespace FamilyAuto.Controllers
             }
             ViewBag.CustomerId = new SelectList(db.Customers, "Id", "FirstName", soldVehicles.CustomerId);
             ViewBag.VehicleId = new SelectList(db.Vehicles, "Id", "Make", soldVehicles.VehicleId);
-            return View(soldVehicles);
+            return View("Edit", soldVehicles);
         }
 
         // POST: SoldVehicles/Edit/5
@@ -145,7 +145,7 @@ namespace FamilyAuto.Controllers
             {
                 return HttpNotFound();
             }
-            return View(soldVehicles);
+            return View("Delete", soldVehicles);
         }
 
         // POST: SoldVehicles/Delete/5
