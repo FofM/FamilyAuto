@@ -20,8 +20,10 @@ namespace FamilyAuto.Models
         public System.DateTime DateSold { get; set; }
         public System.DateTime DateCreated { get; set; }
         public int FinalPrice { get; set; }
+        public Nullable<int> StaffId { get; set; }
     
         public virtual Customers Customers { get; set; }
         public virtual Vehicle Vehicle { get; set; }
+        public virtual Staff Staff { get; set; }
     }
 }

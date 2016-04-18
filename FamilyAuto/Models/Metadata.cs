@@ -97,6 +97,9 @@ namespace FamilyAuto.Models
 
         [Display(Name = "Customer ID and Name")]
         public string CustomerIdName;
+
+        [Display(Name = "Sold by")]
+        public Nullable<int> StaffId { get; set; }
     }
 
     public class ArticlesMetadata

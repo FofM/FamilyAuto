@@ -36,6 +36,7 @@
         <AssociationConnector Association="FamilyAutoModel.FK_Staff_AspNetUsers" />
         <AssociationConnector Association="FamilyAutoModel.FK_Comission_Staff" />
         <AssociationConnector Association="FamilyAutoModel.FK_Comission_Vehicle" />
+        <AssociationConnector Association="FamilyAutoModel.FK_SoldVehicles_Customers1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

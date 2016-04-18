@@ -49,6 +49,14 @@ namespace FamilyAuto.Controllers
                                                  }),
     "Id", "customerName", null);
 
+            ViewBag.StaffId = new SelectList((from s in db.Staff.ToList()
+                                                 select new
+                                                 {
+                                                     Id = s.Id,
+                                                     StaffId = s.Id + " - " + s.FirstName + " " + s.LastName
+                                                 }),
+"Id", "StaffId", null);
+
             //ViewBag.VehicleId = new SelectList(db.Vehicles, "Id", "Id");
 
             //The SelectList values are defined by concatenating database values in order

@@ -110,6 +110,7 @@
           <Property Name="DateSold" Type="date" Nullable="false" />
           <Property Name="DateCreated" Type="date" Nullable="false" />
           <Property Name="FinalPrice" Type="int" Nullable="false" />
+          <Property Name="StaffId" Type="int" />
         </EntityType>
         <EntityType Name="Staff">
           <Key>
@@ -334,16 +335,16 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SoldVehicles_Customers">
-          <End Role="Customers" Type="Self.Customers" Multiplicity="1">
+          <End Role="Staff" Type="Self.Staff" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="SoldVehicles" Type="Self.SoldVehicles" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Customers">
+            <Principal Role="Staff">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="SoldVehicles">
-              <PropertyRef Name="CustomerId" />
+              <PropertyRef Name="StaffId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -444,8 +445,8 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
           <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vehicle" EntityType="Self.Vehicle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VehiclePictures" EntityType="Self.VehiclePictures" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="VehicleEngine" EntityType="Self.VehicleEngine" store:Type="Tables" Schema="dbo">
-            <!--<DefiningQuery>SELECT 
+          <EntitySet Name="VehicleEngine" EntityType="Self.VehicleEngine" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
     [VehicleEngine].[Id] AS [Id], 
     [VehicleEngine].[FuelType] AS [FuelType], 
     [VehicleEngine].[Transmission] AS [Transmission], 
@@ -454,10 +455,10 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
     [VehicleEngine].[FuelConsumption] AS [FuelConsumption], 
     [VehicleEngine].[EmissionClass] AS [EmissionClass], 
     [VehicleEngine].[EmissionSticker] AS [EmissionSticker]
-    FROM [dbo].[VehicleEngine] AS [VehicleEngine]</DefiningQuery>-->
+    FROM [dbo].[VehicleEngine] AS [VehicleEngine]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="VehicleFeature" EntityType="Self.VehicleFeature" store:Type="Tables" Schema="dbo">
-            <!--<DefiningQuery>SELECT 
+          <EntitySet Name="VehicleFeature" EntityType="Self.VehicleFeature" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
     [VehicleFeature].[Id] AS [Id], 
     [VehicleFeature].[ExteriorColor] AS [ExteriorColor], 
     [VehicleFeature].[InteriorColor] AS [InteriorColor], 
@@ -468,10 +469,10 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
     [VehicleFeature].[ParkingSensor] AS [ParkingSensor], 
     [VehicleFeature].[Sports] AS [Sports], 
     [VehicleFeature].[InteriorMaterial] AS [InteriorMaterial]
-    FROM [dbo].[VehicleFeature] AS [VehicleFeature]</DefiningQuery>-->
+    FROM [dbo].[VehicleFeature] AS [VehicleFeature]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="VehicleHistory" EntityType="Self.VehicleHistory" store:Type="Tables" Schema="dbo">
-            <!--<DefiningQuery>SELECT 
+          <EntitySet Name="VehicleHistory" EntityType="Self.VehicleHistory" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
     [VehicleHistory].[Id] AS [Id], 
     [VehicleHistory].[Purpose] AS [Purpose], 
     [VehicleHistory].[NoOfOwners] AS [NoOfOwners], 
@@ -479,7 +480,7 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
     [VehicleHistory].[Warranty] AS [Warranty], 
     [VehicleHistory].[Mileage] AS [Mileage], 
     [VehicleHistory].[FirstRegistration] AS [FirstRegistration]
-    FROM [dbo].[VehicleHistory] AS [VehicleHistory]</DefiningQuery>-->
+    FROM [dbo].[VehicleHistory] AS [VehicleHistory]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_Comission_Staff" Association="Self.FK_Comission_Staff">
             <End Role="Staff" EntitySet="Staff" />
@@ -518,7 +519,7 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
             <End Role="ServiceOrder" EntitySet="ServiceOrder" />
           </AssociationSet>
           <AssociationSet Name="FK_SoldVehicles_Customers" Association="Self.FK_SoldVehicles_Customers">
-            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Staff" EntitySet="Staff" />
             <End Role="SoldVehicles" EntitySet="SoldVehicles" />
           </AssociationSet>
           <AssociationSet Name="FK_SoldVehicles_Vehicle" Association="Self.FK_SoldVehicles_Vehicle">
@@ -733,6 +734,10 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
             <End Role="Vehicle" EntitySet="Vehicles" />
             <End Role="Comission" EntitySet="Comission" />
           </AssociationSet>
+          <AssociationSet Name="FK_SoldVehicles_Customers1" Association="FamilyAutoModel.FK_SoldVehicles_Customers1">
+            <End Role="Staff" EntitySet="Staff" />
+            <End Role="SoldVehicles" EntitySet="SoldVehicles" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="VehiclePicture">
           <Key>
@@ -909,6 +914,8 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
           <Property Name="FinalPrice" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Customers" Relationship="FamilyAutoModel.FK_SoldVehicles_Customers" FromRole="SoldVehicles" ToRole="Customers" />
           <NavigationProperty Name="Vehicle" Relationship="FamilyAutoModel.FK_SoldVehicles_Vehicle" FromRole="SoldVehicles" ToRole="Vehicle" />
+          <Property Name="StaffId" Type="Int32" />
+          <NavigationProperty Name="Staff" Relationship="FamilyAutoModel.FK_SoldVehicles_Customers1" FromRole="SoldVehicles" ToRole="Staff" />
         </EntityType>
         <Association Name="FK_SoldVehicles_Customers">
           <End Type="FamilyAutoModel.Customers" Role="Customers" Multiplicity="1">
@@ -1021,6 +1028,7 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
           <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUsers" Relationship="FamilyAutoModel.FK_Staff_AspNetUsers" FromRole="Staff" ToRole="AspNetUsers" />
           <NavigationProperty Name="Comission" Relationship="FamilyAutoModel.FK_Comission_Staff" FromRole="Staff" ToRole="Comission" />
+          <NavigationProperty Name="SoldVehicles" Relationship="FamilyAutoModel.FK_SoldVehicles_Customers1" FromRole="Staff" ToRole="SoldVehicles" />
         </EntityType>
         <Association Name="FK_Staff_AspNetUsers">
           <End Type="FamilyAutoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
@@ -1059,6 +1067,20 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
             </Principal>
             <Dependent Role="Comission">
               <PropertyRef Name="VehicleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SoldVehicles_Customers1">
+          <End Type="FamilyAutoModel.Staff" Role="Staff" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="FamilyAutoModel.SoldVehicles" Role="SoldVehicles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SoldVehicles">
+              <PropertyRef Name="StaffId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1217,6 +1239,7 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
           <EntitySetMapping Name="SoldVehicles">
             <EntityTypeMapping TypeName="FamilyAutoModel.SoldVehicles">
               <MappingFragment StoreEntitySet="SoldVehicles">
+                <ScalarProperty Name="StaffId" ColumnName="StaffId" />
                 <ScalarProperty Name="FinalPrice" ColumnName="FinalPrice" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="DateSold" ColumnName="DateSold" />

@@ -9,17 +9,19 @@
 <div class="row">
     <div class=col-md-4>
         <h4>Maintain Staff, Customers and Suppliers</h4>
-        @Html.ActionLink("Manage Staff", "Index", new { Controller = "Staff" }, new { @class = "btn btn-primary" })
-        @Html.ActionLink("Manage Customers", "Index", new { Controller = "User" }, new { @class = "btn btn-primary" })
-        @Html.ActionLink("Manage Suppliers", "Index", new { Controller = "Supplier" }, new { @class = "btn btn-primary" })
+        <div class="btn-group-vertical">
+            @Html.ActionLink("Manage Staff", "Index", new { Controller = "Staff" }, new { @class = "btn btn-lg btn-primary" })
+            @Html.ActionLink("Manage Customers", "Index", new { Controller = "User" }, new { @class = "btn btn-lg btn-success" })
+            @Html.ActionLink("Manage Suppliers", "Index", new { Controller = "Supplier" }, new { @class = "btn btn-lg btn-info" })
+        </div>
     </div>
     <div class=col-md-4>
         <h4>Maintain Services Ordered</h4>
-        @Html.ActionLink("Manage Services Ordered", "Index", new { Controller = "ServiceOrder" }, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Manage Services Ordered", "Index", new { Controller = "ServiceOrder" }, new { @class = "btn btn-lg btn-primary" })
     </div>
     <div class=col-md-4>
         <h4>Vehicle overview</h4>
-        @Html.ActionLink("Manage Vehicle Sales", "Index", new { Controller = "SoldVehicles" }, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Manage Vehicle Sales", "Index", new { Controller = "SoldVehicles" }, new { @class = "btn btn-lg btn-primary" })
     </div>
 </div>
 <br />
@@ -29,34 +31,10 @@
 {
 <div class="row">
     <div class="col-lg-4">
-        @Html.ActionLink("Manage Roles", "RoleIndex", new { Controller = "Account" }, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Manage Roles", "RoleIndex", new { Controller = "Account" }, new { @class = "btn btn-lg btn-primary" })
     </div>
 </div>
 }     
 <hr />
 
 <br /><br /><br /><br />
-
-<div class="row">
-    <h3>Customers</h3>
-    <div class="col-md-3 form-group">
-        <h4>Register active service</h4>
-        <label>Service:</label>
-        <select class="form-control">
-            <option value="Oil Change">Oil Change</option>
-        </select>
-        <input class="form-control" type="text" />
-        <label>Price:</label>
-        <input class="form-control" type="text" />$
-        <label>Ordered On:</label>
-        <input class="form-control" type="date" />
-        <label>Due:</label>
-        <input class="form-control" type="date" />
-        <label>Ordered by:</label>
-        <select class="form-control">
-            <option value="Filip Grasheski">Filip Grasheski</option>
-        </select>
-        <br />
-        <a class="btn btn-default" href="#">Apply</a>
-    </div>
-</div>
