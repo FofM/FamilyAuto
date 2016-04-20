@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using FamilyAuto.Models;
 using System.Web.Security;
 using Microsoft.AspNet.Identity;
+using System.Text.RegularExpressions;
 
 namespace FamilyAuto.Controllers
 {
@@ -17,9 +18,22 @@ namespace FamilyAuto.Controllers
         private FamilyAutoEntities db = new FamilyAutoEntities();
 
         // GET: User
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
             var customers = db.Customers.Include(c => c.AspNetUsers);
+
+            if (!String.IsNullOrEmpty(searchString) && Regex.IsMatch(searchString, @"^\d+$"))
+            {
+                int searchInt = int.Parse(searchString);
+                customers = customers.Where(a => a.Id.Equals(searchInt));
+            }
+
+            else if (!String.IsNullOrEmpty(searchString))
+            {
+                customers = customers.Where(c => c.FirstName.Contains(searchString) || c.LastName.Contains(searchString) || c.Address.Contains(searchString) || c.Email.Contains(searchString) 
+                || c.Phone.Contains(searchString) || c.UserId.Contains(searchString));
+            }
+
             return View("Index", customers.ToList());
         }
 

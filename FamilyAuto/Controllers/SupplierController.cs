@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FamilyAuto.Models;
+using System.Text.RegularExpressions;
 
 namespace FamilyAuto.Controllers
 {
@@ -15,9 +16,23 @@ namespace FamilyAuto.Controllers
         private FamilyAutoEntities db = new FamilyAutoEntities();
 
         // GET: Supplier
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
-            return View("Index", db.Supplier.ToList());
+            IQueryable<Supplier> supplier = db.Supplier;
+
+            if (!String.IsNullOrEmpty(searchString) && Regex.IsMatch(searchString, @"^\d+$"))
+            {
+                int searchInt = int.Parse(searchString);
+                supplier = supplier.Where(s => s.Id.Equals(searchInt));
+            }
+
+            else if (!String.IsNullOrEmpty(searchString))
+            {
+                supplier = supplier.Where(s => s.CompanyName.Contains(searchString) || s.ContactName.Contains(searchString) || s.Address.Contains(searchString) || s.Email.Contains(searchString)
+                || s.Fax.Contains(searchString) || s.Phone.Contains(searchString) || s.WebAddress.Contains(searchString));
+            }
+
+            return View("Index", supplier.ToList());
         }
 
         // GET: Supplier/Details/5
