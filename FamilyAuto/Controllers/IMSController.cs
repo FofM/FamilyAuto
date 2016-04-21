@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FamilyAuto.Models;
+using Newtonsoft.Json;
 
 namespace FamilyAuto.Controllers
 {
@@ -29,6 +30,13 @@ namespace FamilyAuto.Controllers
             ViewBag.NonRegisteredCustomers = (from c in db.Customers where c.UserId == null select c).Count().ToString();
 
             //ViewBag.SalesPerMonth = db.SoldVehicles.GroupBy(d => d.DateSold).Select(c => new { Month = c.FirstOrDefault().DateSold.Month, Quantity = c.Count().ToString() });
+
+            var q =  from c in db.Vehicles
+                     group c by c.Variant into g
+                     select new { g.Key, Count = g.Count() };
+
+            ViewBag.SalesPerMonth = q;
+                //JsonConvert.SerializeObject(q);
 
             var SalesPerMonth = from s in db.SoldVehicles
                                 group s by s.DateSold into dateSold
@@ -72,7 +80,7 @@ namespace FamilyAuto.Controllers
             //articles.DateUploaded = DateTime.Now;
             if (ModelState.IsValid)
             {
-                
+
                 db.Articles.Add(articles);
                 db.SaveChanges();
                 return RedirectToAction("Index");

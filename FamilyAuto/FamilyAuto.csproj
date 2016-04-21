@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -25,6 +26,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>1.7</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -335,6 +337,7 @@
       <DependentUpon>FamilyAutoDB.edmx</DependentUpon>
       <LastGenOutput>FamilyAutoDB.cs</LastGenOutput>
     </Content>
+    <Content Include="Plugins\jchartfx.visualstudio.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -353,7 +356,42 @@
       <DependentUpon>FamilyAutoDB.edmx</DependentUpon>
     </Content>
     <Content Include="App_Code\Helpers.cshtml" />
+    <Content Include="Plugins\jchartfx.tern.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jchartfx.advanced.js" />
+    <Content Include="Scripts\jchartfx.animation.js" />
+    <Content Include="Scripts\jchartfx.annotation.js" />
+    <Content Include="Scripts\jchartfx.axistrend.js" />
+    <Content Include="Scripts\jchartfx.bullet.js" />
+    <Content Include="Scripts\jchartfx.coreBasic.js" />
+    <Content Include="Scripts\jchartfx.coreVector.js" />
+    <Content Include="Scripts\jchartfx.coreVector3d.js" />
+    <Content Include="Scripts\jchartfx.data.js" />
+    <Content Include="Scripts\jchartfx.density.js" />
+    <Content Include="Scripts\jchartfx.equalizer.js" />
+    <Content Include="Scripts\jchartfx.funnel.js" />
+    <Content Include="Scripts\jchartfx.gauge.js" />
+    <Content Include="Scripts\jchartfx.handdrawn.js" />
+    <Content Include="Scripts\jchartfx.heatmap.js" />
+    <Content Include="Scripts\jchartfx.highlow.js" />
+    <Content Include="Scripts\jchartfx.highlowclose.js" />
+    <Content Include="Scripts\jchartfx.maps.js" />
+    <Content Include="Scripts\jchartfx.overlaybubble.js" />
+    <Content Include="Scripts\jchartfx.pareto.js" />
+    <Content Include="Scripts\jchartfx.persistence.js" />
+    <Content Include="Scripts\jchartfx.pictograph.js" />
+    <Content Include="Scripts\jchartfx.pyramid.js" />
+    <Content Include="Scripts\jchartfx.radar.js" />
+    <Content Include="Scripts\jchartfx.rose.js" />
+    <Content Include="Scripts\jchartfx.sparkline.js" />
+    <Content Include="Scripts\jchartfx.statistical.js" />
+    <Content Include="Scripts\jchartfx.surface.js" />
+    <Content Include="Scripts\jchartfx.system.js" />
+    <Content Include="Scripts\jchartfx.treemap.js" />
+    <Content Include="Scripts\jchartfx.ui.js" />
+    <Content Include="Scripts\jchartfx.userInterface.js" />
+    <Content Include="Scripts\jchartfx.vector.js" />
+    <Content Include="Scripts\jchartfx.vectorTemplates.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -365,9 +403,152 @@
     <Content Include="Scripts\knockout-3.4.0.debug.js" />
     <Content Include="Scripts\knockout-3.4.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\motifs\images\BrushedMetal.jpg" />
+    <Content Include="Scripts\motifs\jchartfx.motif.aurora.js" />
+    <Content Include="Scripts\motifs\jchartfx.motif.blinds.js" />
+    <Content Include="Scripts\motifs\jchartfx.motif.block.js" />
+    <Content Include="Scripts\motifs\jchartfx.motif.darkrounded.js" />
+    <Content Include="Scripts\motifs\jchartfx.motif.face.js" />
+    <Content Include="Scripts\motifs\jchartfx.motif.glow.js" />
+    <Content Include="Scripts\motifs\jchartfx.motif.handdrawn.js" />
+    <Content Include="Scripts\motifs\jchartfx.motif.healthy.js" />
+    <Content Include="Scripts\motifs\jchartfx.motif.hook.js" />
+    <Content Include="Scripts\motifs\jchartfx.motif.jchartfx.js" />
+    <Content Include="Scripts\motifs\jchartfx.motif.js" />
+    <Content Include="Scripts\motifs\jchartfx.motif.lizard.js" />
+    <Content Include="Scripts\motifs\jchartfx.motif.material.js" />
+    <Content Include="Scripts\motifs\jchartfx.motif.metal.js" />
+    <Content Include="Scripts\motifs\jchartfx.motif.metro.js" />
+    <Content Include="Scripts\motifs\jchartfx.motif.relief.js" />
+    <Content Include="Scripts\motifs\jchartfx.motif.semantic.js" />
+    <Content Include="Scripts\motifs\jchartfx.motif.sunken.js" />
+    <Content Include="Scripts\motifs\jchartfx.motif.topbar.js" />
+    <Content Include="Scripts\motifs\jchartfx.motif.tree.js" />
+    <Content Include="Scripts\motifs\jchartfx.motif.vibrant.js" />
+    <Content Include="Scripts\motifs\jchartfx.motif.whitespace.js" />
+    <Content Include="Scripts\motifs\jchartfx.motif.wireframe.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Styles\Attributes\jchartfx.attributes.aurora.css" />
+    <Content Include="Styles\Attributes\jchartfx.attributes.black-tie.css" />
+    <Content Include="Styles\Attributes\jchartfx.attributes.blinds.css" />
+    <Content Include="Styles\Attributes\jchartfx.attributes.blitzer.css" />
+    <Content Include="Styles\Attributes\jchartfx.attributes.block.css" />
+    <Content Include="Styles\Attributes\jchartfx.attributes.css" />
+    <Content Include="Styles\Attributes\jchartfx.attributes.cupertino.css" />
+    <Content Include="Styles\Attributes\jchartfx.attributes.dark-hive.css" />
+    <Content Include="Styles\Attributes\jchartfx.attributes.dot-luv.css" />
+    <Content Include="Styles\Attributes\jchartfx.attributes.eggplant.css" />
+    <Content Include="Styles\Attributes\jchartfx.attributes.excite-bike.css" />
+    <Content Include="Styles\Attributes\jchartfx.attributes.face.css" />
+    <Content Include="Styles\Attributes\jchartfx.attributes.flick.css" />
+    <Content Include="Styles\Attributes\jchartfx.attributes.glow.css" />
+    <Content Include="Styles\Attributes\jchartfx.attributes.handdrawn.css" />
+    <Content Include="Styles\Attributes\jchartfx.attributes.healthy.css" />
+    <Content Include="Styles\Attributes\jchartfx.attributes.hook.css" />
+    <Content Include="Styles\Attributes\jchartfx.attributes.hot-sneaks.css" />
+    <Content Include="Styles\Attributes\jchartfx.attributes.humanity.css" />
+    <Content Include="Styles\Attributes\jchartfx.attributes.jchartfx.css" />
+    <Content Include="Styles\Attributes\jchartfx.attributes.le-frog.css" />
+    <Content Include="Styles\Attributes\jchartfx.attributes.lizard.css" />
+    <Content Include="Styles\Attributes\jchartfx.attributes.material.css" />
+    <Content Include="Styles\Attributes\jchartfx.attributes.metal.css" />
+    <Content Include="Styles\Attributes\jchartfx.attributes.metro.css" />
+    <Content Include="Styles\Attributes\jchartfx.attributes.mint-choc.css" />
+    <Content Include="Styles\Attributes\jchartfx.attributes.overcast.css" />
+    <Content Include="Styles\Attributes\jchartfx.attributes.pepper-grinder.css" />
+    <Content Include="Styles\Attributes\jchartfx.attributes.redmond.css" />
+    <Content Include="Styles\Attributes\jchartfx.attributes.relief.css" />
+    <Content Include="Styles\Attributes\jchartfx.attributes.semantic.css" />
+    <Content Include="Styles\Attributes\jchartfx.attributes.smoothness.css" />
+    <Content Include="Styles\Attributes\jchartfx.attributes.south-street.css" />
+    <Content Include="Styles\Attributes\jchartfx.attributes.start.css" />
+    <Content Include="Styles\Attributes\jchartfx.attributes.sunny.css" />
+    <Content Include="Styles\Attributes\jchartfx.attributes.swanky-purse.css" />
+    <Content Include="Styles\Attributes\jchartfx.attributes.topbar.css" />
+    <Content Include="Styles\Attributes\jchartfx.attributes.tree.css" />
+    <Content Include="Styles\Attributes\jchartfx.attributes.trontastic.css" />
+    <Content Include="Styles\Attributes\jchartfx.attributes.ui-darkness.css" />
+    <Content Include="Styles\Attributes\jchartfx.attributes.ui-lightness.css" />
+    <Content Include="Styles\Attributes\jchartfx.attributes.vader.css" />
+    <Content Include="Styles\Attributes\jchartfx.attributes.whitespace.css" />
+    <Content Include="Styles\Attributes\jchartfx.attributes.wireframe.css" />
+    <Content Include="Styles\jchartfx.userInterface.css" />
+    <Content Include="Styles\Palettes\images\background-metal1.png" />
+    <Content Include="Styles\Palettes\jchartfx.palette.adventure.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.alternate.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.aurora.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.autumn.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.black-n-blue.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.black-tie.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.blinds.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.blitzer.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.block.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.brown-sugar.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.chartfx5.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.chartfx6.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.chartfx7.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.classic.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.colorful.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.cupertino.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.dark-hive.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.darkpastels.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.dot-luv.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.earth-tones.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.eggplant.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.excite-bike.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.face.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.flick.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.glow.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.handdrawn.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.healthy.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.high-contrast.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.hook.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.hot-sneaks.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.humanity.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.le-frog.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.lilacs-in-mist.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.lite.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.lizard.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.material.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.mesa.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.metal.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.metro.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.mint-choc.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.mocha.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.modern-business.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.oceanica.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.overcast.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.pastels.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.pepper-grinder.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.pocket.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.professional.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.rainy-day.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.redmond.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.relief.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.sand-n-sky.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.semantic.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.simple.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.sky.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.slate.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.smoothness.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.snowy-pine.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.south-street.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.start.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.sunny.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.swanky-purse.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.topbar.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.tree.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.trontastic.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.ui-darkness.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.ui-lightness.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.vader.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.vivid.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.whitespace.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.windows.css" />
+    <Content Include="Styles\Palettes\jchartfx.palette.wireframe.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -450,6 +631,7 @@
     <Content Include="Views\Staff\Details.cshtml" />
     <Content Include="Views\Staff\Edit.cshtml" />
     <Content Include="Views\Staff\Index.cshtml" />
+    <Content Include="Styles\Palettes\images\Thumbs.db" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -460,14 +642,19 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Plugins\jchartfx.d.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">

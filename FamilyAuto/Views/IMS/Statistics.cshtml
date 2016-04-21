@@ -4,6 +4,13 @@
     ViewBag.Title = "Statistics";
 }
 
+<script src="~/Scripts/jchartfx.system.js"></script>
+<script src="~/Scripts/jchartfx.coreVector.js"></script>
+<script src="~/Scripts/jchartfx.userInterface.js"></script>
+<link href="~/Styles/jchartfx.userInterface.css" rel="stylesheet" />
+<link href="~/Styles/Attributes/jchartfx.attributes.css" rel="stylesheet" />
+<link href="~/Styles/Palettes/jchartfx.palette.css" rel="stylesheet" />
+
 <h2>Statistics</h2>
 <br />
 
@@ -17,11 +24,18 @@
 
 @*@foreach (string m in ViewBag.Months)*@
 @*@foreach (var m in ViewBag.SalesPerMonth)
-{
-    <p>@m</p>
-}*@
+    {
+        <p>@m</p>
+    }*@
 
-<table class="table table-striped">
+@{ 
+    //var jss = new System.Web.Script.Serialization.JavaScriptSerializer();
+    //var salesData = jss.Serialize(ViewBag.SalesPerMonth);
+
+    var salesData = Json.Encode(ViewBag.SalesPerMonth);
+}
+
+@*<table class="table table-striped">
     <tr>
         <th>
             Date Sold
@@ -42,4 +56,38 @@
             </td>
         </tr>
     }
-</table>
+</table>*@
+
+<div id="ChartDiv" style="width:600px;height:400px;display:inline-block"></div>
+
+<script type="text/javascript" language="javascript">
+
+    var chart1;
+    $(document).ready(function ($) {
+
+        chart1 = new cfx.Chart();
+
+        chart1.getData().setSeries(2);
+
+        chart1.getAxisY().setMin(1);
+
+        chart1.getAxisY().setMax(20);
+
+        var series1 = chart1.getSeries().getItem(0);
+
+        var series2 = chart1.getSeries().getItem(1);
+
+        series1.setGallery(cfx.Gallery.Lines);
+
+        series2.setGallery(cfx.Gallery.Bar);
+
+        var data = JSON.parse('@Html.Raw(salesData)');
+
+        chart1.setDataSource(data);
+
+        var divHolder = document.getElementById('ChartDiv');
+
+        chart1.create(divHolder);
+
+    })
+</script>

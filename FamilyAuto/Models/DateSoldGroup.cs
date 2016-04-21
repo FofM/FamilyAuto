@@ -13,4 +13,10 @@ namespace FamilyAuto.Models
 
         public int SoldCount { get; set; }
     }
+
+    public class MakeSoldGroup
+    {
+        public string MakeSold { get; set; }
+        public int MakeSoldCount { get; set; }
+    }
 }
