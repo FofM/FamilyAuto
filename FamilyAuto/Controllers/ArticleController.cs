@@ -77,7 +77,7 @@ namespace FamilyAuto.Controllers
             }
             catch (Exception ex)
             {
-                return View("Error", new HandleErrorInfo(ex, "Articles", "Create"));
+                return View("Error", new HandleErrorInfo(ex, "Article", "Create"));
             }
         }
 

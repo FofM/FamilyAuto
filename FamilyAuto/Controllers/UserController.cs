@@ -30,7 +30,7 @@ namespace FamilyAuto.Controllers
 
             else if (!String.IsNullOrEmpty(searchString))
             {
-                customers = customers.Where(c => c.FirstName.Contains(searchString) || c.LastName.Contains(searchString) || c.Address.Contains(searchString) || c.Email.Contains(searchString) 
+                customers = customers.Where(c => c.FirstName.Contains(searchString) || c.LastName.Contains(searchString) || c.Address.Contains(searchString) || c.Email.Contains(searchString)
                 || c.Phone.Contains(searchString) || c.UserId.Contains(searchString));
             }
 
@@ -86,15 +86,22 @@ namespace FamilyAuto.Controllers
                 string uID = User.Identity.GetUserId();
                 customers.UserId = uID;
             }
-            if (ModelState.IsValid)
+            try
             {
-                db.Customers.Add(customers);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Customers.Add(customers);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email", customers.UserId);
+                return View(customers);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "User", "Create"));
             }
 
-            ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email", customers.UserId);
-            return View(customers);
         }
 
         // GET: User/Edit/5

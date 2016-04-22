@@ -126,6 +126,14 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="WebDriver, Version=2.53.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selenium.WebDriver.2.53.0\lib\net40\WebDriver.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WebDriver.Support, Version=2.53.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selenium.Support.2.53.0\lib\net40\WebDriver.Support.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
@@ -297,6 +305,7 @@
     <Compile Include="UnitTests\TestArticleControllerBasics.cs" />
     <Compile Include="UnitTests\TestArticleCRUD.cs" />
     <Compile Include="UnitTests\TestCustomerControllerBasics.cs" />
+    <Compile Include="UnitTests\TestCustomerCRUD.cs" />
     <Compile Include="UnitTests\TestHomeControllerBasics.cs" />
     <Compile Include="UnitTests\TestIMSControllerBasics.cs" />
     <Compile Include="UnitTests\TestServiceOrderControllerBasics.cs" />
@@ -315,6 +324,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\Services\brakeRepair.jpg" />
+    <Content Include="Images\Services\happyCustomer.jpg" />
+    <Content Include="Images\Services\oilChange.jpg" />
+    <Content Include="Images\Services\tireRepair.jpg" />
     <Content Include="Images\TypeIcons\4wd.PNG" />
     <Content Include="Images\TypeIcons\Commercial.PNG" />
     <Content Include="Images\TypeIcons\Convertible.PNG" />
