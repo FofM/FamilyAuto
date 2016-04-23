@@ -13,56 +13,128 @@
 
 <h2>Statistics</h2>
 <br />
+<div class="container">
+    <div class="row">
+        <h4>@Html.ActionLink("Vehicles Sold: " + (string)ViewBag.VehiclesSold, "Index", new { Controller = "Vehicle" }, new { @class = "" })</h4>
 
-<h4>@Html.ActionLink("Vehicles Sold: " + (string)ViewBag.VehiclesSold, "Index", new { Controller = "Vehicle" }, new { @class = "" })</h4>
+        <h4>@Html.ActionLink("Vehicles On Sale: " + (string)ViewBag.VehiclesNotSold, "Index", new { Controller = "SoldVehicles" }, new { @class = "" })</h4>
 
-<h4>@Html.ActionLink("Vehicles On Sale: " + (string)ViewBag.VehiclesNotSold, "Index", new { Controller = "SoldVehicles" }, new { @class = "" })</h4>
+        <h4>@Html.ActionLink("Registered Customers: " + (string)ViewBag.RegisteredCustomers, "Index", new { Controller = "User" }, new { @class = "" })</h4>
 
-<h4>@Html.ActionLink("Registered Customers: " + (string)ViewBag.RegisteredCustomers, "Index", new { Controller = "User" }, new { @class = "" })</h4>
+        <h4>@Html.ActionLink("Non-Registered Customers: " + (string)ViewBag.NonRegisteredCustomers, "Index", new { Controller = "User" }, new { @class = "" })</h4>
+    </div>
+</div>
 
-<h4>@Html.ActionLink("Non-Registered Customers: " + (string)ViewBag.NonRegisteredCustomers, "Index", new { Controller = "User" }, new { @class = "" })</h4>
-
+<div class="container">
+    <div class="row">
+        <div class="btn-group">
+            <a href="#" class="btn btn-primary statistics" id="topCustomersNumbers">Cars bought per customer</a>
+            <a href="#" class="btn btn-primary statistics" id="topCustomersSpent">Money spent per customer</a>
+            <a href="#" class="btn btn-primary statistics" id="topStaffNumbers">Cars sold by sales person</a>
+            <a href="#" class="btn btn-primary statistics" id="topSellingServices">Most sold services</a>
+            <a href="#" class="btn btn-primary statistics" id="topEarningServices">Top earning services</a>
+            <a href="#" class="btn btn-primary statistics" id="salesData">Sales chronology</a>
+        </div>
+    </div>
+</div>
 @*@foreach (string m in ViewBag.Months)*@
 @*@foreach (var m in ViewBag.SalesPerMonth)
     {
         <p>@m</p>
     }*@
 
-@{ 
+@{
     //var jss = new System.Web.Script.Serialization.JavaScriptSerializer();
     //var salesData = jss.Serialize(ViewBag.SalesPerMonth);
 
     var salesData = Json.Encode(ViewBag.SalesPerMonth);
+    var vehicleVariants = Json.Encode(ViewBag.VehicleVariants);
+    var topCustomersNumbers = Json.Encode(ViewBag.TopCustomersNumbers);
+    var topCustomersSpent = Json.Encode(ViewBag.TopCustomersSpent);
+    var topStaffNumbers = Json.Encode(ViewBag.TopStaffNumbers);
+    var topSellingServices = Json.Encode(ViewBag.TopSellingServices);
+    var topEarningServices = Json.Encode(ViewBag.TopEarningServices);
+
+
 }
 
-@*<table class="table table-striped">
-    <tr>
-        <th>
-            Date Sold
-        </th>
-        <th>
-            Count
-        </th>
-    </tr>
+<button type="button" id="changeData" value="Change">Change</button>
 
-    @foreach (var item in Model)
-    {
+@*<table class="table table-striped">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateSold)
-            </td>
-            <td>
-                @item.SoldCount
-            </td>
+            <th>
+                Date Sold
+            </th>
+            <th>
+                Count
+            </th>
         </tr>
-    }
-</table>*@
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateSold)
+                </td>
+                <td>
+                    @item.SoldCount
+                </td>
+            </tr>
+        }
+    </table>*@
 
 <div id="ChartDiv" style="width:600px;height:400px;display:inline-block"></div>
+
+@*<script type="text/javascript" language="javascript">
+
+        var chart1;
+
+        var data = JSON.parse('@Html.Raw(topEarningServices)');
+
+        $(document).ready(function ($) {
+
+            chart1 = new cfx.Chart();
+
+            chart1.getData().setSeries(2);
+
+            chart1.getAxisY().setMin(1);
+
+            //chart1.getAxisY().setMax(20000);
+            chart1.getAxisY().setAutoScale(true);
+
+            var series1 = chart1.getSeries().getItem(0);
+
+            var series2 = chart1.getSeries().getItem(1);
+
+            series1.setGallery(cfx.Gallery.Lines);
+
+            series2.setGallery(cfx.Gallery.Bar);
+
+            chart1.setDataSource(data);
+
+            var divHolder = document.getElementById('ChartDiv');
+
+            chart1.create(divHolder);
+
+            $('#changeData').click(function () {
+                data = JSON.parse('@Html.Raw(salesData)');
+
+                chart1.setDataSource(data);
+
+                var divHolder = document.getElementById('ChartDiv');
+
+                chart1.create(divHolder);
+            });
+
+        })
+    </script>*@
 
 <script type="text/javascript" language="javascript">
 
     var chart1;
+
+    var data = JSON.parse('@Html.Raw(topEarningServices)');
+
     $(document).ready(function ($) {
 
         chart1 = new cfx.Chart();
@@ -71,7 +143,7 @@
 
         chart1.getAxisY().setMin(1);
 
-        chart1.getAxisY().setMax(20);
+        chart1.getAxisY().setAutoScale(true);
 
         var series1 = chart1.getSeries().getItem(0);
 
@@ -81,13 +153,87 @@
 
         series2.setGallery(cfx.Gallery.Bar);
 
-        var data = JSON.parse('@Html.Raw(salesData)');
-
         chart1.setDataSource(data);
 
         var divHolder = document.getElementById('ChartDiv');
 
         chart1.create(divHolder);
+
+        $('.statistics').click(function () {
+
+            var newData = $(this).attr('id')
+
+            switch (newData) {
+                case 'topCustomersNumbers':
+
+                    var topCustomersNumbers = JSON.parse('@Html.Raw(topCustomersNumbers)');
+
+                    chart1.setDataSource(topCustomersNumbers);
+
+                    chart1.getDataSourceSettings().reloadData();
+
+                    break;
+
+                case 'topCustomersSpent':
+
+                    var topCustomersSpent = JSON.parse('@Html.Raw(topCustomersSpent)');
+
+                    chart1.setDataSource(topCustomersSpent);
+
+                    chart1.getDataSourceSettings().reloadData();
+
+                    break;
+
+                case 'topStaffNumbers':
+
+                    var topStaffNumbers = JSON.parse('@Html.Raw(topStaffNumbers)')
+
+                    chart1.setDataSource(topStaffNumbers);
+
+                    chart1.getDataSourceSettings().reloadData();
+
+                    break;
+
+                case 'topSellingServices':
+
+                    var topSellingServices = JSON.parse('@Html.Raw(topSellingServices)')
+
+                    chart1.setDataSource(topSellingServices);
+
+                    chart1.getDataSourceSettings().reloadData();
+
+                    break;
+
+                case 'topEarningServices':
+
+                    var topEarningServices = JSON.parse('@Html.Raw(topEarningServices)')
+
+                    chart1.setDataSource(topEarningServices);
+
+                    chart1.getDataSourceSettings().reloadData();
+
+                    break;
+
+                case 'salesData':
+
+                    var salesData = JSON.parse('@Html.Raw(salesData)')
+
+                    chart1.setDataSource(salesData);
+
+                    chart1.getDataSourceSettings().reloadData();
+
+                    break;
+
+                default:
+
+                    chart1.setDataSource(data);
+
+                    chart1.getDataSourceSettings().reloadData();
+
+                    break;
+
+            }
+        });
 
     })
 </script>

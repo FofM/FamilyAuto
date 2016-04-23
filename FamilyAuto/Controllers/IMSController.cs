@@ -31,13 +31,12 @@ namespace FamilyAuto.Controllers
 
             //ViewBag.SalesPerMonth = db.SoldVehicles.GroupBy(d => d.DateSold).Select(c => new { Month = c.FirstOrDefault().DateSold.Month, Quantity = c.Count().ToString() });
 
-            var q =  from c in db.Vehicles
-                     group c by c.Variant into g
-                     select new { g.Key, Count = g.Count() };
+            var q = from c in db.Vehicles
+                    group c by c.Variant into g
+                    select new { g.Key, Count = g.Count() };
 
-            ViewBag.SalesPerMonth = q;
-                //JsonConvert.SerializeObject(q);
-
+            ViewBag.VehicleVariants = q;
+            //**********************************************//
             var SalesPerMonth = from s in db.SoldVehicles
                                 group s by s.DateSold into dateSold
                                 select new DateSoldGroup()
@@ -45,6 +44,43 @@ namespace FamilyAuto.Controllers
                                     DateSold = dateSold.Key,
                                     SoldCount = dateSold.Count()
                                 };
+            ViewBag.SalesPerMonth = SalesPerMonth;
+            //**********************************************//
+            var TopBuyingCustomers = from r in db.SoldVehicles
+                                     join c in db.Customers on r.CustomerId equals c.Id
+                                     group c by c.FirstName into topCustomers
+                                     select new { FirstName = topCustomers.Key, Vehicles_Sold = topCustomers.Count() };
+
+            ViewBag.TopCustomersNumbers = TopBuyingCustomers;
+            //**********************************************//
+            var TopSpendingCustomers = from s in db.SoldVehicles
+                                       join c in db.Customers on s.CustomerId equals c.Id
+                                       group new { s, c } by new { c.FirstName } into calc
+                                       select new { FirstName = calc.Key.FirstName, Money_Spent = calc.Sum(i => i.s.FinalPrice) };
+                                       
+            ViewBag.TopCustomersSpent = TopSpendingCustomers;
+            //**********************************************//
+            var TopSellingStaff = from r in db.SoldVehicles
+                                     join c in db.Staff on r.StaffId equals c.Id
+                                     group c by c.FirstName into topStaff
+                                     select new { FirstName = topStaff.Key, Vehicles_Sold = topStaff.Count() };
+
+            ViewBag.TopStaffNumbers = TopSellingStaff;
+            //**********************************************//
+            var TopSellingServices = from s in db.Articles
+                                     join so in db.ServiceOrder on s.Id equals so.ServiceId
+                                     group s by s.ArticleTitle into topServices
+                                     select new { ServiceName = topServices.Key, Services_Ordered = topServices.Count() };
+
+            ViewBag.TopSellingServices = TopSellingServices;
+            //**********************************************//
+            var TopEarningServices = from s in db.Articles
+                                     join so in db.ServiceOrder on s.Id equals so.ServiceId
+                                     group new { s, so } by new { s.ArticleTitle } into calc
+                                     select new { FirstName = calc.Key.ArticleTitle, Money_Earned = calc.Sum(i => i.so.Price) };
+
+            ViewBag.TopEarningServices = TopEarningServices;
+            //**********************************************//
 
             return View("Statistics", SalesPerMonth);
         }

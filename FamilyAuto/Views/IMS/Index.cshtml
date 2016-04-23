@@ -16,12 +16,15 @@
         </div>
     </div>
     <div class=col-md-4>
-        <h4>Maintain Services Ordered</h4>
-        @Html.ActionLink("Manage Services Ordered", "Index", new { Controller = "ServiceOrder" }, new { @class = "btn btn-lg btn-primary" })
+        <h4>Vehicle and Service Orders</h4>
+        <div class="btn-group-vertical">
+            @Html.ActionLink("Manage Services Ordered", "Index", new { Controller = "ServiceOrder" }, new { @class = "btn btn-lg btn-primary" })
+            @Html.ActionLink("Manage Vehicle Sales", "Index", new { Controller = "SoldVehicles" }, new { @class = "btn btn-lg btn-primary" })
+        </div>
     </div>
     <div class=col-md-4>
-        <h4>Vehicle overview</h4>
-        @Html.ActionLink("Manage Vehicle Sales", "Index", new { Controller = "SoldVehicles" }, new { @class = "btn btn-lg btn-primary" })
+        <h4>Business Statistics</h4>
+        @Html.ActionLink("Statistics", "Statistics", new { Controller = "IMS" }, new { @class = "btn btn-lg btn-primary" })
     </div>
 </div>
 <br />
@@ -29,12 +32,12 @@
 <hr />
 @if (User.IsInRole("Admin"))
 {
-<div class="row">
-    <div class="col-lg-4">
-        @Html.ActionLink("Manage Roles", "RoleIndex", new { Controller = "Account" }, new { @class = "btn btn-lg btn-primary" })
+    <div class="row">
+        <div class="col-lg-4">
+            @Html.ActionLink("Manage Roles", "RoleIndex", new { Controller = "Account" }, new { @class = "btn btn-lg btn-primary" })
+        </div>
     </div>
-</div>
-}     
+}
 <hr />
 
 <br /><br /><br /><br />
