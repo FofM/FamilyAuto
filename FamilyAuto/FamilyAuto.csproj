@@ -51,6 +51,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Moq, Version=4.2.1510.2205, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\packages\Moq.4.2.1510.2205\lib\net40\Moq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="nunit.core, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnitTestAdapter.2.0.0\lib\nunit.core.dll</HintPath>
       <Private>False</Private>
@@ -246,6 +250,9 @@
     <Compile Include="Models\Comission.cs">
       <DependentUpon>FamilyAutoDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CustomerInterests.cs">
+      <DependentUpon>FamilyAutoDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Customers.cs">
       <DependentUpon>FamilyAutoDB.tt</DependentUpon>
     </Compile>
@@ -265,6 +272,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>FamilyAutoDB.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FavoriteVehicle.cs">
+      <DependentUpon>FamilyAutoDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -313,6 +323,7 @@
     <Compile Include="UnitTests\TestStaffControllerBasics.cs" />
     <Compile Include="UnitTests\TestSupplierControllerBasics.cs" />
     <Compile Include="UnitTests\TestVehicleControllerBasics.cs" />
+    <Compile Include="UnitTests\TestVehicleCRUD.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -645,6 +656,7 @@
     <Content Include="Views\Staff\Edit.cshtml" />
     <Content Include="Views\Staff\Index.cshtml" />
     <Content Include="Styles\Palettes\images\Thumbs.db" />
+    <Content Include="Views\Vehicle\_PartialSaveFavorite.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -41,5 +41,7 @@ namespace FamilyAuto.Models
         public virtual DbSet<ServiceOrder> ServiceOrder { get; set; }
         public virtual DbSet<Comission> Comission { get; set; }
         public virtual DbSet<Staff> Staff { get; set; }
+        public virtual DbSet<CustomerInterests> CustomerInterests { get; set; }
+        public virtual DbSet<FavoriteVehicle> FavoriteVehicle { get; set; }
     }
 }

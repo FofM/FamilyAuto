@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using FamilyAuto.Models;
 using System.IO;
 using System.Text.RegularExpressions;
+using Microsoft.AspNet.Identity;
 
 namespace FamilyAuto.Controllers
 {
@@ -25,7 +26,7 @@ namespace FamilyAuto.Controllers
                 .Where(v => v.Type.ToString() == type || type == null || type == "")
                 .Where(v => v.VehicleHistory.Mileage < mileage || mileage == null)
                 .Where(v => v.Price > priceFrom && v.Price < priceTo || priceFrom == null || priceTo == null);
-                
+
 
 
             ViewBag.Make = (from v in db.Vehicles select v.Make).Distinct();
@@ -203,25 +204,29 @@ namespace FamilyAuto.Controllers
 
                 //List<VehiclePicture> vehiclePictures = new List<VehiclePicture>();
                 vehicle.VehiclePictures = new List<VehiclePicture>();
-                for (int i = 0; i < Request.Files.Count; i++)
-                {
-                    HttpPostedFileBase upload = Request.Files[i];
-
-                    if (upload != null && upload.ContentLength > 0)
+                
+                
+                    for (int i = 0; i < Request.Files.Count; i++)
                     {
-                        var vehiclePicture = new VehiclePicture()
+                        HttpPostedFileBase upload = Request.Files[i];
+
+                        if (upload != null && upload.ContentLength > 0)
                         {
-                            Description = "",
-                            ImageURL = "/Images/" + System.IO.Path.GetFileName(upload.FileName)
-                        };
+                            var vehiclePicture = new VehiclePicture()
+                            {
+                                Description = "",
+                                ImageURL = "/Images/" + System.IO.Path.GetFileName(upload.FileName)
+                            };
 
-                        vehicle.VehiclePictures.Add(vehiclePicture);
-                        //vehiclePictures.Add(vehiclePicture);
-                        //var path = Path.Combine(Server.MapPath("~/Images/"), fileName + Guid.NewGuid());
-                        upload.SaveAs(Path.Combine(Server.MapPath("~/Images/"), upload.FileName));
+                            vehicle.VehiclePictures.Add(vehiclePicture);
+                            //vehiclePictures.Add(vehiclePicture);
+                            //var path = Path.Combine(Server.MapPath("~/Images/"), fileName + Guid.NewGuid());
+                            upload.SaveAs(Path.Combine(Server.MapPath("~/Images/"), upload.FileName));
+                        }
                     }
-                }
-
+                
+                    if (form != null)
+                { 
 
                 VehicleHistory vh = new VehicleHistory()
                 {
@@ -261,6 +266,9 @@ namespace FamilyAuto.Controllers
                 db.VehicleHistories.Add(vh);
                 db.VehicleEngines.Add(ve);
                 db.VehicleFeatures.Add(vf);
+
+                }
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -268,7 +276,7 @@ namespace FamilyAuto.Controllers
             ViewBag.Id = new SelectList(db.VehicleEngines, "Id", "FuelType", vehicle.Id);
             ViewBag.Id = new SelectList(db.VehicleFeatures, "Id", "ExteriorColor", vehicle.Id);
             ViewBag.Id = new SelectList(db.VehicleHistories, "Id", "Purpose", vehicle.Id);
-            return View(vehicle);
+            return View("Error", vehicle);
         }
 
         // GET: Vehicle/Edit/5
@@ -294,11 +302,12 @@ namespace FamilyAuto.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Make,Model,Variant,Condition,Type,Description,Price,DateUploaded")] Vehicle vehicle, [Bind(Include = "ExteriorColor,InteriorColor,AirConditioning,InteriorFeatures,Security,Airbags,ParkingSensor,Sports,InteriorMaterial")] VehicleFeature vehicleFeature)
+        public ActionResult Edit([Bind(Include = "Id,Make,Model,Variant,Condition,Type,Description,Price,DateUploaded")] Vehicle vehicle)
+        //, [Bind(Include = "ExteriorColor,InteriorColor,AirConditioning,InteriorFeatures,Security,Airbags,ParkingSensor,Sports,InteriorMaterial")] VehicleFeature vehicleFeature
         {
             if (ModelState.IsValid)
             {
-             //   vehicle.VehicleFeature = vehicleFeature;
+                //   vehicle.VehicleFeature = vehicleFeature;
                 vehicle.DateUploaded = DateTime.Now;
                 db.Entry(vehicle).State = EntityState.Modified;
                 //db.Entry(vehicle.VehicleFeature).State = EntityState.Modified;
@@ -349,11 +358,11 @@ namespace FamilyAuto.Controllers
         public ActionResult FillModel(string make)
         {
             var context = new FamilyAutoEntities();
-            
-                context.Configuration.ProxyCreationEnabled = false;
-                var models = context.Vehicles.Where(v => v.Make == make);
-                return Json(models, JsonRequestBehavior.AllowGet);
-            
+
+            context.Configuration.ProxyCreationEnabled = false;
+            var models = context.Vehicles.Where(v => v.Make == make);
+            return Json(models, JsonRequestBehavior.AllowGet);
+
         }
 
         public bool StringToBool(string s)
@@ -363,6 +372,27 @@ namespace FamilyAuto.Controllers
                 return true;
             }
             else return false;
+        }
+
+        public ActionResult SaveFavorite(FavoriteVehicle fv)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                string uID = User.Identity.GetUserId();
+                if (ModelState.IsValid)
+                {
+                    fv.UserId = uID;
+                    fv.VehicleId = Convert.ToInt32(fv.VehicleId);
+                    db.FavoriteVehicle.Add(fv);
+                    db.SaveChanges();
+                    return Redirect(Request.UrlReferrer.PathAndQuery);
+                }
+            }
+            else
+            {
+                return Redirect(Request.UrlReferrer.PathAndQuery);
+            }
+            return Redirect(Request.UrlReferrer.PathAndQuery);
         }
 
     }

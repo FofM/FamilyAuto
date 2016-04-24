@@ -75,6 +75,17 @@
           <Property Name="StaffId" Type="int" Nullable="false" />
           <Property Name="VehicleId" Type="int" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FamilyAuto.dbo.CustomerInterests' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="CustomerInterests">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="FavoriteMake" Type="nvarchar" MaxLength="100" />
+          <Property Name="FavoriteModel" Type="nvarchar" MaxLength="100" />
+          <Property Name="PreferredColor" Type="nvarchar" MaxLength="100" />
+        </EntityType>
         <EntityType Name="Customers">
           <Key>
             <PropertyRef Name="Id" />
@@ -86,6 +97,14 @@
           <Property Name="Email" Type="nchar" MaxLength="100" Nullable="false" />
           <Property Name="Address" Type="nchar" MaxLength="200" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="FavoriteVehicle">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="VehicleId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ServiceOrder">
           <Key>
@@ -238,6 +257,20 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CustomerInterests_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CustomerInterests" Type="Self.CustomerInterests" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomerInterests">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Customers_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
           <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
@@ -303,6 +336,34 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
             </Principal>
             <Dependent Role="AspNetUserRoles">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FavoriteVehicle_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="FavoriteVehicle" Type="Self.FavoriteVehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FavoriteVehicle">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FavoriteVehicle_Vehicle">
+          <End Role="Vehicle" Type="Self.Vehicle" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="FavoriteVehicle" Type="Self.FavoriteVehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicle">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FavoriteVehicle">
+              <PropertyRef Name="VehicleId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -439,12 +500,21 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comission" EntityType="Self.Comission" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FavoriteVehicle" EntityType="Self.FavoriteVehicle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ServiceOrder" EntityType="Self.ServiceOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SoldVehicles" EntityType="Self.SoldVehicles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Staff" EntityType="Self.Staff" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vehicle" EntityType="Self.Vehicle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VehiclePictures" EntityType="Self.VehiclePictures" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomerInterests" EntityType="Self.CustomerInterests" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [CustomerInterests].[UserId] AS [UserId], 
+    [CustomerInterests].[FavoriteMake] AS [FavoriteMake], 
+    [CustomerInterests].[FavoriteModel] AS [FavoriteModel], 
+    [CustomerInterests].[PreferredColor] AS [PreferredColor]
+    FROM [dbo].[CustomerInterests] AS [CustomerInterests]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="VehicleEngine" EntityType="Self.VehicleEngine" store:Type="Tables" Schema="dbo">
             <!--<DefiningQuery>SELECT 
     [VehicleEngine].[Id] AS [Id], 
@@ -490,6 +560,10 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
             <End Role="Vehicle" EntitySet="Vehicle" />
             <End Role="Comission" EntitySet="Comission" />
           </AssociationSet>
+          <AssociationSet Name="FK_CustomerInterests_AspNetUsers" Association="Self.FK_CustomerInterests_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="CustomerInterests" EntitySet="CustomerInterests" />
+          </AssociationSet>
           <AssociationSet Name="FK_Customers_AspNetUsers" Association="Self.FK_Customers_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Customers" EntitySet="Customers" />
@@ -509,6 +583,14 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
           <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FavoriteVehicle_AspNetUsers" Association="Self.FK_FavoriteVehicle_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="FavoriteVehicle" EntitySet="FavoriteVehicle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FavoriteVehicle_Vehicle" Association="Self.FK_FavoriteVehicle_Vehicle">
+            <End Role="Vehicle" EntitySet="Vehicle" />
+            <End Role="FavoriteVehicle" EntitySet="FavoriteVehicle" />
           </AssociationSet>
           <AssociationSet Name="FK_ServiceOrder_Articles" Association="Self.FK_ServiceOrder_Articles">
             <End Role="Articles" EntitySet="Articles" />
@@ -571,6 +653,7 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
           <Property Name="Sold" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="SoldVehicles" Relationship="FamilyAutoModel.FK_SoldVehicles_Vehicle" FromRole="Vehicle" ToRole="SoldVehicles" />
           <NavigationProperty Name="Comission" Relationship="FamilyAutoModel.FK_Comission_Vehicle" FromRole="Vehicle" ToRole="Comission" />
+          <NavigationProperty Name="FavoriteVehicle" Relationship="FamilyAutoModel.FK_FavoriteVehicle_Vehicle" FromRole="Vehicle" ToRole="FavoriteVehicle" />
         </EntityType>
         <EntityType Name="VehicleEngine">
           <Key>
@@ -738,6 +821,20 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
             <End Role="Staff" EntitySet="Staff" />
             <End Role="SoldVehicles" EntitySet="SoldVehicles" />
           </AssociationSet>
+          <EntitySet Name="CustomerInterests" EntityType="FamilyAutoModel.CustomerInterests" />
+          <AssociationSet Name="FK_CustomerInterests_AspNetUsers" Association="FamilyAutoModel.FK_CustomerInterests_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="CustomerInterests" EntitySet="CustomerInterests" />
+          </AssociationSet>
+          <EntitySet Name="FavoriteVehicle" EntityType="FamilyAutoModel.FavoriteVehicle" />
+          <AssociationSet Name="FK_FavoriteVehicle_AspNetUsers" Association="FamilyAutoModel.FK_FavoriteVehicle_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="FavoriteVehicle" EntitySet="FavoriteVehicle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FavoriteVehicle_Vehicle" Association="FamilyAutoModel.FK_FavoriteVehicle_Vehicle">
+            <End Role="Vehicle" EntitySet="Vehicles" />
+            <End Role="FavoriteVehicle" EntitySet="FavoriteVehicle" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="VehiclePicture">
           <Key>
@@ -842,6 +939,8 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
           <NavigationProperty Name="AspNetRoles" Relationship="FamilyAutoModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
           <NavigationProperty Name="Customers" Relationship="FamilyAutoModel.FK_Customers_AspNetUsers" FromRole="AspNetUsers" ToRole="Customers" />
           <NavigationProperty Name="Staff" Relationship="FamilyAutoModel.FK_Staff_AspNetUsers" FromRole="AspNetUsers" ToRole="Staff" />
+          <NavigationProperty Name="CustomerInterests" Relationship="FamilyAutoModel.FK_CustomerInterests_AspNetUsers" FromRole="AspNetUsers" ToRole="CustomerInterests" />
+          <NavigationProperty Name="FavoriteVehicle" Relationship="FamilyAutoModel.FK_FavoriteVehicle_AspNetUsers" FromRole="AspNetUsers" ToRole="FavoriteVehicle" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Type="FamilyAutoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
@@ -1084,6 +1183,68 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="CustomerInterests">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="FavoriteMake" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FavoriteModel" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PreferredColor" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="FamilyAutoModel.FK_CustomerInterests_AspNetUsers" FromRole="CustomerInterests" ToRole="AspNetUsers" />
+        </EntityType>
+        <Association Name="FK_CustomerInterests_AspNetUsers">
+          <End Type="FamilyAutoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="FamilyAutoModel.CustomerInterests" Role="CustomerInterests" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomerInterests">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="FavoriteVehicle">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="VehicleId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="FamilyAutoModel.FK_FavoriteVehicle_AspNetUsers" FromRole="FavoriteVehicle" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Vehicle" Relationship="FamilyAutoModel.FK_FavoriteVehicle_Vehicle" FromRole="FavoriteVehicle" ToRole="Vehicle" />
+        </EntityType>
+        <Association Name="FK_FavoriteVehicle_AspNetUsers">
+          <End Type="FamilyAutoModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="FamilyAutoModel.FavoriteVehicle" Role="FavoriteVehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FavoriteVehicle">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FavoriteVehicle_Vehicle">
+          <End Type="FamilyAutoModel.Vehicle" Role="Vehicle" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="FamilyAutoModel.FavoriteVehicle" Role="FavoriteVehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicle">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FavoriteVehicle">
+              <PropertyRef Name="VehicleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1299,6 +1460,25 @@ warning 6002: The table/view 'FamilyAuto.dbo.VehicleHistory' does not have a pri
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerInterests">
+            <EntityTypeMapping TypeName="FamilyAutoModel.CustomerInterests">
+              <MappingFragment StoreEntitySet="CustomerInterests">
+                <ScalarProperty Name="PreferredColor" ColumnName="PreferredColor" />
+                <ScalarProperty Name="FavoriteModel" ColumnName="FavoriteModel" />
+                <ScalarProperty Name="FavoriteMake" ColumnName="FavoriteMake" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FavoriteVehicle">
+            <EntityTypeMapping TypeName="FamilyAutoModel.FavoriteVehicle">
+              <MappingFragment StoreEntitySet="FavoriteVehicle">
+                <ScalarProperty Name="VehicleId" ColumnName="VehicleId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

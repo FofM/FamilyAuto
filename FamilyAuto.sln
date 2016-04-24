@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FamilyAuto", "FamilyAuto\FamilyAuto.csproj", "{8A7B017D-A0C6-4A3E-8AD3-465E5CBBE43F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeleniumFamilyAutoTest", "SeleniumFamilyAutoTest\SeleniumFamilyAutoTest.csproj", "{A4E17A87-AB2E-4F90-9ECA-6C7660C0BAA3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{8A7B017D-A0C6-4A3E-8AD3-465E5CBBE43F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A7B017D-A0C6-4A3E-8AD3-465E5CBBE43F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A7B017D-A0C6-4A3E-8AD3-465E5CBBE43F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4E17A87-AB2E-4F90-9ECA-6C7660C0BAA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4E17A87-AB2E-4F90-9ECA-6C7660C0BAA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4E17A87-AB2E-4F90-9ECA-6C7660C0BAA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4E17A87-AB2E-4F90-9ECA-6C7660C0BAA3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -84,9 +84,8 @@
             <dd>
                 @Html.DisplayFor(model => model.Description)
             </dd>
-
-
         </dl>
+        @Html.Partial("_PartialSaveFavorite", new FamilyAuto.Models.FavoriteVehicle())
     </div>
     <div class="col-md-6">
         <br /><br /><br /><br />
