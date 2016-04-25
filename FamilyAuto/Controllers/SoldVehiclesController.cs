@@ -50,24 +50,22 @@ namespace FamilyAuto.Controllers
     "Id", "customerName", null);
 
             ViewBag.StaffId = new SelectList((from s in db.Staff.ToList()
-                                                 select new
-                                                 {
-                                                     Id = s.Id,
-                                                     StaffId = s.Id + " - " + s.FirstName + " " + s.LastName
-                                                 }),
-"Id", "StaffId", null);
+                                              select new
+                                              {
+                                                  Id = s.Id,
+                                                  staffName = s.Id + " - " + s.FirstName + " " + s.LastName
+                                              }),"Id", "staffName", null);
 
             //ViewBag.VehicleId = new SelectList(db.Vehicles, "Id", "Id");
 
             //The SelectList values are defined by concatenating database values in order
             //to provide a more readable Create view in SoldVehicles
-            ViewBag.VehicleId = new SelectList((from v in db.Vehicles.ToList()
+            ViewBag.VehicleId = new SelectList((from v in db.Vehicles.Where(v => v.Sold == false).ToList()
                                                 select new
                                                 {
                                                     Id = v.Id,
                                                     vehicleName = v.Id + " - " + v.Make
-                                                }),
-                "Id", "vehicleName", null);
+                                                }),"Id", "vehicleName", null);
             //ViewBag.VehicleList = db.Vehicles;
             return View("Create");
         }
@@ -77,7 +75,7 @@ namespace FamilyAuto.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,VehicleId,CustomerId,DateSold,DateCreated,FinalPrice")] SoldVehicles soldVehicles)
+        public ActionResult Create([Bind(Include = "Id,VehicleId,CustomerId,DateSold,DateCreated,FinalPrice,StaffId")] SoldVehicles soldVehicles)
         {
             //Vehicle v = new Vehicle();
 
@@ -93,6 +91,7 @@ namespace FamilyAuto.Controllers
 
             ViewBag.CustomerId = new SelectList(db.Customers, "Id", "Id", soldVehicles.CustomerId);
             ViewBag.VehicleId = new SelectList(db.Vehicles, "Id", "Id", soldVehicles.VehicleId);
+            ViewBag.StaffId = new SelectList(db.Staff, "Id", "Id", soldVehicles.StaffId);
             ViewBag.VehicleList = db.Vehicles;
             return View(soldVehicles);
         }

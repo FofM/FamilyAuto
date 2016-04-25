@@ -67,5 +67,33 @@ namespace SeleniumFamilyAutoTest
             IWebElement address = driver.FindElement(By.TagName("address"));
             Assert.IsTrue(address.ToString().Length > 0);
         }
+
+        [TestMethod]
+        public void StatisticsDisplayTest()
+        {
+            IWebElement manage = driver.FindElement(By.PartialLinkText("Manage"));
+            manage.Click();
+            IWebElement bd = driver.FindElement(By.PartialLinkText("Business Data"));
+            bd.Click();
+            IWebElement statistics = driver.FindElement(By.PartialLinkText("Statistics"));
+            statistics.Click();
+
+            IWebElement topCustomersNumbers = driver.FindElement(By.Id("topCustomersNumbers"));
+            topCustomersNumbers.Click();
+            string topCustomersValidation = driver.FindElement(By.XPath(".//*[@id='C1s']/*[name()='text']")).Text;
+            Assert.AreEqual("Vehicles_Sold", topCustomersValidation);
+
+            IWebElement topCustomersSpent = driver.FindElement(By.Id("topCustomersSpent"));
+            topCustomersSpent.Click();
+            string topCustomersSpentValidation = driver.FindElement(By.XPath(".//*[@id='C1s']/*[name()='text']")).Text;
+            Assert.AreEqual("Money_Spent", topCustomersSpentValidation);
+
+            IWebElement salesData = driver.FindElement(By.Id("salesData"));
+            salesData.Click();
+            string salesDataValidation = driver.FindElement(By.XPath(".//*[@id='C1s']/*[name()='text']")).Text;
+            Assert.AreEqual("SoldCount", salesDataValidation);
+        }
+
+
     }
 }
