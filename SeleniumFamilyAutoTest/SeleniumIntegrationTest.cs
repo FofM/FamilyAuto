@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using System.Collections.Generic;
+using OpenQA.Selenium.Support.UI;
 
 namespace SeleniumFamilyAutoTest
 {
@@ -94,6 +95,103 @@ namespace SeleniumFamilyAutoTest
             Assert.AreEqual("SoldCount", salesDataValidation);
         }
 
+        [TestMethod]
+        public void MakeAndModelFilter()
+        {
+            IWebElement showroom = driver.FindElement(By.Id("Showroom"));
+            showroom.Click();
+            SelectElement makeFilter = new SelectElement(driver.FindElement(By.Id("make")));
+            makeFilter.SelectByIndex(1);
+            string make = makeFilter.SelectedOption.Text;
+            SelectElement modelFilter = new SelectElement(driver.FindElement(By.Id("model")));
+            modelFilter.SelectByIndex(0);
+            string model = modelFilter.SelectedOption.Text;
+            IWebElement filterButton = driver.FindElement(By.XPath("html/body/div[2]/div[3]/div/form/input[3]"));
+            filterButton.Click();
+            string makeResult = driver.FindElement(By.Id(make)).Text;
+            //string modelResult = driver.FindElement(By.PartialLinkText(model)).Text;
+            Assert.AreEqual(make, makeResult);
+            //Assert.AreEqual(model, modelResult);
+        }
 
+        [TestMethod]
+        public void VehicleTypeSelection()
+        {
+            IWebElement expandTypes = driver.FindElement(By.XPath("html/body/div[2]/div[1]/button"));
+            expandTypes.Click();
+            IWebElement commercialVehicle = driver.FindElement(By.XPath(".//*[@id='VehicleType']/div[1]/div[2]/a/img"));
+            commercialVehicle.Click();
+            string url = driver.Url;
+            Assert.AreEqual("http://localhost:55356/Vehicle/Showroom?type=Commercial", url);
+        }
+
+        [TestMethod]
+        public void VehicleDetailsImageListing()
+        {
+            IWebElement showroom = driver.FindElement(By.Id("Showroom"));
+            showroom.Click();
+            IWebElement vehicleLink = driver.FindElement(By.PartialLinkText("BMW"));
+            vehicleLink.Click();
+
+            bool imgCheck = false;
+            IList<IWebElement> img = driver.FindElements(By.TagName("img"));
+            foreach (var i in img)
+            {
+                if (i != null) imgCheck = true;
+            }
+            Assert.IsTrue(imgCheck);
+        }
+
+        [TestMethod]
+        public void PriceFromToFilter()
+        {
+            IWebElement showroom = driver.FindElement(By.Id("Showroom"));
+            showroom.Click();
+            IWebElement priceFrom = driver.FindElement(By.Id("priceFrom"));
+            priceFrom.SendKeys("1000");
+            IWebElement priceTo = driver.FindElement(By.Id("priceTo"));
+            priceTo.SendKeys("10000");
+            IWebElement filterButton = driver.FindElement(By.XPath("html/body/div[2]/div[3]/div/form/input[3]"));
+            filterButton.Click();
+            IList<IWebElement> priceList = driver.FindElements(By.Id("vehiclePrice"));
+            bool validate = true;
+            foreach (var i in priceList)
+            {
+                if (i.Text != "")
+                {
+                    if (Convert.ToInt32(i.Text) < 1000 || Convert.ToInt32(i.Text) > 10000)
+                    {
+                        validate = false;
+                    }
+                }
+            }
+            Assert.IsTrue(validate);
+        }
+
+        [TestMethod]
+        public void MileageFilter()
+        {
+            IWebElement showroom = driver.FindElement(By.Id("Showroom"));
+            showroom.Click();
+            SelectElement mileageFilter = new SelectElement(driver.FindElement(By.Id("mileage")));
+            mileageFilter.SelectByIndex(4);
+            string mileage = mileageFilter.SelectedOption.Text;
+            IWebElement filterButton = driver.FindElement(By.XPath("html/body/div[2]/div[3]/div/form/input[3]"));
+            filterButton.Click();
+            IList<IWebElement> mileageCollection = driver.FindElements(By.Id("vehicleMileage"));
+            bool validate = true;
+            foreach (var i in mileageCollection)
+            {
+                if (i.Text != "")
+                {
+                    if (Convert.ToInt32(i.Text) > Convert.ToInt32(mileage))
+                    {
+                        validate = false;
+                    }
+                }
+            }
+            Assert.IsTrue(validate);
+
+        }
     }
 }

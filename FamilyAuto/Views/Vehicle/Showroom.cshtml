@@ -45,12 +45,12 @@
 
                             @*<asp:HyperLink ID="@item.Make" Text='@Html.DisplayFor(modelItem => item.Make)' Font-Bold="True" Font-Underline="True" />*@
 
-                            @Html.ActionLink(item.Make, "Details", new { id = item.Id }) - @Html.DisplayFor(modelItem => item.Price)€
+                            @Html.ActionLink(item.Make, "Details", new { id = item.Id }, new { @Id = item.Make }) - <span id="vehiclePrice">@Html.DisplayFor(modelItem => item.Price)</span>€
                         </h4>
                         <p class="address">Model: <b>@Html.DisplayFor(modelItem => item.Model)</b>, Variant: <b>@Html.DisplayFor(modelItem => item.Variant)</b></p>
                         <p class="power">Power: <b>@Html.DisplayFor(modelItem => item.VehicleEngine.Power)KW</b></p>
                         <p class="color">Color: <b>@Html.DisplayFor(modelItem => item.VehicleFeature.ExteriorColor)</b></p>
-                        <p class="mileage">Mileage: <b>@Html.DisplayFor(modelItem => item.VehicleHistory.Mileage)km</b></p>
+                        <p class="mileage">Mileage: <b><span id="vehicleMileage">@Html.DisplayFor(modelItem => item.VehicleHistory.Mileage)</span>km</b></p>
                     </div>
                 </div>
 
