@@ -204,73 +204,82 @@ namespace FamilyAuto.Controllers
 
                 //List<VehiclePicture> vehiclePictures = new List<VehiclePicture>();
                 vehicle.VehiclePictures = new List<VehiclePicture>();
-                
-                
-                    for (int i = 0; i < Request.Files.Count; i++)
+
+
+                for (int i = 0; i < Request.Files.Count; i++)
+                {
+                    HttpPostedFileBase upload = Request.Files[i];
+
+                    if (upload != null && upload.ContentLength > 0)
                     {
-                        HttpPostedFileBase upload = Request.Files[i];
-
-                        if (upload != null && upload.ContentLength > 0)
+                        var vehiclePicture = new VehiclePicture()
                         {
-                            var vehiclePicture = new VehiclePicture()
-                            {
-                                Description = "",
-                                ImageURL = "/Images/" + System.IO.Path.GetFileName(upload.FileName)
-                            };
+                            Description = "",
+                            ImageURL = "/Images/" + System.IO.Path.GetFileName(upload.FileName)
+                        };
 
-                            vehicle.VehiclePictures.Add(vehiclePicture);
-                            //vehiclePictures.Add(vehiclePicture);
-                            //var path = Path.Combine(Server.MapPath("~/Images/"), fileName + Guid.NewGuid());
-                            upload.SaveAs(Path.Combine(Server.MapPath("~/Images/"), upload.FileName));
-                        }
+                        vehicle.VehiclePictures.Add(vehiclePicture);
+                        //vehiclePictures.Add(vehiclePicture);
+                        //var path = Path.Combine(Server.MapPath("~/Images/"), fileName + Guid.NewGuid());
+                        upload.SaveAs(Path.Combine(Server.MapPath("~/Images/"), upload.FileName));
                     }
-                
-                    if (form != null)
-                { 
-
-                VehicleHistory vh = new VehicleHistory()
-                {
-                    Id = vehicle.Id,
-                    Purpose = form["VehicleHistory.Purpose"].ToString(),
-                    NoOfOwners = int.Parse(form["VehicleHistory.NoOfOwners"]),
-                    HUValidUntil = DateTime.Parse(form["VehicleHistory.HUValidUntil"]),
-                    Warranty = StringToBool(form["VehicleHistory.Warranty"]),
-                    Mileage = int.Parse(form["VehicleHistory.Mileage"]),
-                    FirstRegistration = DateTime.Parse(form["VehicleHistory.FirstRegistration"])
-                };
-
-                VehicleEngine ve = new VehicleEngine()
-                {
-                    FuelType = form["VehicleEngine.FuelType"].ToString(),
-                    Transmission = form["VehicleEngine.Transmission"].ToString(),
-                    CubicCapacity = int.Parse(form["VehicleEngine.CubicCapacity"]),
-                    Power = int.Parse(form["VehicleEngine.Power"]),
-                    FuelConsumption = form["VehicleEngine.FuelConsumption"].ToString(),
-                    EmissionClass = form["VehicleEngine.EmissionClass"].ToString(),
-                    EmissionSticker = form["VehicleEngine.EmissionSticker"].ToString()
-                };
-
-                VehicleFeature vf = new VehicleFeature()
-                {
-                    ExteriorColor = form["VehicleFeature.ExteriorColor"].ToString(),
-                    InteriorColor = form["VehicleFeature.InteriorColor"].ToString(),
-                    AirConditioning = StringToBool(form["VehicleFeature.AirConditioning"]),
-                    InteriorFeatures = form["VehicleFeature.InteriorFeatures"].ToString(),
-                    Security = form["VehicleFeature.Security"].ToString(),
-                    Airbags = StringToBool(form["VehicleFeature.Airbags"]),
-                    ParkingSensor = StringToBool(form["VehicleFeature.ParkingSensor"]),
-                    Sports = StringToBool(form["VehicleFeature.Sports"]),
-                    InteriorMaterial = form["VehicleFeature.InteriorMaterial"].ToString()
-                };
-
-                db.VehicleHistories.Add(vh);
-                db.VehicleEngines.Add(ve);
-                db.VehicleFeatures.Add(vf);
-
                 }
 
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (form != null)
+                {
+
+                    VehicleHistory vh = new VehicleHistory()
+                    {
+                        Id = vehicle.Id,
+                        Purpose = form["VehicleHistory.Purpose"].ToString(),
+                        NoOfOwners = int.Parse(form["VehicleHistory.NoOfOwners"]),
+                        HUValidUntil = DateTime.Parse(form["VehicleHistory.HUValidUntil"]),
+                        Warranty = StringToBool(form["VehicleHistory.Warranty"]),
+                        Mileage = int.Parse(form["VehicleHistory.Mileage"]),
+                        FirstRegistration = DateTime.Parse(form["VehicleHistory.FirstRegistration"])
+                    };
+
+                    VehicleEngine ve = new VehicleEngine()
+                    {
+                        FuelType = form["VehicleEngine.FuelType"].ToString(),
+                        Transmission = form["VehicleEngine.Transmission"].ToString(),
+                        CubicCapacity = int.Parse(form["VehicleEngine.CubicCapacity"]),
+                        Power = int.Parse(form["VehicleEngine.Power"]),
+                        FuelConsumption = form["VehicleEngine.FuelConsumption"].ToString(),
+                        EmissionClass = form["VehicleEngine.EmissionClass"].ToString(),
+                        EmissionSticker = form["VehicleEngine.EmissionSticker"].ToString()
+                    };
+
+                    VehicleFeature vf = new VehicleFeature()
+                    {
+                        ExteriorColor = form["VehicleFeature.ExteriorColor"].ToString(),
+                        InteriorColor = form["VehicleFeature.InteriorColor"].ToString(),
+                        AirConditioning = StringToBool(form["VehicleFeature.AirConditioning"]),
+                        InteriorFeatures = form["VehicleFeature.InteriorFeatures"].ToString(),
+                        Security = form["VehicleFeature.Security"].ToString(),
+                        Airbags = StringToBool(form["VehicleFeature.Airbags"]),
+                        ParkingSensor = StringToBool(form["VehicleFeature.ParkingSensor"]),
+                        Sports = StringToBool(form["VehicleFeature.Sports"]),
+                        InteriorMaterial = form["VehicleFeature.InteriorMaterial"].ToString()
+                    };
+
+                    db.VehicleHistories.Add(vh);
+                    db.VehicleEngines.Add(ve);
+                    db.VehicleFeatures.Add(vf);
+
+                }
+                try
+                {
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    ViewBag.Id = new SelectList(db.VehicleEngines, "Id", "FuelType", vehicle.Id);
+                    ViewBag.Id = new SelectList(db.VehicleFeatures, "Id", "ExteriorColor", vehicle.Id);
+                    ViewBag.Id = new SelectList(db.VehicleHistories, "Id", "Purpose", vehicle.Id);
+                    return View("Error", vehicle);
+                }
             }
 
             ViewBag.Id = new SelectList(db.VehicleEngines, "Id", "FuelType", vehicle.Id);

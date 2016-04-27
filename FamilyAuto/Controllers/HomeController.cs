@@ -73,27 +73,46 @@ namespace FamilyAuto.Controllers
                 message.Body = string.Format(body, model.FromName, model.FromEmail, model.Message);
                 message.IsBodyHtml = true;
 
-                using (var smtp = new SmtpClient())
-                {
-                    var credential = new NetworkCredential
-                    {
-                        UserName = "infofamilyauto@gmail.com",  // replace with valid value
-                        Password = "throwAwayAccount"  // replace with valid value
-                    };
-                    smtp.Credentials = credential;
-                    smtp.Host = "smtp.gmail.com";
-                    smtp.Port = 587;
-                    smtp.EnableSsl = true;
-                    await smtp.SendMailAsync(message);
+                //using (var smtp = new SmtpClient())
+                //{
+                //    var credential = new NetworkCredential
+                //    {
+                //        UserName = "infofamilyauto@gmail.com",  // replace with valid value
+                //        Password = "throwAwayAccount"  // replace with valid value
+                //    };
+                //    smtp.Credentials = credential;
+                //    smtp.Host = "smtp.gmail.com";
+                //    smtp.Port = 587;
+                //    smtp.EnableSsl = true;
+                //    await smtp.SendMailAsync(message);
+                    await SMTPsend(message);
+
                     return RedirectToAction("Sent");
                 }
-            }
+            //}
             return View(model);
         }
 
         public ActionResult Sent()
         {
             return View();
+        }
+
+        public async Task SMTPsend(MailMessage message)
+        {
+            var smtp = new SmtpClient();
+
+            var credential = new NetworkCredential
+            {
+                UserName = "infofamilyauto@gmail.com",  // replace with valid value
+                Password = "throwAwayAccount"  // replace with valid value
+            };
+            smtp.UseDefaultCredentials = true;
+            smtp.Credentials = credential;
+            smtp.Host = "smtp.gmail.com";
+            smtp.Port = 456; // 587;
+            smtp.EnableSsl = true;
+            await smtp.SendMailAsync(message);
         }
     }
 }

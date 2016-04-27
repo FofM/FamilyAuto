@@ -193,5 +193,53 @@ namespace SeleniumFamilyAutoTest
             Assert.IsTrue(validate);
 
         }
+
+        [TestMethod]
+        public void RoleManagement()
+        {
+            IWebElement loginLink = driver.FindElement(By.Id("loginLink"));
+            loginLink.Click();
+            IWebElement username = driver.FindElement(By.Id("Username"));
+            username.SendKeys("Filip");
+            IWebElement password = driver.FindElement(By.Id("Password"));
+            password.SendKeys("8rPq17_aF");
+            IWebElement logInButton = driver.FindElement(By.Id("logInButton"));
+            logInButton.Click();
+            IWebElement manage = driver.FindElement(By.PartialLinkText("Manage"));
+            manage.Click();
+            IWebElement bd = driver.FindElement(By.PartialLinkText("Business Data"));
+            bd.Click();
+            IWebElement manageRoles = driver.FindElement(By.Id("manageRoles"));
+            manageRoles.Click();
+            IWebElement addRole = driver.FindElement(By.Id("addRole"));
+            addRole.Click();
+            SelectElement userToAdd = new SelectElement(driver.FindElement(By.Id("UserName")));
+            userToAdd.SelectByIndex(0);
+            //string mileage = mileageFilter.SelectedOption.Text;
+            IWebElement AddRoleButton = driver.FindElement(By.XPath("html/body/div[2]/div/div/div[2]/form/input[2]"));
+            AddRoleButton.Click();
+            IWebElement RemoveRoleButton = driver.FindElement(By.XPath("html/body/div[2]/div/div[2]/div[3]/form/input[2]"));
+            string returnMessage = driver.FindElement(By.Id("returnMessage")).Text;
+            if (returnMessage.Equals("Username added to the role succesfully !"))
+            {
+                RemoveRoleButton.Click();
+                returnMessage = driver.FindElement(By.Id("returnMessage")).Text;
+                Assert.AreEqual("Role removed from this user successfully !", returnMessage);
+            }
+            else if (returnMessage.Equals("This user already has the role specified !"))
+            {
+                RemoveRoleButton.Click();
+                returnMessage = driver.FindElement(By.Id("returnMessage")).Text;
+                Assert.AreEqual("Role removed from this user successfully !", returnMessage);
+                returnMessage = driver.FindElement(By.Id("returnMessage")).Text;
+                AddRoleButton.Click();
+                Assert.AreEqual("Username added to the role succesfully !", returnMessage);
+            }
+            else
+            {
+                Assert.IsTrue(false);
+            }
+
+        }
     }
 }

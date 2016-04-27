@@ -316,6 +316,7 @@
     <Compile Include="UnitTests\TestArticleCRUD.cs" />
     <Compile Include="UnitTests\TestCustomerControllerBasics.cs" />
     <Compile Include="UnitTests\TestCustomerCRUD.cs" />
+    <Compile Include="UnitTests\TestEmailSending.cs" />
     <Compile Include="UnitTests\TestHomeControllerBasics.cs" />
     <Compile Include="UnitTests\TestIMSControllerBasics.cs" />
     <Compile Include="UnitTests\TestServiceOrderControllerBasics.cs" />
