@@ -29,40 +29,16 @@ namespace FamilyAuto.Controllers
 
 
 
-            ViewBag.Make = (from v in db.Vehicles select v.Make).Distinct();
+            ViewBag.Make = (from v in db.Vehicles.Where(x => x.Sold == false) select v.Make).Distinct();
 
-            ViewBag.Model = (from v in db.Vehicles select v.Model).Distinct();
+            ViewBag.Model = (from v in db.Vehicles.Where(x => x.Sold == false) select v.Model).Distinct();
 
-            ViewBag.Type = (from v in db.Vehicles select v.Type).Distinct();
+            ViewBag.Type = (from v in db.Vehicles.Where(x => x.Sold == false) select v.Type).Distinct();
 
             int[] mil = new int[5] { 10000, 50000, 100000, 200000, 300000 };
 
             ViewBag.Mileage = mil;
 
-            //var vehicles = from v in db.Vehicles
-            //               from ve in db.VehicleEngines
-            //               from vh in db.VehicleHistories
-            //               from vf in db.VehicleFeatures
-            //               where v.Id == ve.Id
-            //               where v.Id == vh.Id
-            //               where v.Id == vf.Id
-            //               select new
-            //               {
-            //                   v,
-            //                   ve,
-            //                   vh,
-            //                   vf
-
-            //               };
-
-            //IEnumerable<string> make = new IEnumerable<string>();
-
-            //ViewBag.VehicleMake = from v in db.Vehicles select v.Make;
-
-            //if (!User.Identity.IsAuthenticated)
-            //{
-            //    return View("Showroom", vehicles.ToList());
-            //}
             return View("Showroom", vehicles.ToList());
         }
 
