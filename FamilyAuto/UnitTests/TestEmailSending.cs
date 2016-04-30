@@ -7,5 +7,8 @@ namespace FamilyAuto.UnitTests
 {
     public class TestEmailSending
     {
+        //http://localhost:53384/Home/Sent
+
+        //<h2>Your message has been sent<h2>
     }
 }

@@ -26,7 +26,7 @@ namespace SeleniumFamilyAutoTest
         [TestCleanup]
         public void TestCleanUp()
         {
-            driver.Close();
+            //driver.Close();
         }
 
         [TestMethod]
@@ -36,7 +36,9 @@ namespace SeleniumFamilyAutoTest
             IWebElement showroom = driver.FindElement(By.Id("Showroom"));
             showroom.Click();
             string showroomValidate = driver.FindElement(By.TagName("h1")).Text;
+            IList<IWebElement> price = driver.FindElements(By.Id("vehiclePrice"));
             Assert.AreEqual("Family Auto SHOWROOM", showroomValidate);
+            Assert.IsNotNull(price);
         }
 
         [TestMethod]
@@ -109,9 +111,9 @@ namespace SeleniumFamilyAutoTest
             IWebElement filterButton = driver.FindElement(By.XPath("html/body/div[2]/div[3]/div/form/input[3]"));
             filterButton.Click();
             string makeResult = driver.FindElement(By.Id(make)).Text;
-            //string modelResult = driver.FindElement(By.PartialLinkText(model)).Text;
+            string modelResult = driver.FindElement(By.Id(model)).Text;
             Assert.AreEqual(make, makeResult);
-            //Assert.AreEqual(model, modelResult);
+            Assert.AreEqual(model, modelResult);
         }
 
         [TestMethod]
@@ -215,7 +217,6 @@ namespace SeleniumFamilyAutoTest
             addRole.Click();
             SelectElement userToAdd = new SelectElement(driver.FindElement(By.Id("UserName")));
             userToAdd.SelectByIndex(0);
-            //string mileage = mileageFilter.SelectedOption.Text;
             IWebElement AddRoleButton = driver.FindElement(By.XPath("html/body/div[2]/div/div/div[2]/form/input[2]"));
             AddRoleButton.Click();
             IWebElement RemoveRoleButton = driver.FindElement(By.XPath("html/body/div[2]/div/div[2]/div[3]/form/input[2]"));
@@ -240,6 +241,69 @@ namespace SeleniumFamilyAutoTest
                 Assert.IsTrue(false);
             }
 
+        }
+
+        [TestMethod]
+        public void VehicleEditWrongAttributeTest()
+        {
+            IWebElement manage = driver.FindElement(By.PartialLinkText("Manage"));
+            manage.Click();
+            IWebElement manageVehicle = driver.FindElement(By.PartialLinkText("Vehicles"));
+            manageVehicle.Click();
+            IList<IWebElement> edit = driver.FindElements(By.PartialLinkText("Edit"));
+            foreach (var i in edit)
+            {
+                i.Click();
+                break;
+            }
+            IWebElement registration = driver.FindElement(By.Id("VehicleHistory_FirstRegistration"));
+            registration.SendKeys("ABC");
+            IWebElement saveButton = driver.FindElement(By.XPath("html/body/div[2]/form/div/div/div/div[11]/div/input"));
+            saveButton.Click();
+            string validation = driver.FindElement(By.XPath("html/body/div[2]/form/div/div/div/div[8]/div[6]/div/span/span")).Text;
+            Assert.AreEqual("The field First Registration must be a date.", validation);
+        }
+
+        [TestMethod]
+        public void VehicleDeleteConfirmationTest()
+        {
+            IWebElement manage = driver.FindElement(By.PartialLinkText("Manage"));
+            manage.Click();
+            IWebElement manageVehicle = driver.FindElement(By.PartialLinkText("Vehicles"));
+            manageVehicle.Click();
+            IList<IWebElement> del = driver.FindElements(By.PartialLinkText("Delete"));
+            foreach (var i in del)
+            {
+                i.Click();
+                break;
+            }
+
+            string title = driver.FindElement(By.Id("delTitle")).Text;
+            string confMsg = driver.FindElement(By.Id("confirmDeletion")).Text;
+
+            Assert.AreEqual("Delete", title);
+            Assert.AreEqual("Are you sure you want to delete the following vehicle?", confMsg);
+        }
+
+        [TestMethod]
+        public void ArticleDeleteConfirmationTest()
+        {
+            IWebElement manage = driver.FindElement(By.PartialLinkText("Manage"));
+            manage.Click();
+            IWebElement manageArticles = driver.FindElement(By.PartialLinkText("Articles"));
+            manageArticles.Click();
+            IList<IWebElement> del = driver.FindElements(By.PartialLinkText("Delete"));
+            foreach (var i in del)
+            {
+                i.Click();
+                break;
+            }
+
+            string title = driver.FindElement(By.Id("delTitle")).Text;
+            string confMsg = driver.FindElement(By.Id("confirmDeletion")).Text;
+
+            Assert.AreEqual("Delete", title);
+            Assert.AreEqual("Are you sure you want to delete the following article?", confMsg);
         }
     }
 }

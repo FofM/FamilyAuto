@@ -336,6 +336,12 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\background.jpg" />
+    <Content Include="Images\News\1.jpg" />
+    <Content Include="Images\News\2.jpg" />
+    <Content Include="Images\News\3.png" />
+    <Content Include="Images\News\4.jpg" />
+    <Content Include="Images\rcLrK4Gc8.jpg" />
     <Content Include="Images\Services\brakeRepair.jpg" />
     <Content Include="Images\Services\happyCustomer.jpg" />
     <Content Include="Images\Services\oilChange.jpg" />

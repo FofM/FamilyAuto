@@ -16,6 +16,7 @@ namespace FamilyAuto.Controllers
         private FamilyAutoEntities db = new FamilyAutoEntities();
 
         // GET: Article
+        [Authorize(Roles = "Admin, Content Manager")]
         public ActionResult Index(string searchString)
         {
             IQueryable<Articles> articles = db.Articles;
@@ -44,7 +45,10 @@ namespace FamilyAuto.Controllers
             Articles articles = db.Articles.Find(id);
             if (articles == null)
             {
-                return HttpNotFound();
+                TempData["ArticleNotFound"] = "Article does not exist in the database";
+                return RedirectToAction("Services", "Home");
+
+                //return HttpNotFound();
             }
             return View("Details", articles);
         }

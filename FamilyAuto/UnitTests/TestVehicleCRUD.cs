@@ -33,15 +33,6 @@ namespace FamilyAuto.UnitTests
             postedfile.Setup(f => f.FileName).Returns("foo.doc").Verifiable();
             postedfile.Setup(f => f.SaveAs(It.IsAny<string>())).Verifiable();
 
-
-            //FormCollection form = new FormCollection();
-            //form.Add("VehicleHistory.Purpose", "NewPurpose");
-            //form.Add("VehicleHistory.NoOfOwners", "");
-            //form.Add("VehicleHistory.HUValidUntil", "");
-            //form.Add("VehicleHistory.Warranty", "");
-            //form.Add("VehicleHistory.Mileage", "");
-            //form.Add("VehicleHistory.FirstRegistration", "");
-
             controller.ControllerContext = new ControllerContext(context.Object, new System.Web.Routing.RouteData(), controller);
 
             RedirectToRouteResult result = controller.Create(new Vehicle()
@@ -80,6 +71,18 @@ namespace FamilyAuto.UnitTests
 
             Assert.AreEqual(expectedVehicle.Make, resultData.Make);
             Assert.AreEqual(expectedVehicle.Model, resultData.Model);
+        }
+
+        [Test]
+        public void TestVehicleDetailsNoRecord()
+        {
+            var controller = new VehicleController();
+
+            FamilyAutoEntities db = new FamilyAutoEntities();
+
+            RedirectToRouteResult result = controller.Details(999999999) as RedirectToRouteResult;
+
+            Assert.That(result.RouteValues["action"], Is.EqualTo("Showroom"));
         }
 
         [Test]
@@ -147,6 +150,17 @@ namespace FamilyAuto.UnitTests
             }, null) as ViewResult;
 
             Assert.That(result.ViewName, Is.EqualTo("Error"));
+        }
+
+        [Test]
+        public void TestVehicleFillModel()
+        {
+            var controller = new VehicleController();
+
+            JsonResult result = controller.FillModel("BMW") as JsonResult;
+
+            Assert.That(result.JsonRequestBehavior.ToString().Equals("AllowGet"));
+            Assert.That(result.ToString() != null);
         }
 
     }

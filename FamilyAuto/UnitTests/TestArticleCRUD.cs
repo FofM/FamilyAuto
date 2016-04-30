@@ -53,6 +53,18 @@ namespace FamilyAuto.UnitTests
         }
 
         [Test]
+        public void TestArticleDetailsNoRecord()
+        {
+            var controller = new ArticleController();
+
+            FamilyAutoEntities db = new FamilyAutoEntities();
+
+            RedirectToRouteResult result = controller.Details(999999999) as RedirectToRouteResult;
+
+            Assert.That(result.RouteValues["action"], Is.EqualTo("Services"));
+        }
+
+        [Test]
         public void TestArticleEditRedirect()
         {
             var controller = new ArticleController();

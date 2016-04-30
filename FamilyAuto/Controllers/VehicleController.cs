@@ -20,7 +20,8 @@ namespace FamilyAuto.Controllers
         // GET: Showroom
         public ActionResult Showroom(string make, string model, string type, int? mileage, int? priceFrom, int? priceTo)
         {
-            var vehicles = db.Vehicles.Include(v => v.VehicleEngine).Include(v => v.VehicleFeature).Include(v => v.VehicleHistory).Where(v => v.Sold == false)
+            var vehicles = db.Vehicles.Include(v => v.VehicleEngine).Include(v => v.VehicleFeature)
+                .Include(v => v.VehicleHistory).Where(v => v.Sold == false)
                 .Where(v => v.Make == make || make == null || make == "")
                 .Where(v => v.Model == model || model == null || model == "")
                 .Where(v => v.Type.ToString() == type || type == null || type == "")
@@ -39,9 +40,12 @@ namespace FamilyAuto.Controllers
 
             ViewBag.Mileage = mil;
 
+            if (TempData["VehicleNotFound"] != null) ViewBag.VehicleNotFound = TempData["VehicleNotFound"].ToString();
+
             return View("Showroom", vehicles.ToList());
         }
 
+        [Authorize(Roles = "Admin, Content Manager")]
         public ActionResult Index(string sortOrder, string searchString)
         {
 
@@ -133,7 +137,10 @@ namespace FamilyAuto.Controllers
             Vehicle vehicle = db.Vehicles.Find(id);
             if (vehicle == null)
             {
-                return HttpNotFound();
+                //ViewBag.VehicleNotFound = "Vehicle does not exist in the database";
+                TempData["VehicleNotFound"] = "Vehicle does not exist in the database";
+                return RedirectToAction ("Showroom");
+                //return HttpNotFound();
             }
 
             //var pictureData = new FamilyAutoEntities();
@@ -340,7 +347,7 @@ namespace FamilyAuto.Controllers
             base.Dispose(disposing);
         }
 
-        public ActionResult FillModel(string make)
+        public JsonResult FillModel(string make)
         {
             var context = new FamilyAutoEntities();
 

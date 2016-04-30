@@ -92,7 +92,14 @@ namespace FamilyAuto.Controllers
                 {
                     db.Customers.Add(customers);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    if (User.IsInRole("Admin") || User.IsInRole("Content Manager"))
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
                 ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email", customers.UserId);
                 return View(customers);
@@ -129,9 +136,25 @@ namespace FamilyAuto.Controllers
         {
             if (ModelState.IsValid)
             {
+                //FamilyAutoEntities context = new FamilyAutoEntities();
+                //using (context)
+                //{
+                //    if (customers.UserId == null)
+                //    {
+                //        string id = db.Customers.Where(x => x.Id == customers.Id).FirstOrDefault().ToString();
+                //        customers.UserId = id;
+                //    }
+                //}
                 db.Entry(customers).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                if (User.IsInRole("Admin") || User.IsInRole("Content Manager"))
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
             }
             ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email", customers.UserId);
             return View(customers);

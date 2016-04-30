@@ -16,6 +16,7 @@ namespace FamilyAuto.Controllers
         private FamilyAutoEntities db = new FamilyAutoEntities();
 
         // GET: IMS
+        [Authorize(Roles = "Admin, Content Manager")]
         public ActionResult Index()
         {
             return View("Index", db.Articles.ToList());

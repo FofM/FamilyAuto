@@ -52,6 +52,9 @@ textarea {
     border: 3px outset lightgray;
 }
 
+.jumboPic {
+    background: url('../Images/background.jpg');
+}
 
 /*
 .squaredTwo {

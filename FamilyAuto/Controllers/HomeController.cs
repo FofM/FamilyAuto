@@ -40,6 +40,9 @@ namespace FamilyAuto.Controllers
                           where (int)n.ArticleType == 1
                           orderby n.DateUploaded descending
                           select n;
+
+            if (TempData["ArticleNotFound"] != null) ViewBag.ArticleNotFound = TempData["ArticleNotFound"].ToString();
+
             return View("Services", topNews);
         }
 
@@ -110,9 +113,27 @@ namespace FamilyAuto.Controllers
             smtp.UseDefaultCredentials = true;
             smtp.Credentials = credential;
             smtp.Host = "smtp.gmail.com";
-            smtp.Port = 456; // 587;
+            smtp.Port = 587; // 456;
             smtp.EnableSsl = true;
             await smtp.SendMailAsync(message);
         }
+
+        //public SmtpClient ConstructSMTP(SmtpClient smtpClient, string user, string pass)
+        //{
+        //    var smtp = new SmtpClient();
+
+        //    var credential = new NetworkCredential
+        //    {
+        //        UserName = user,
+        //        Password = pass  // replace with valid value
+        //    };
+        //    smtp.UseDefaultCredentials = smtpClient.UseDefaultCredentials;
+        //    smtp.Credentials = smtpClient.Credentials;
+        //    smtp.Host = smtpClient.Host;
+        //    smtp.Port = smtpClient.Port; // 456;
+        //    smtp.EnableSsl = smtpClient.EnableSsl;
+
+        //    return smtpClient;
+        //}
     }
 }

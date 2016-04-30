@@ -22,35 +22,27 @@
 <table class="table table-striped table-hover">
     <tr>
         <th>
-            @*@Html.DisplayNameFor(model => model.Id)*@
             @Html.ActionLink("ID", "Index", new { sortOrder = ViewBag.IdSortParm })
         </th>
         <th>
-            @*@Html.DisplayNameFor(model => model.Make)*@
             @Html.ActionLink("Make", "Index", new { sortOrder = ViewBag.MakeSortParm })
         </th>
         <th>
-            @*@Html.DisplayNameFor(model => model.Model)*@
             @Html.ActionLink("Model", "Index", new { sortOrder = ViewBag.ModelSortParm })
         </th>
         <th>
-            @*@Html.DisplayNameFor(model => model.Variant)*@
             @Html.ActionLink("Variant", "Index", new { sortOrder = ViewBag.VariantSortParm })
         </th>
         <th>
-            @*@Html.DisplayNameFor(model => model.Condition)*@
             @Html.ActionLink("Condition", "Index", new { sortOrder = ViewBag.ConditionSortParm })
         </th>
         <th>
-            @*@Html.DisplayNameFor(model => model.Type)*@
             @Html.ActionLink("Type", "Index", new { sortOrder = ViewBag.TypeSortParm })
         </th>
         <th>
-            @*@Html.DisplayNameFor(model => model.DateUploaded)*@
             @Html.ActionLink("Date Uploaded", "Index", new { sortOrder = ViewBag.DateSortParm })
         </th>
         <th>
-            @*@Html.DisplayNameFor(model => model.Sold)*@
             @Html.ActionLink("Sold", "Index", new { sortOrder = ViewBag.SoldSortParm })
         </th>
         <th></th>
@@ -108,24 +100,24 @@ myApp.controller('myController', function ($scope) {
 
 
 @*<tbody data-bind="foreach: veh">
-    <tr>
-        <td data-bind="text: Make"></td>
-        <td data-bind="text: Model"></td>
-    </tr>
-</tbody>
+        <tr>
+            <td data-bind="text: Make"></td>
+            <td data-bind="text: Model"></td>
+        </tr>
+    </tbody>
 
-@section Scripts {
-    <script>
-        function ViewModel(veh) {
-            var self = this;
+    @section Scripts {
+        <script>
+            function ViewModel(veh) {
+                var self = this;
 
-            self.veh = @Model;
-        };
-        
-        var viewModel = new ViewModel(@Html.Raw(Json.Encode(Model)));
-        ko.applyBindings(viewModel);        
-    </script>
-}*@
+                self.veh = @Model;
+            };
 
+            var viewModel = new ViewModel(@Html.Raw(Json.Encode(Model)));
+            ko.applyBindings(viewModel);
+        </script>
+    }
+*@
 
-http://stackoverflow.com/questions/11055336/how-to-use-knockout-js-with-asp-net-mvc-viewmodels
+    @*http://stackoverflow.com/questions/11055336/how-to-use-knockout-js-with-asp-net-mvc-viewmodels*@
