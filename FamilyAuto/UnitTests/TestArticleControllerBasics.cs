@@ -16,7 +16,7 @@ namespace FamilyAuto.UnitTests
         {
             var controller = new ArticleController();
 
-            ViewResult result = controller.Index(null) as ViewResult;
+            ViewResult result = controller.Index(null, null) as ViewResult;
 
             Assert.AreEqual("Index", result.ViewName);
         }

@@ -21,22 +21,28 @@
 <table class="table table-striped table-hover">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ArticleTitle)
+            @Html.ActionLink("ID", "Index", new { sortOrder = ViewBag.IdSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ArticleDescription)
+            @Html.ActionLink("ArticleTitle", "Index", new { sortOrder = ViewBag.TitleSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ArticleType)
+            @Html.ActionLink("ArticleDescription", "Index", new { sortOrder = ViewBag.DescriptionSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DateUploaded)
+            @Html.ActionLink("ArticleType", "Index", new { sortOrder = ViewBag.TypeSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("DateUploaded", "Index", new { sortOrder = ViewBag.DateSortParm })
         </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Id)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.ArticleTitle)
         </td>

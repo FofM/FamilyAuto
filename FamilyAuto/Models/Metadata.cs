@@ -15,6 +15,9 @@ namespace FamilyAuto.Models
         [Display(Name = "Date Uploaded")]
         [DataType(DataType.Date)]
         public System.DateTime DateUploaded { get; set; }
+
+        [Range(1, int.MaxValue, ErrorMessage = "Please enter valid integer Number")]
+        public Nullable<int> Price { get; set; }
     }
 
     public class VehicleHistoryMetadata
@@ -86,6 +89,7 @@ namespace FamilyAuto.Models
         public System.DateTime DateCreated { get; set; }
 
         [Display(Name = "Final Price")]
+        [Range(1, int.MaxValue, ErrorMessage = "Please enter valid integer Number")]
         public int FinalPrice { get; set; }
 
         [Display(Name = "Date Sold")]

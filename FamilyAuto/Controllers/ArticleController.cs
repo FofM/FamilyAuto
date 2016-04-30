@@ -17,9 +17,51 @@ namespace FamilyAuto.Controllers
 
         // GET: Article
         [Authorize(Roles = "Admin, Content Manager")]
-        public ActionResult Index(string searchString)
+        public ActionResult Index(string sortOrder, string searchString)
         {
             IQueryable<Articles> articles = db.Articles;
+
+            ViewBag.IdSortParm = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
+            ViewBag.TitleSortParm = sortOrder == "ArticleTitle" ? "title_desc" : "ArticleTitle";
+            ViewBag.DescriptionSortParm = sortOrder == "ArticleDescription" ? "description_desc" : "ArticleDescription";
+            ViewBag.TypeSortParm = sortOrder == "ArticleType" ? "type_desc" : "ArticleType";
+            ViewBag.DateSortParm = sortOrder == "DateUploaded" ? "date_desc" : "DateUploaded";
+
+            switch (sortOrder)
+            {
+                case "id_desc":
+                    articles = articles.OrderByDescending(s => s.Id);
+                    break;
+                case "ArticleTitle":
+                    articles = articles.OrderBy(s => s.ArticleTitle);
+                    break;
+                case "title_desc":
+                    articles = articles.OrderByDescending(s => s.ArticleTitle);
+                    break;
+                case "ArticleDescription":
+                    articles = articles.OrderBy(s => s.ArticleDescription);
+                    break;
+                case "description_desc":
+                    articles = articles.OrderByDescending(s => s.ArticleDescription);
+                    break;
+                case "ArticleType":
+                    articles = articles.OrderBy(s => s.ArticleType);
+                    break;
+                case "type_desc":
+                    articles = articles.OrderByDescending(s => s.ArticleType);
+                    break;
+                case "DateUploaded":
+                    articles = articles.OrderBy(s => s.DateUploaded);
+                    break;
+                case "date_desc":
+                    articles = articles.OrderByDescending(s => s.DateUploaded);
+                    break;
+                default:
+                    articles = articles.OrderBy(s => s.Id);
+                    break;
+            }
+
+            
 
             if (!String.IsNullOrEmpty(searchString) && Regex.IsMatch(searchString, @"^\d+$"))
             {
