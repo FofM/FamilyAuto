@@ -16,7 +16,7 @@ namespace FamilyAuto.UnitTests
         {
             var controller = new SoldVehiclesController();
 
-            ViewResult result = controller.Index() as ViewResult;
+            ViewResult result = controller.Index(null) as ViewResult;
 
             Assert.AreEqual("Index", result.ViewName);
         }

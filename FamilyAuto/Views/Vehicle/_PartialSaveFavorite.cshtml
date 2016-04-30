@@ -15,10 +15,21 @@
             </div>
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-6">
-                    <input type="submit" class="btn btn-default" value="Mark as Favorite" />
+                    <a href="#" class="btn btn-primary" id="saveTrigger" onclick="SaveIt()">Mark as Favorite</a>
+                    <input type="submit" class="btn btn-default hidden" id="saveFavorite" value="Mark as Favorite" />
                 </div>
             </div>
     }
 
+
+
 </div>
 }
+
+<script>
+    $('#saveTrigger').bind("click", function (e) {
+        e.preventDefault();
+        $(this).attr("disabled", true);
+        $('#saveFavorite').click;
+    });
+</script>

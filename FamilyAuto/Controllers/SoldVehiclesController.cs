@@ -15,9 +15,53 @@ namespace FamilyAuto.Controllers
         private FamilyAutoEntities db = new FamilyAutoEntities();
 
         // GET: SoldVehicles
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder)
         {
             var soldVehicles = db.SoldVehicles.Include(s => s.Customers).Include(s => s.Vehicle);
+
+            ViewBag.VehicleId = sortOrder == "VehicleIdName" ? "vid_desc" : "VehicleIdName";
+            ViewBag.CustomerId = sortOrder == "CustomerIdName" ? "cid_desc" : "CustomerIdName";
+            ViewBag.FinalPrice = sortOrder == "FinalPrice" ? "price_desc" : "FinalPrice";
+            ViewBag.DateCreated = sortOrder == "DateCreated" ? "datec_desc" : "DateCreated";
+            ViewBag.DateSold = sortOrder == "DateSold" ? "dates_desc" : "DateSold";
+
+            switch (sortOrder)
+            {
+                case "VehicleIdName":
+                    soldVehicles = soldVehicles.OrderBy(s => s.VehicleId);
+                    break;
+                case "vid_desc":
+                    soldVehicles = soldVehicles.OrderByDescending(s => s.VehicleId);
+                    break;
+                case "CustomerIdName":
+                    soldVehicles = soldVehicles.OrderBy(s => s.CustomerId);
+                    break;
+                case "cid_desc":
+                    soldVehicles = soldVehicles.OrderByDescending(s => s.CustomerId);
+                    break;
+                case "FinalPrice":
+                    soldVehicles = soldVehicles.OrderBy(s => s.FinalPrice);
+                    break;
+                case "price_desc":
+                    soldVehicles = soldVehicles.OrderByDescending(s => s.FinalPrice);
+                    break;
+                case "DateCreated":
+                    soldVehicles = soldVehicles.OrderBy(s => s.DateCreated);
+                    break;
+                case "datec_desc":
+                    soldVehicles = soldVehicles.OrderByDescending(s => s.DateCreated);
+                    break;
+                case "DateSold":
+                    soldVehicles = soldVehicles.OrderBy(s => s.DateSold);
+                    break;
+                case "dates_desc":
+                    soldVehicles = soldVehicles.OrderByDescending(s => s.DateSold);
+                    break;
+                default:
+                    soldVehicles = soldVehicles.OrderBy(s => s.Id);
+                    break;
+            }
+
             return View("Index", soldVehicles.ToList());
         }
 

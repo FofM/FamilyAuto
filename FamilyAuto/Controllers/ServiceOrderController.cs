@@ -15,9 +15,67 @@ namespace FamilyAuto.Controllers
         private FamilyAutoEntities db = new FamilyAutoEntities();
 
         // GET: ServiceOrder
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder)
         {
             var serviceOrder = db.ServiceOrder.Include(s => s.Articles).Include(s => s.Customers);
+
+            ViewBag.ServiceName = sortOrder == "ServiceName" ? "service_desc" : "ServiceName";
+            ViewBag.CustomerId = sortOrder == "CustomerIdName" ? "cid_desc" : "CustomerIdName";
+            ViewBag.FinalPrice = sortOrder == "FinalPrice" ? "price_desc" : "FinalPrice";
+            ViewBag.DateOrdered = sortOrder == "DateOrdered" ? "dateo_desc" : "DateOrdered";
+            ViewBag.DateDue = sortOrder == "DateDue" ? "dated_desc" : "DateDue";
+            ViewBag.DateDelivered = sortOrder == "DateDelivered" ? "datede_desc" : "DateDelivered";
+            ViewBag.Paid = sortOrder == "Paid" ? "paid_desc" : "Paid";
+
+            switch (sortOrder)
+            {
+                case "ServiceName":
+                    serviceOrder = serviceOrder.OrderBy(s => s.ServiceId);
+                    break;
+                case "service_desc":
+                    serviceOrder = serviceOrder.OrderByDescending(s => s.ServiceId);
+                    break;
+                case "CustomerIdName":
+                    serviceOrder = serviceOrder.OrderBy(s => s.CustomerId);
+                    break;
+                case "cid_desc":
+                    serviceOrder = serviceOrder.OrderByDescending(s => s.CustomerId);
+                    break;
+                case "FinalPrice":
+                    serviceOrder = serviceOrder.OrderBy(s => s.Price);
+                    break;
+                case "price_desc":
+                    serviceOrder = serviceOrder.OrderByDescending(s => s.Price);
+                    break;
+                case "DateOrdered":
+                    serviceOrder = serviceOrder.OrderBy(s => s.OrderedOnDate);
+                    break;
+                case "dateo_desc":
+                    serviceOrder = serviceOrder.OrderByDescending(s => s.OrderedOnDate);
+                    break;
+                case "DateDue":
+                    serviceOrder = serviceOrder.OrderBy(s => s.DueDate);
+                    break;
+                case "dated_desc":
+                    serviceOrder = serviceOrder.OrderByDescending(s => s.DueDate);
+                    break;
+                case "DateDelivered":
+                    serviceOrder = serviceOrder.OrderBy(s => s.DeliveredDate);
+                    break;
+                case "datede_desc":
+                    serviceOrder = serviceOrder.OrderByDescending(s => s.DeliveredDate);
+                    break;
+                case "Paid":
+                    serviceOrder = serviceOrder.OrderBy(s => s.Paid);
+                    break;
+                case "paid_desc":
+                    serviceOrder = serviceOrder.OrderByDescending(s => s.Paid);
+                    break;
+                default:
+                    serviceOrder = serviceOrder.OrderBy(s => s.Id);
+                    break;
+            }
+
             return View("Index", serviceOrder.ToList());
         }
 
