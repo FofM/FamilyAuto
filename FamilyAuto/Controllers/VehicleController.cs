@@ -192,19 +192,19 @@ namespace FamilyAuto.Controllers
                 for (int i = 0; i < Request.Files.Count; i++)
                 {
                     HttpPostedFileBase upload = Request.Files[i];
-
+                    Guid imgIdentifier = Guid.NewGuid();
                     if (upload != null && upload.ContentLength > 0)
                     {
                         var vehiclePicture = new VehiclePicture()
                         {
                             Description = "",
-                            ImageURL = "/Images/" + System.IO.Path.GetFileName(upload.FileName)
+                            ImageURL = "/Images/" + imgIdentifier + System.IO.Path.GetFileName(upload.FileName)
                         };
 
                         vehicle.VehiclePictures.Add(vehiclePicture);
                         //vehiclePictures.Add(vehiclePicture);
                         //var path = Path.Combine(Server.MapPath("~/Images/"), fileName + Guid.NewGuid());
-                        upload.SaveAs(Path.Combine(Server.MapPath("~/Images/"), upload.FileName));
+                        upload.SaveAs(Path.Combine(Server.MapPath("~/Images/"), imgIdentifier + upload.FileName));
                     }
                 }
 

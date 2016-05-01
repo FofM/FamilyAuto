@@ -25,8 +25,8 @@ namespace FamilyAuto.Controllers
         // GET: Statistics
         public ActionResult Statistics()
         {
-            ViewBag.VehiclesSold = (from v in db.Vehicles where v.Sold == true select v).Count().ToString();
-            ViewBag.VehiclesNotSold = (from v in db.Vehicles where v.Sold == false select v).Count().ToString();
+            ViewBag.VehiclesNotSold = (from v in db.Vehicles where v.Sold == true select v).Count().ToString();
+            ViewBag.VehiclesSold = (from v in db.Vehicles where v.Sold == false select v).Count().ToString();
             ViewBag.RegisteredCustomers = (from c in db.Customers where c.UserId != null select c).Count().ToString();
             ViewBag.NonRegisteredCustomers = (from c in db.Customers where c.UserId == null select c).Count().ToString();
 

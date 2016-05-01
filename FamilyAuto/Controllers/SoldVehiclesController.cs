@@ -228,6 +228,11 @@ namespace FamilyAuto.Controllers
 
         public int AddVAT(int price)
         {
+            if (price < 1)
+            {
+                throw new ArgumentOutOfRangeException("Must supply a positive integer");
+            }
+
             return price * 20 / 100 + price;
         }
     }

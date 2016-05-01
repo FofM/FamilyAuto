@@ -323,6 +323,7 @@
     <Compile Include="UnitTests\TestSoldVehiclesControllerBasics.cs" />
     <Compile Include="UnitTests\TestStaffControllerBasics.cs" />
     <Compile Include="UnitTests\TestSupplierControllerBasics.cs" />
+    <Compile Include="UnitTests\TestVatRateCalculation.cs" />
     <Compile Include="UnitTests\TestVehicleControllerBasics.cs" />
     <Compile Include="UnitTests\TestVehicleCRUD.cs" />
   </ItemGroup>
